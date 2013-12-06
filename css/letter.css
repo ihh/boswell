@@ -212,16 +212,65 @@ input {
 
 /* multiplayer */
 
-@-webkit-keyframes wekbitListenerColorPulse { 0% {color: black;} 20% {color: blue;} 100% {color: black;} }
-@-webkit-keyframes mozListenerColorPulse { 0% {color: black;} 20% {color: blue;} 100% {color: black;} }
+/* subscribers */
+@-webkit-keyframes wekbitListenerColorPulse { 0% {color: black;} 20% {color: green;} 100% {color: black;} }
+@-webkit-keyframes mozListenerColorPulse { 0% {color: black;} 20% {color: green;} 100% {color: black;} }
 .moveListenerConnecting {
 }
 .moveListener {
-    color: DarkBlue;
+/*
+    color: DarkGreen;
     -webkit-animation: webkitListenerColorPulse 3s infinite normal; 
     -moz-animation: mozListenerColorPulse 3s infinite normal; 
+*/
 }
 
+/* flashing cursor */
+div.cursor {
+  display: inline-block;
+  width: .5em;
+  height: 1em;
+  background: #111;
+  margin-left: 1px;
+ 
+  -webkit-animation: blink 2s linear 0s infinite;
+  -moz-animation: blink 2s linear 0s infinite;
+  -ms-animation: blink 2s linear 0s infinite;
+  -o-animation: blink 2s linear 0s infinite;
+}
+@-webkit-keyframes blink {
+  0%   { background: #0a0 }
+  47%  { background: #090 }
+  50%  { background: #eee }
+  97%  { background: #eee }
+  100% { background: #090 }
+}
+ 
+@-moz-keyframes blink {
+  0%   { background: #0a0 }
+  47%  { background: #090 }
+  50%  { background: #eee }
+  97%  { background: #eee }
+  100% { background: #090 }
+}
+ 
+@-ms-keyframes blink {
+  0%   { background: #0a0 }
+  47%  { background: #090 }
+  50%  { background: #eee }
+  97%  { background: #eee }
+  100% { background: #090 }
+}
+ 
+@-o-keyframes blink {
+  0%   { background: #0a0 }
+  47%  { background: #090 }
+  50%  { background: #000 }
+  97%  { background: #000 }
+  100% { background: #090 }
+}
+
+/* publishers */
 @-webkit-keyframes webkitUnpublishedColorPulse { 0% {color: #400;} 100% {color: #f00;} }
 @-moz-keyframes mozUnpublishedColorPulse { 0% {color: #400;} 100% {color: #f00;} }
 .unpublished {
@@ -262,6 +311,7 @@ input {
     border-width: 1px;
     border-radius: 20px;
     position: fixed;
+    padding: 0 4px 0 4px;
     bottom: 10px;
     width: 600px;
 }
