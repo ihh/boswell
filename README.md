@@ -1,7 +1,7 @@
-banterscribe
-============
+boswell
+=======
 
-Integrated development environment for multiplayer choice-based interactive fiction.
+IDE for multiplayer choice-based fiction.
 
 To launch test server:
 
