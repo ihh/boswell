@@ -1,0 +1,239 @@
+<html>
+  <head>
+    <!-- JQuery UI theme -->
+    <link href="jquery/themes/base/jquery-ui.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="css/letter.css" rel="stylesheet" type="text/css">
+
+    <!-- sigma.js graph library -->
+    <script type="text/javascript" src="sigma/sigma.concat.js"></script>
+
+    <!-- Faye pub/sub framework -->
+    <!-- uncomment this to use the node-served version -->
+    <!-- script type="text/javascript" src="/faye/client.js"></script -->
+    <script type="text/javascript" src="node/faye/browser/faye-browser-min.js"></script>
+
+    <!-- OpenPGP -->
+    <script type="text/javascript" src="openpgpjs/resources/openpgp.min.js"></script>
+
+    <title>The Letter</title>
+  </head>
+  <body style="background-color:#eee">
+
+    <div class="letterWriterBackgroundPlayMode" id="letterWriterBackground"> <!-- wraps everything so we can set background color -->
+      <div class="letterWriterBody"> <!-- sets margins -->
+
+	<!-- Game container -->
+	<div id="letterDebugger">
+	  <div id="showIDECheckboxContainer" style="float:right">
+	    <form action="#" style="display:inline">
+	      <input type="checkbox" id="showIDECheckbox" name="ide" value="showIDE" onclick="nav.changeShowIDE()">
+	      IDE
+	    </form>
+	  </div>
+
+	  <div id="gameAndParseTreeContainer">
+	    <div id="gameContainer" class="editorPane" style="border-style:none;left:20%">
+	      <div id="gameShortcut" class="letterDebuggerShortcuts">
+		<a href="#gameShortcut">Game</a>
+		| <a href="#editorTreeShortcut">Tree</a>
+		| <a href="#editorMapShortcut">Map</a>
+		| <a href="#editorNontermsShortcut">Choices</a>
+		| <a href="#editorParamsShortcut">Sliders</a>
+		| <a href="#editorConfigShortcut">Config</a>
+		| <a href="#editorTemplateShortcut">Raw</a>
+	      </div>
+
+	      <div id="topLinksContainer" class="topLinksContainer">
+		<div class="restartContainer"><span id="restart" class="topLinkButton letter restart"><small><i><a href="#restartLink" id="restartLink" onclick="nav.restartLetterFromGrammar()">restart</a></i></small>
+		    <span id="restartWarning"></span>
+		</span></div>
+		<span id="menuLinkContainer" class="topLinkButton"><small><i><a href="#menuLink" id="menuLink" onclick="nav.showMultiplayerMenu()">menu</a></i></small></span>
+		<div class="undoContainer"><span id="undo" class="letter undo"></span></div></div>
+
+	      <br>
+	      <div id="slidersContainerParent">
+		<div id="slidersContainer" style="display:none"></div></div>
+
+	      <br>
+	      <span id="letter">
+		<!-- Preloading animation from http://preloaders.net/ -->
+		<br> Loading... <br> <br> <img src="img/loading.gif">
+	      </span>
+
+	      <br>
+	      <div id="scoreContainerParent">
+		<div id="scoreContainer" class="scoreContainer scoreContainerHidden">
+	      </div></div>
+
+	      <span text-align="center" id="multiplayerMenu" style="display:none">
+		<br><br>
+		<h2>Choose</h2>
+		<ol>
+		  <li><a href="#playSoloLink" id="playSoloLink" onclick="nav.hideMultiplayerMenu()">Play solo</a></li>
+		  <li id="startGameItem" style="display:none"><a href="#startGameLink" onclick="nav.startGame()">Start a game</a></li>
+		  <li id="joinGameItem" style="display:none">Join a game
+		    <ul id="gameList">
+		    </ul>
+		  </li>
+		  <li>That's it, I'm afraid</li>
+		</ol>
+		<br>
+		<div id="playerNameContainer">
+		  Your player handle: <form><input type="text" id="playerName" value=""/></form></div>
+	      </span>
+
+	      <span text-align="center" id="pendingMultiplayer" style="display:none">
+		<br><br>
+		<h2 id="pendingGrammarName"></h2>
+		<span id="pendingGrammarText"></span>
+		<ol id="playerList"></ol>
+		<a href="#quitMultiplayerLink" id="quitMultiplayerLink" onclick="nav.quitMultiplayer()">Cancel</a>
+	      </span>
+	    </div>
+
+	    <div id="editorParseTreeContainer" class="debuggerPane editorPane" style="display:none">
+	      <div id="editorTreeShortcut" class="letterDebuggerShortcuts">
+		<a href="#gameShortcut">Game</a>
+		| <a href="#editorTreeShortcut">Tree</a>
+		| <a href="#editorMapShortcut">Map</a>
+		| <a href="#editorNontermsShortcut">Choices</a>
+		| <a href="#editorParamsShortcut">Sliders</a>
+		| <a href="#editorConfigShortcut">Config</a>
+		| <a href="#editorTemplateShortcut">Raw</a>
+	      </div>
+	      <h5>Choice Expansion Tree <a href="#editorParseTreeContainer" onclick="nav.showDebugParseTree()">(refresh)</a></h5>
+	      <div id="editorParseTree"></div>
+	    </div>
+
+	  </div>
+
+	  <div id="editorMapContainer" class="debuggerPane editorPane" style="display:none">
+	    <div id="editorMapShortcut" class="letterDebuggerShortcuts">
+	      <a href="#gameShortcut">Game</a>
+	      | <a href="#editorTreeShortcut">Tree</a>
+	      | <a href="#editorMapShortcut">Map</a>
+	      | <a href="#editorNontermsShortcut">Choices</a>
+	      | <a href="#editorParamsShortcut">Sliders</a>
+	      | <a href="#editorConfigShortcut">Config</a>
+	      | <a href="#editorTemplateShortcut">Raw</a>
+	    </div>
+	    <h5>Choice Connection Map <a href="#showDebugMapLink" id="showDebugMapLink" onclick="nav.showDebugMap()">(refresh)</a></h5>
+	    <div id="editorMap"></div>
+	  </div>
+	</div>
+
+	<div id="editor" style="display:none">
+
+	  <div class="editorPane debuggerPane">
+	    <div id="editorNontermsShortcut" class="letterDebuggerShortcuts">
+	      <a href="#gameShortcut">Game</a>
+	      | <a href="#editorTreeShortcut">Tree</a>
+	      | <a href="#editorMapShortcut">Map</a>
+	      | <a href="#editorNontermsShortcut">Choices</a>
+	      | <a href="#editorParamsShortcut">Sliders</a>
+	      | <a href="#editorConfigShortcut">Config</a>
+	      | <a href="#editorTemplateShortcut">Raw</a>
+	    </div>
+	    <h5>ChoiceBook <a href="#editorNontermsShortcut" onclick="nav.rebuildGrammarFromText()">(rebuild)</a></h5>
+	    <div id="editorList"></div>
+	    <small><i><a href="#addNontermLink" id="addNontermLink">Add a choice</a></i></small>
+	  </div>
+
+	  <div class="editorPane debuggerPane">
+	    <div id="editorParamsShortcut" class="letterDebuggerShortcuts">
+	      <a href="#gameShortcut">Game</a>
+	      | <a href="#editorTreeShortcut">Tree</a>
+	      | <a href="#editorMapShortcut">Map</a>
+	      | <a href="#editorNontermsShortcut">Choices</a>
+	      | <a href="#editorParamsShortcut">Sliders</a>
+	      | <a href="#editorConfigShortcut">Config</a>
+	      | <a href="#editorTemplateShortcut">Raw</a>
+	    </div>
+	    <h5>Sliders</h5>
+	    <div id="editorParams"></div>
+	    <small><i><a href="#addSliderLink" id="addSliderLink">Add a slider</a></i></small>
+	  </div>
+
+	  <div class="editorPane debuggerPane">
+	    <div id="editorConfigShortcut" class="letterDebuggerShortcuts">
+	      <a href="#gameShortcut">Game</a>
+	      | <a href="#editorTreeShortcut">Tree</a>
+	      | <a href="#editorMapShortcut">Map</a>
+	      | <a href="#editorNontermsShortcut">Choices</a>
+	      | <a href="#editorParamsShortcut">Sliders</a>
+	      | <a href="#editorConfigShortcut">Config</a>
+	      | <a href="#editorTemplateShortcut">Raw</a>
+	    </div>
+	    <h5>Configuration</h5>
+
+	    <form><i>Title:</i>
+	      <input type="text" size="140" id="editorTitle"/></form>
+
+	    <form><i>Undo recharge (solo-play):</i>
+	      <input type="text" size="4" id="editorUndoWait"/>
+	      <i>seconds (+<span id="editorUndoPercentIncrease"></span>% each use)</i></form>
+
+	    <div id="editorMiscStats"></div>
+
+	    <br>
+	    <h5>Editor configuration</h5>
+	    <form action="#" style="display:inline">
+	      <i>Tooltips?</i> 
+	      <input type="checkbox" id="showTooltipsCheckbox" name="tooltips" value="showTooltips" onclick="nav.changeShowTooltips()">
+	    </form>
+	  </div>
+
+
+	  <div class="editorPane debuggerPane">
+	    <div id="editorTemplateShortcut" class="letterDebuggerShortcuts">
+	      <a href="#gameShortcut">Game</a>
+	      | <a href="#editorTreeShortcut">Tree</a>
+	      | <a href="#editorMapShortcut">Map</a>
+	      | <a href="#editorNontermsShortcut">Choices</a>
+	      | <a href="#editorParamsShortcut">Sliders</a>
+	      | <a href="#editorConfigShortcut">Config</a>
+	      | <a href="#editorTemplateShortcut">Raw</a>
+	    </div>
+	    <h5>Raw template</h5>
+	    <small>
+	      <i><a id="undoEdit">Undo</a>
+		| <a id="redoEdit">Redo</a>
+		| <a href="#runLink" id="runLink" onclick="nav.rebuildGrammarAndLetterFromText()">Run</a>
+		| <a href="#templateSaveLink" id="templateSaveLink">Download</a>
+		| <a href="#resetLink" id="resetLink" onclick="nav.resetEverything()">Reset</a> (to <a href="#initialExample" id="initialExample">initial example</a>)</i></small>
+	    <br>
+	    <textarea id="editorTemplate" rows="10" columns="80" style="width: 100%; vertical-align: text-top">
+	    </textarea>
+	    <div id="editorTemplateFailedLoad"></div>
+	    <form action="#"><input type="file" id="editorTemplateLoadFile"></form>
+	    <small><br>
+	      <i><a href="#SyntaxToggle" id="SyntaxToggle">Template language syntax</a> | <a href="https://github.com/ihh/funkscene">GitHub repository</a></i>
+	      <br>
+	      <div id="TemplateSyntax"></div>
+	      <p><i></i></small>
+	  </div>
+	</div>
+      </div>
+
+    </div>
+
+    <!-- JQuery UI -->
+    <script src="jquery/jquery-1.9.1.js"></script>
+    <script src="jquery/ui/jquery-ui.js"></script>
+
+    <!-- DropIt dropdown menus -->
+    <script src="jquery/dropit.js"></script>
+    <link rel="stylesheet" href="css/dropit.css" type="text/css" />
+    
+    <!-- LetterWriter library & parser -->
+    <script type="text/javascript" src="lib/letter.js"></script>
+    <script type="text/javascript" src="lib/parser/letter.js"></script>
+
+    <script type="text/javascript">
+      var nav = new LetterWriter.Navigator("template/arcane.letter")
+    </script>
+
+  </body>
+</html>

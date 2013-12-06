@@ -1,0 +1,33 @@
+Save player ID in local storage
+
+Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
+ Treat it as an implied computer-played symbol:
+  random @nontermWithPreamble => { @preamble @nonterm }
+ Implement using rhsUnexpandedNodes in Rule.prototype.expand
+Placeholder, Prompt and Hints should allow ParamReference.
+
+Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
+
+Allow arbitrary functions (ParamFunc eval'd in calling scope): $x => $y+$z;  or $x @=> $y+$z;
+
+Role assignment ideas:
+ Allow sym_modifiers in grammar (NontermReference in code) to specify a role that overrides nonterminal role
+  e.g. "@battle#2" or "@test#3;"
+ In Node constructor, parentRole should be replaced by olderSiblingOrParentRole
+  i.e. "#=", "#+" and "#-" should be relative to older sibling's role, where available
+  this makes for a fairer distribution of turns
+
+Allow weights on human-played rules, determining (a) if rule is visible, (b) what order rules are presented in
+ Syntax: "weight_expr => hint => rhs_symbols"
+
+Extend $variable[$#] pseudo-array syntax to allow any index, dynamically computed
+  This will require a new kind of ParamAssignment e.g. ArrayParamAssignment, where array index is a ParamFunc
+   Ditto a new kind of ParamReference e.g. ArrayParamReference
+
+Role names
+ e.g. "roles {Optimist Pessimist}" as alternative syntax to "roles 2"
+  can then refer to roles by name e.g. "#Optimist" instead of "#1"
+ Drag-and-drop editable role list for Editor
+  auto-replace of role names throughout text, when edited
+
+Add missing auto-renaming functionality to Editor (ParamAssignments & ParamReferences in rhs of rules)

@@ -1,0 +1,19 @@
+title {Good News, Bad News}
+roles 2
+score $#sc
+@start => [Swings and roundabouts.<br>|What happened next?]{You won the lottery.=>You won the lottery.
+$#sc = $#sc + 10;
+@goodnews
+|You received a gift.=>You received a gift.
+$#sc = $#sc + 5;
+@goodnews
+|You inherited a fortune.=>You inherited a fortune.
+$#sc = $#sc + 2;
+@goodnews}
+@goodnews => [Ups and downs.<br>|Then what happened?]{You crashed your car=>Then, you crashed your car.
+$#sc = $#sc + 10;
+@start|You fell off a building=>Then, you fell off a building.
+$#sc = $#sc + 10;
+@start|You ran into the lake=>Then, you ran into the lake.
+$#sc = $#sc + 20;
+@start}

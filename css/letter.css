@@ -1,0 +1,697 @@
+/* Common stuff */
+
+/*  Main body */
+html, body {
+    border: 0px;
+    margin: 0px; 
+    padding: 0px;
+    color: black;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.letterWriterBackgroundPlayMode {
+    background-color: #fffff8;
+}
+
+.letterWriterBackgroundEditMode {
+    background-color: #eee;
+}
+
+.letterWriterBody {
+    margin: 0 20px 0 20px; /* top right bottom left */
+}
+
+.sceneMenuContainer {
+    padding-top: 1em;
+}
+
+.NontermControlValue input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:2em;
+    height:2em;
+    background:white;
+    border-radius:4px;
+    border:1px solid #555;
+   
+}
+.NontermControlValue input[type='checkbox']:checked {
+    background: darkgoldenrod;
+}
+
+textarea {
+    font-family: "Courier", monospace;
+
+    border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+input {
+    border-radius: 4px 0 4px 0;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.undefinedParameter {
+    color: red;
+    font-style: italic;
+}
+
+/* Sliders for LetterWriter (overriding JQuery font) */
+.sliderlabel {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: small;
+    color: white;
+}
+
+.slidermin {
+    position: absolute;
+    left:0px;
+    top:20px;
+}
+
+.slidermax {
+    position: absolute;
+    right: 0px;
+    top: 20px;
+}
+
+.sliderparam {
+    text-align: center;
+    width: 100%;
+    float: left;
+    clear:both;
+    overflow: auto;
+    font-size: small;
+}
+
+.slider {
+    width: 100%;
+    clear: both;
+}
+
+.sliderparent {
+    height: 3em;
+}
+
+#sliders {
+    border: 1px inset #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 2px #000;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    padding: 10px 20px 10px 20px;
+}
+
+.slidersBackground {
+    background: #505050;
+    border-color: #202020;
+    color: #f0f0f0;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/* Menu item */
+.sceneMenu>label{
+    line-height:20px;
+    display:block;
+    padding: 10px 10px 10px;
+    border-color:#b0b0b0;
+    border-style:solid;
+    border-width: 1px 1px 0px 1px
+}
+
+.sceneMenu>label:hover {
+    background-color: #e0e0e0;
+}
+
+.sceneMenu>label[disabled] {
+    font-style: italic;
+    color: gray;
+}
+.sceneMenu>label:hover[disabled] {
+    background-color: #f0f0f0;
+}
+
+/* First item in list */
+.sceneMenu>.firstOption{
+    border-top-width:1px;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+}
+
+/* Last item in list */
+.sceneMenu>.lastOption{
+    border-bottom-width:1px;
+    border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+}
+
+/* Only item in list */
+.sceneMenu>.onlyOption{
+    border-width:1px;
+    border-radius:10px;
+}
+
+/* Button to advance story to next page */
+.continue {
+    display:block;
+    width:100%;
+    min-height:2em;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size:30px;
+    font-weight:bold;
+    color: #f0f0f0; /* Same as body background color */ 
+    background-color: #606060; /* Darker than body background color */ 
+    border: none;
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 1em;
+}
+
+.continue:hover {
+    color: #e0e0e0;  /* Same as .sceneMenu option hover color, darker than usual foreground color */
+    background-color: #505050; /* Darker than usual background color */ 
+}
+
+/* Text input */
+.glowing-border {
+    border:2px solid #dadada;
+    border-radius:4px;
+}
+
+.glowing-border:focus { 
+    outline:none;
+    border-color:#9ecaed;
+    box-shadow:0 0 6px #9ecaed;
+}
+
+
+
+/* LetterWriter */
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@-webkit-keyframes webkitRevealOpacityPulse { 0% {opacity:0;} 100% {opacity:1;} }
+@-moz-keyframes mozRevealOpacityPulse { 0% {opacity:0;} 100% {opacity:1;} }
+.reveal {
+    opacity: 1;
+    -webkit-animation: webkitRevealOpacityPulse 1s; 
+    -moz-animation: mozRevealOpacityPulse 1s; 
+}
+
+.unrevealed {
+    opacity: 0;
+}
+
+/* multiplayer */
+
+@-webkit-keyframes wekbitListenerColorPulse { 0% {color: black;} 20% {color: blue;} 100% {color: black;} }
+@-webkit-keyframes mozListenerColorPulse { 0% {color: black;} 20% {color: blue;} 100% {color: black;} }
+.moveListenerConnecting {
+}
+.moveListener {
+    color: DarkBlue;
+    -webkit-animation: webkitListenerColorPulse 3s infinite normal; 
+    -moz-animation: mozListenerColorPulse 3s infinite normal; 
+}
+
+@-webkit-keyframes webkitUnpublishedColorPulse { 0% {color: #400;} 100% {color: #f00;} }
+@-moz-keyframes mozUnpublishedColorPulse { 0% {color: #400;} 100% {color: #f00;} }
+.unpublished {
+    color: #f00;
+    -webkit-animation: webkitUnpublishedColorPulse 1s; 
+    -moz-animation: mozUnpublishedColorPulse 1s; 
+}
+
+@-webkit-keyframes webkitPublishedColorPulse { 0% {color: #400;} 100% {color: black;} }
+@-moz-keyframes mozPublishedColorPulse { 0% {color: #400;} 100% {color: black;} }
+.published {
+    color: black;
+    -webkit-animation: webkitPublishedColorPulse 1s; 
+    -moz-animation: mozPublishedColorPulse 1s; 
+}
+
+/* Restart DIV for LetterWriter */
+.restartContainer {
+    float: left;
+}
+
+/* Menu DIV for LetterWriter */
+.topLinksContainer {
+    text-align: center;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/* Score DIVs for LetterWriter */
+.scoreContainerHidden {
+    display: none;
+}
+
+.scoreContainer {
+    font-size: large;
+    color: DarkBlue;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    position: fixed;
+    bottom: 10px;
+    width: 600px;
+}
+
+.scoreContainerIncreasing {
+    color: DarkGreen;
+    background-color: #dfd;
+}
+
+.scoreContainerDecreasing {
+    color: DarkRed;
+    background-color: #fdd;
+}
+
+.scoreDeltaPositive {
+    position: absolute;
+    font-size: small;
+    color: DarkGreen;
+}
+
+.scoreDeltaNegative {
+    position: absolute;
+    font-size: small;
+    color: DarkRed;
+}
+
+.scoreTable {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Undo DIV for LetterWriter */
+.undoContainer {
+    float: right;
+    min-width: 4em;
+}
+
+.letter .undo {
+    float: right;
+}
+
+.letter .undoMeter {
+    background: #eee;
+    position: relative;
+    border: 1px solid;
+    border-radius: 3px;
+    height: .5em;
+}
+
+.letter .undoMeter > span {
+    display: block;
+    height: 100%;
+    background: #844;
+}
+
+.letter .undoSpacer {
+    height: .25em;
+    width: 100%;
+}
+
+.topLinkButton {
+}
+
+.topLinkButton a:link {
+}
+
+.topLinkButton a:visited {
+}
+
+/* Editor headings */
+h5 {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+
+    -moz-margin-before: 0em;
+    -moz-margin-after: 0em;
+}
+
+/* NontermEditor */
+#editor {
+    padding: 0;
+    clear: both;
+}
+
+.editorLink {
+    font-style: italic;
+    font-size: small;
+}
+
+.editorNavLinks {
+    position:absolute;
+    top:0;
+    right:1em;
+}
+
+#editorList {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    list-style-type: none;
+    padding-left: 0em;
+}
+
+#editorList div>h3 {
+    background: #fff8cc;
+}
+
+#editorList div>div {
+    background: #fff7e6;
+}
+
+.editorSlider {
+    width: 80%;
+    float: left;
+}
+
+.editorSliderLabel {
+    font-style: italic;
+}
+
+.editorSliderAndLabel {
+    width: 90%;
+    float: left;
+    clear: left;
+}
+
+.editorSliderDeleteLink {
+    padding-left: 20px;
+    float: right;
+    font-style: italic;
+    font-size: small;
+}
+
+.editorSliderContainer {
+    border: 1px inset #fff;
+    border-radius: 4px 0 4px 0;
+    box-shadow: 0 0 2px #888;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 1em 2em 2em 2em;
+    background: #fff7e6;
+}
+
+.editorSliderContainer form>input {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size:small;
+    margin: 0px;
+    padding: 0px;
+}
+
+.nonterminal {
+    margin: 2px 2px 0px 2px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    position:relative;
+}
+
+.NontermControl {
+    min-height: 1em;
+}
+
+.NontermControl>.NontermControlName {
+    margin: 0;
+    padding: 0;
+    text-align:right;
+    float: left;
+    font-style: italic;
+}
+
+.NontermControl>.NontermControlValue {
+    float: left;
+    margin: 0;
+    padding: 0;
+    min-height: 1em;
+}
+
+.NontermControlValue>select, .NontermControlValue>select>option {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.nonterminal>.NontermControl, .rule>.NontermControl {
+    clear: both;
+}
+
+.nonterminal>.NontermControl>.NontermControlName, .rule>.NontermControl>.NontermControlName {
+    width: 8%;
+}
+
+.nonterminal>.NontermControl>.NontermControlValue, .rule>.NontermControl>.NontermControlValue {
+    min-width: 90%;
+}
+
+
+.NontermProperties {
+    width: 100%;
+    height: 1em;
+    margin-top: 6px;  /* to clear the nav links */
+}
+
+.NontermProperties>.NontermPropertiesColumn {
+    width: 20%;
+    float: left;
+    clear: none;
+}
+
+.NontermPropertiesColumn>.NontermControl {
+    clear: none;
+    float: left;
+    width: 100%;
+}
+
+.NontermPropertiesColumn>.NontermControl>.NontermControlName {
+    min-width: 40%;  /* parent width is 20% of grandparent, so this ensures field width is 8% of grandparent, same as .nonterminal>.NontermControlName (so the first field lines up) */
+    float: left;
+}
+
+.NontermPropertiesColumn>.NontermControl>.NontermControlValue {
+    float: left;
+    clear: none;
+}
+
+.NontermControlWarning {
+    width: 16px;
+    height: 16px;
+    clear: none;
+    float: left;
+/*
+    background: yellow;
+*/
+}
+
+
+.NontermControl>.NontermControlValue>textarea {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: medium;
+    float: left;
+    background: lemonchiffon;
+    margin: 1px 1px 1px 1px;
+    clear: both;
+    width: 100%;
+    resize: vertical;
+}
+
+.deleteNonterminal {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size:small;
+    font-style:italic;
+    position:absolute;
+    bottom:4px;
+    left:1em;
+    white-space: nowrap;
+    text-align:right;
+}
+
+.nonterminal>.rules {
+    float: left;
+    clear: left;
+    width:100%;
+}
+
+.nonterminal>.rules>.rule { 
+    border: 1px solid;
+    border-radius: 4px 0 4px 0;
+    box-shadow: 0 0 2px #888;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.addRule {
+    float: right;
+    clear: both;
+    font-style: italic;
+    font-size: small;
+}
+
+.deleteRule {
+    bottom:0;
+    right:0;
+    clear:both;
+    font-size: small;
+    font-style: italic;
+}
+
+#editorList .nonterminal>.rules>.rule,
+#editorList .nonterminal>.rules>.rule>.NontermControl,
+#editorList .nonterminal>.rules>.rule>.NontermControl>.NontermControlWarning,
+#editorList .nonterminal>.rules>.rule>.NontermControl>.NontermControlName,
+#editorList .nonterminal>.rules>.rule>.NontermControl>.NontermControlValue,
+#editorList .nonterminal>.rules>.rule>.deleteRule
+{ /* need the #editorList for extra specificity over "#editorList div>div" */
+    background: #FFEDD1;
+}
+
+.rules>.rule>.rhs textarea {
+    background: lemonchiffon;
+    resize: vertical;
+}
+
+.nonterminal form {
+    margin: 0px;
+    padding: 0px;
+}
+
+.nonterminal input {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size:small;
+    margin: 0px;
+    padding: 0px;
+}
+
+.placeholderPropertyEditor>.NontermControlValue>textarea {
+    background: #FEFCE5;  /* matches lemonchiffon */
+}
+
+.promptPropertyEditor>.NontermControlValue>textarea {
+    background: palegoldenrod;
+}
+
+.rhsPropertyEditor>.NontermControlValue>textarea {
+    background: #FFF69A
+}
+
+.hintPropertyEditor>.NontermControlValue>textarea.playerHint {
+    background: palegoldenrod;
+}
+
+.hintPropertyEditor>.NontermControlValue>textarea.computerHint {
+    background: lavender;
+}
+
+
+
+body>.ui-tooltip {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: small;
+    font-style: italic;
+}
+
+/* LetterWriter debugger */
+#letterDebugger {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.letterDebuggerShortcuts {
+    display: none;  /* IDE initially hidden */
+
+    float: right;
+    background-color: NavajoWhite;
+
+    padding-left: .5em;
+    padding-right: .5em;
+    padding-top: .1em;
+    padding-bottom: .1em;
+
+    border: 1px solid;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.editorPane {
+    border: 1px solid;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    padding: 1px;
+    margin: 1px;
+}
+
+.debuggerPane {
+    background: #fffff0;
+    box-shadow: 0 0 4px #666;
+}
+
+#letterDebugger>#editorMapContainer {
+    width: 100%;
+/*    min-height: 592px;  /* 600px minus top & bottom padding */
+    float: left;
+    clear: both;
+    margin: 0;
+    padding: 4px;
+}
+
+#letterDebugger>#editorMapContainer>#editorMap {
+    width: 100%;
+    min-height: 592px;
+}
+
+#letterDebugger>#gameAndParseTreeContainer {
+    width: 100%;
+    float: left;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#letterDebugger>#gameAndParseTreeContainer>#gameContainer {
+    width: 600px;
+    position: relative;
+    margin: 10px auto; 
+    padding: 0 10px;
+
+    min-height: 600px;
+    float: left;
+    margin:2px;
+    padding:2px;
+
+    background: #eee;
+}
+
+#letterDebugger>#gameAndParseTreeContainer>#editorParseTreeContainer {
+    width: 40%;
+    min-width: 600px;
+    min-height: 592px;  /* 600px minus top & bottom padding */
+    float: right;
+    margin: 2px;
+    padding: 4px;
+}
+
+#letterDebugger>#gameAndParseTreeContainer>#editorParseTreeContainer>#editorParseTree {
+    width: 100%;
+    min-height: 592px;
+}
+
+.hiddenByYoungerNode {
+    display: none;
+}
+
+.parseTreeHighlight {
+    display: inline;
+    background: blue;
+    color: yellow;
+}

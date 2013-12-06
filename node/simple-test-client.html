@@ -1,0 +1,40 @@
+<html>
+  <head>
+<title>Faye test</title>
+</head>
+<body>
+<h1>Faye test</h1>
+
+<a href="#" onclick="publish()">Try me</a>
+
+<script type="text/javascript" 
+        src="/faye/client.js">
+        </script>
+
+<script type="text/javascript">
+    var client = new Faye.Client('http://localhost:8000/faye');
+
+var subscription = client.subscribe('/foo/*', function(message) {
+console.log('Message received');
+console.log(message);
+});
+
+subscription.then(function() { console.log("Listening"); });
+
+function publish() {
+var publication = client.publish('/foo/blah', {text: 'Hi there'});
+
+publication.then(function() {
+  console.log('Message received by server!');
+}, function(error) {
+  console.log('There was a problem: ' + error.message);
+});
+}
+
+</script>
+
+<address>
+<a href="mailto:yam@rosebud-4.local">Ian Holmes</a>
+</address>
+</body>
+</html>

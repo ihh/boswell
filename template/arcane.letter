@@ -1,0 +1,373 @@
+score $score
+undo { wait: 0 }
+@start => [<h1>The Letter</h1> _Well, this is it: the dreaded cover letter. Final step in your application to Arcane College._
+
+_Competition is fierce, with over fifteen applicants to a place, and it's gotten worse during the recession (despite the government slashing the Magical Ingredient Allowance, which you might think would deter people). You're going to have to make your letter stand out._
+
+||Shall we begin?]{$score = 0;
+@opening a Bachelor's Degree in @subject at Arcane College.
+@something_about_me
+
+@faculty
+
+@yours_sincerely_etc}
+pause @something_about_me[thrice]  => [_Might be a good idea to say a little more about yourself._
+|What will you say?]{Emphasize my positive qualities[once] =>$score = $score + 10;@my_positive_qualities; @something_about_me|Say why I'm right for the position[once] =>$score = $score + 10;@suitability_for_the_position; @something_about_me|Describe my experience[once] =>$score = $score + 10;@my_relevant_experience; @something_about_me|I think I've talked enough about myself.=> }
+pause @subject => [Pick a subject]{Prestidigitation=>prestidigitation|Necromancy=>the Necromantic Arts @necromantic_specialization|Illusion=>Illusory Light & Magic}
+@necromantic_specialization => [...
+_Everyone chooses necromancy. You ought to be a bit more specific._
+|What specialization?]{forensics=>(specializing in post-mortem forensic questioning)|reanimation=>(specializing in @offensive_or_defensive reanimation)|cleanup=>(specializing in crime scene cleanup)}
+@offensive_or_defensive => [offensive]{damn right offensive=>offensive|be cautious, now=>defensive}
+pause @opening => [|_This really shouldn't be so hard. These letters are pretty formulaic. All you have to do is put the pieces together._
+   
+_Let's start at the beginning, then: with the opening._
+|Pick an opening...]{Dear Witch or Wizard=>Dear Witch or Wizard,
+
+I would like to study towards|To Whom It May Concern=>To Whom It May Concern:
+
+I seek to apply for|Brothers and Sisters in Magic!=>Brothers and Sisters in Magic!
+
+It is my heart's desire to obtain}
+@my_positive_qualities => [_Usually a good idea to say what a wonderful person you are._
+|What personal details will you emphasize?]{My positive leadership qualities=>_Let's tell them you're a leader of Magi._
+@among_my_virtues I have exceptional leadership skills. @my_leadership_qualities |My extracurricular activities=>_Let's show them how well-rounded you are._
+@apart_from_my_studies I greatly enjoy extracurricular activities. @extracurricular_activities|My background=>@my_background}
+@my_background => [_It never hurts to add a personal touch._
+|...<br>|What kind of childhood did you have?]{Privileged=>I am acutely aware that my education at the Red Dragon School and Winchester Academy of Magic represents a degree of privilege unavailable to most, and I am firmly committed to making the most of these early chances.|Comfortable=>Growing up, I was fortunate to have well-off parents and an excellent education.|Tough=>@triumph_over_hardship}
+random @apart_from_my_studies => [apart from my studies?]{1=>Apart from my studies, |1=>As well as my studies, |1=>When I am not studying, }
+random @among_my_virtues => [among my virtues?]{1=>Among my virtues is the fact that |1=>One of my many good qualities is that |1=>I would like to point out that |1=>My many favorable qualities include that}
+@triumph_over_hardship => [_You've faced way more than the usual challenges facing entrants to Arcane. No silver-spoon privileged track for you. Tell them about it._|What was the hardest thing about my childhood?]{My orcish ancestry lends an undeserved reputation for evil=>@life_of_an_orc|My family is not in one of the wealthy Houses=>Arcane's commitment to advancing the underprivileged is important to me, having grown up without many of the advantages that today's wizarding youth enjoy.  @explanation_of_poverty|I was injured by a magical curse=>When I was six years old, I woke early one morning and ran into the back yard. Lying against the shed was a giant puffball -- a fluffy marshmallow of fungal spores. I kicked it joyously, unaware that such puffballs are often home to the NanoFey...
+
+@stalk}
+@race_relations => [Go on?]{That's good enough; leave it there=> |Milk it=>
+I like to think, however, that I learned an important life lesson about magical race relations, which has furthered my strong commitment to supernatural multiculturalism.
+}
+@gag => [Go on?]{That's good enough; leave it there=> |Milk it=>
+Forced to wear a gag day & night for their own protection, a student's early magical development is bound to suffer.
+
+@race_relations}
+@pills => [a few pills]{just admit it=>a brief course of oral antifungals|too explicit=>swift medical attention}
+@stalk => [Go on?]{That's good enough; leave it there=>Fortunately, @pills dealt decisively and finally with the NanoFey problem. I learned a bit about respect for magical micro-cultures!|Milk it=>
+I remember a mosquito whine of rage, red dots in my vision, and then... nothing.
+
+I awoke three weeks later, in hospital, surrounded by grim-faced doctors. The puffball's inhabitants had cursed me, and for a year and a day I was afflicted with a fungal stalk sprouting from my neck.
+
+@gag
+Eventually, of course, the stalk broke off, and a course of broad-spectrum antifungals dealt with the NanoFey. 
+}
+@explanation_of_poverty => [
+_You should probably give some explanation for why you grew up disadvantaged. Wizard families don't usually stay poor for long._|What reason for my poverty?]{Curse on parents=>At an early age my parents were cursed and @lost_something_important as an unfortunate side-effect of @familial_curse. Consequently they were unable to provide for me or to teach me the arts of self-sufficiency.|Karmically balanced wish-fulfillment=>I am embarrassed to relate that my poverty is my own fault; an unfortunate consequence of an ill-fated decision, as a toddler, to accept a Djinn's offer of unlimited candy until my 18th birthday. Unbeknownst to me (but, of course, well-known to anyone with a copy of Bagemihl's Grimoire or a smidgen of common sense), this Djinn's generous offer came with small print; specifically, that the free candy was attached to a now-unbreakable unpaid internship with a local software firm.|Inexperience at magic=>My poverty was due to simple inexperience at using my magical abilities to conjure gold, diamonds, cellphones, alternate reality goggles, airships, scented concubines, muscled paramour slaves, exotic lizard pets, or the myriad other commodities we use to support ourselves. If only I could go back and teach my younger self some basic incantations! Sadly I had little magical influence from my elders to guide me.}
+@lost_something_important => [What did they lose?]{Their humanity=>transformed into werewolves|Their speech=>rendered senseless and mute|Their freedom=>transported to a distant asteroid for a billion years}
+@familial_curse => [What familial curse explains your poverty?]{House market crash=>a real estate deal that went bad when the land sunk into the sea|Penny-pinching bureaucrats=>the small print of a quantum insurance policy|Government overreach=>military service with the Reavers}
+@life_of_an_orc => [Life is not easy, when you are a genetically modified species! No-one tends to suspect orcs of _good_ motives, and what is regarded as healthy self-interest in other species is instantly condemned as scheming evil in my race.
+
+I can summarize this best by relating a single incident that occurred in my junior year|...<br> <br> _maybe you can finally SHAKE yourself of this horror_ <br> <br>|Where did this incident occur?]{Band camp=> at band camp. $Here @= "At this camp"; @accused_of_a_massacre|Swim class=> in swim class. $Here @= "In the changing rooms"; @accused_of_a_massacre|Vacation=> on a school vacation trip in the Swiss Alps. $Here @= "Also on the slopes"; @accused_of_a_massacre}
+random @accused_of_a_massacre => [accused of a massacre?]{Naturally, as a conspicuous Other, my schooling had to take place at a private educational institution friendly to the magical races. $Here; there was a half-gnome, a member of the paladin corps, who had taken a dislike to my kind.
+
+I had brought a serrated knife with me, in the hope of divining some rabbit guts (a family tradition), and I also tend to carry flash-powder. This gnome took it upon himself to make unsubstantiated accusations that I was planning a massacre, which made my life at school difficult for a very long time.
+
+For three months I was forced to wear a county-issue Conscience Bracelet, with devastating consequences for my social life.
+
+_You've never told anyone about that before. Maybe this whole experience will be good for you. Air some laundry..._
+|I do not mind admitting that my school was exclusive. $Here; there was a student who, like me, was a magical nonhuman.
+
+We should have been allies -- the world viewed us both as Other -- and yet he always seemed to be able to conform. He was a paladin... I cannot explain how or why, but he planted some magical ingredients in my locker... rabbit guts, flash-powder...
+
+I don't want to go into details but I was accused -- wrongly -- of massacre by demonic summoning (planned). The consequences for my social life at the time were profound.
+
+_You've never told anyone about that before. Hard work, but definitely beneficial..._
+}
+@i_create_parallel_worlds => [I have a particular fondness for illusion, and for its metaphysical extension, the construction of complete self-contained parallel worlds. My favorite constructs are ||What's your favorite genre of illusion?]{Utopias=>lofty utopias, exemplifying @political_utopia, and populated only by @inhabitants_of_utopia.|Dystopias=>malignant dystopias, exemplifying @political_dystopia, and populated only by @inhabitants_of_dystopia.|Romances=>romance stories, leaning towards @romances|Comedies=>funny stories about @comedic_theme|Tragedies=>dark tragedies about @tragic_theme}
+@tragic_theme => [What's your favorite tragic theme?]{Amoral sociopathy=>lawyers.|Hubristic elitism=>scientists.|Soul-destroying apathy=>politics.}
+@comedic_theme => [What's your favorite comedic theme?]{Bachelor parties=>bachelor parties in which all the protagonists suffer Pinocchio hexes.|Tolkien=>alternate versions of Middle Earth in which all the races are obsessed with sex.|Current events=>the way media outlets sensationalize important issues, like maelstrom-induced sun warming.|Rabbis and priests=>rabbis and priests, Sikhs & Moslems, Buddhist monks & Hindu gurus... generally getting burned at the stake (etc.) by vengeful and evil Wizardry.|Ex-hippies=>former sixties radicals, who now spend their nights @palantir-tossing and their days smoking Myst-Wattle.|Slapstick satire=>pratfalls and Suche.}
+@palantir => [Palantir]{You don't want to know=>Palantir}
+@romance_characters => [Who are the protagonists of your pleasant filth?]{witches=>otherwise-rational witches|wizards=>otherwise-sensible wizards|cats=>otherwise-cool cats}
+@romances => [romances?]{Tragedies=>dark tragedies of star-crossed lovers doomed by an accidental curse of fate.|Comedies=>comic stories of meet-cutes, missed connections and misfiring glamor charms, ending with a kiss.|Erotica=>surging tales of passion: tongues of blue fire lapping orbs of power, slow-building tsunamis of supernatural lust, maelstroms of primal energy driving @romance_characters to oblivion. The usual.}
+@political_utopia => [What's your political ideal?]{social democracy=>social democracy|syndicalist anarchy=>syndicalist anarchy|economic liberty=>economic liberty|free love=>free love|ecological harmony=>ecological harmony|religious perfection=>religious perfection}
+@political_dystopia => [What's your political nightmare?]{capitalist callousness=>capitalist callousness|violent anarchy=>violent anarchy|oppressive taxation=>oppressive taxation|mandated sexuality=>mandated sexuality|rampant pollution=>rampant pollution|religious fundamentalism=>religious fundamentalism}
+@inhabitants_of_utopia => [Describe the inhabitants?]{buff=>muscled Adonises and lush Aphrodites|brainy=>intellectual Einsteins and Lovelaces|good with words=>poetic Byrons and Brontes|highly moral=>ethical apes|good sharers=>mutualistic llamas|incorruptible=>quasi-intelligent plasma waves in the lower ionosphere}
+@inhabitants_of_dystopia => [Describe the inhabitants?]{weak=>feeble, TV-addicted waifs|stupid=>slack-jawed fratboys and sorority drones|tongue-tied=>mumbling idiots|highly immoral=>human sharks|bad sharers=>semi-intelligent shrikes, cuckoos and magpies|corrupt=>quasi-intelligent ripples of toxic mud}
+@outreach_to_normals => [In the interests of good relations between the magical and nonmagical sectors of society, I volunteer with a local chapter of Reductionist Outreach. Our proudest achievement has been ||What is your proudest accomplishment in non-magical outreach?]{Fostering a belief in wonder and magic=>our ongoing project to nurture a healthy sense of superstition in the general population. The old tropes of Faerie Illusions, Will O'The Wisps, Demon Visitations and so forth are somewhat tired, but we have achieved great success with some of our more innovative efforts, such as the deliberate introduction of hard-to-reproduce bugs into every new release of the iPhone operating system. We believe that, in combination with the Charisma Enchantment worked by Apple's Warlocks-At-Large, this has done a great deal to reduce faith in the predictable scientific behavior of computational systems.|Combating the pernicious doctrine of rational materialism=>our participation in the systematic effort to undermine science teaching in the United States. Our role was perhaps small, being confined to a few Stultification Charms cast in the direction of K-12 science classrooms, combined with a Power Boost to certain Congressional Representatives. Nevertheless, we believe the results speak for themselves.|Vigorous engagement with cynics and skeptics=>our vigorous engagement in the ongoing silencing of those who attempt to repress and confine the benevolent powers of Magic. In the past 2 years we count three maddenings, four immolations and one Astral Exile amongst our successes. May the era of tolerance continue!}
+@extracurricular_activities => [In what extracurricular activities have you participated?]{Magical sports=>@my_sporting_prowess I have represented my local Youth Magic chapter at an international level, last year touring @country to play the local @monsters.
+|Outreach to normals=>@outreach_to_normals|Illusions and passages to parallel worlds=>@i_create_parallel_worlds|Forging of magical artifacts=>@forging_of_magical_artifacts}
+random @country => [computer phrase extracurricular activities3?]{Romania|Moldova|Transylvania|New England|Colombia}
+random @nasty_fluid => [computer phrase extracurricular activities2?]{spit|blood|mud|bile}
+random @monsters => [computer phrase extracurricular activities1?]{vampires|lycanthropes|@nasty_fluid-demons}
+@my_sporting_prowess => [I'm a keen athlete. Every weekend, I play ||What sport?]{Broom-based softball=>aerial softball, having developed my flying skills to a high level of proficiency.|Blind soccer=>soccer, using permanently invisible balls.|Golem wrestling=>wrestling with mud-based and (more recently) igneous pumice-based golems.}
+@my_leadership_qualities => [In particular, I have led |...<br>|What did you lead?]{An expedition to the lost pyramid of Mentuhotep=>an expedition to discover the magical treasures of the lost pyramid of Mentuhotep, which despite being (ultimately) unsuccessful, led all seven of us to develop extensive skills in the misdirection and evasion of international police.|A death metal band=>a musical ensemble of my peers (we enjoyed attention from record labels and even some modest success with our cover of "Bohemian Abattoir").|The school debating team=>my high school debating team, where (in addition to leading a group of five eager rhetoricians) I was able to practice both my offensive and defensive Deep Empathy techniques.}
+@yours_sincerely_etc => [What formal closing to use?]{1=>}
+pause @faculty[twice]  => [_This is usually the part of the letter where you say who you want to work with._
+<br>|Let's namedrop a few faculty.]{Professor Dwarfenstein[once] =>@work_with Professor Dwarfenstein.
+@faculty|Dr Ogre[once] =>@work_with Dr Ogre.
+@faculty|Professor Whiskers[once] =>@work_with Professor Whiskers.
+@faculty|I think I've done enough namedropping=>I would of course be interested in working with any faculty who might be available to mentor me.}
+random @work_with => [work with?]{1=>I'd like to work with|1=>I would relish the opportunity to work with|1=>I'd very much like to work with|1=>It has long been a dream of mine to work with|1=>It would be a great privilege to collaborate with|1=>I have long held the desire to exchange ideas with|1=>I would very much appreciate the honor of working with}
+@transformation_into_hero => [What do you want to say about the transformation you underwent?]{Tell them about the artefact=>_The Silverfish is not, in fact, a fish; it is an Annelid. (It is, however, made of silver.)_
+_The Annelida are the phylum of the ringworms, and the leeches. Annelids have a spiral body plan, quite unlike our own. The larger representatives of the species look truly alien when they writhe._
+_You remember the first time you saw the Silverfish, in the hand of the crone. You shudder, briskly._
+I don't like to talk too much about my hero power. Suffice it to say, I am skilled at the art of persuasion.|Tell them about the visitation=>_She hailed you on the way home, right after you got the summons, looking for all the world like any old beggar lady. Of course she must have had her ways._
+_She showed you the Silverfish, cackling. "Give you an edge," she promised. "Something to help you stay alive. You do know what these contests are really about?"_
+_She didn't show you the scissors, not at first. Not until you'd agreed._
+I am grateful to Mother Grothel for a truly beneficial hero power.|Tell them about the Rivening=>_The scissors were sharp enough; but, as Mother Grothel explained, it is necessary for them to be fractally serrated, to give the Silverfish a surface on which to grab._
+_"Just like a hip replacement, deary," she said of your new tongue. "Or a hearing aid!" This made her cackle unto a coughing fit._
+_It didn't stay silver for long, of course. The flesh now is indistinguishable from your own. Sometimes you forget, for hours at a time._
+My hero power did not come without sacrifice, and I learned a great respect for the truth.|Tell them what you did after=>_How genuine they used to find you. How sincere those eyes, to your loved ones._
+_Love! There's a memory. Difficult to love a liar. Especially difficult if the liar is an Orc._
+_What are the odds? As if the racist prejudice about dark elves isn't bad enough, you then get cursed with the ability to compulsively "polish" the truth? It's almost as if that witch had it in for you._
+I learned great respect for integrity, as a part of the character-building process that led me to my secret hero power.}
+@my_relevant_experience => [What experience have you gained already?]{Tell them about that quest thing I did=>@quest|Tell them about my internship=>@apprenticeship|Tell them about my independent research project=>@research_project|Tell them about the conferences you've attended=>My magical experience has been greatly augmented by exposure to cutting-edge thaumaturgical research at conferences such as @conference, @conference, and @conference.}
+random @conference => [conference?]{1[once] =>@pop_culture_conference|1[once] =>@tech_conference|1[once] =>@political_conference|1=>@magic_conference}
+random @magic_conference => [magic conference?]{1[once] =>the Aprille Confederation on Chyromancie|1[once] =>the NorCal Renaissance Faire's Satellite Meeting on Sex Charms|1[once] =>Gongfest International|1[once] =>SweatLodger|1[once] =>CovenCon|1[once] =>WizMoot|1[once] =>VisionQuest|1[once] =>the Pan-American Seminar on Entheogens|1[once] =>the Annual Revenge Federation}
+random @pop_culture_conference => [conference?]{1[once] =>WorldCon|1[once] =>Lollapalooza|1[once] =>Glastonbury|1[once] =>Burning Man|1[once] =>Coachella|1[once] =>Rainbow Gathering|1[once] =>the San Francisco Bay Area Interactive Fiction Meetup}
+random @tech_conference => [conference?]{1[once] =>DefCon|1[once] =>Biology of Genomes|1[once] =>Black Hat|1[once] =>Evolution|1[once] =>the Game Developers Conference|1[once] =>the Indie Game Jam|1[once] =>Neural Information Processing Systems}
+random @political_conference => [conference?]{1[once] =>Women in Secularism|1[once] =>the Republican National Convention|1[once] =>Marxism 2013|1=>Netroots Nation}
+random @research_project[once]  => [research project?]{In my gap year, I undertook a research project. This project led to certain consequences, viz. the accidental loosing of a nameless evil upon the world, with attendant destruction.
+@accidental_unleashing_of_nameless_evil
+
+When ancient evil is loosed, you have to mop it up (under the terms of the 1879 Reform Bill). This turned out to be one of the more significant challenges of my gap year.
+@pursuit_of_unleashed_evil_around_world}
+random @quest[once]  => [quest?]{Several years ago, my home town was threatened by a terrible monster, a @monster_texture @monster_fur-@monster_type. As one of the few magical denizens not attending the Pleiades Convention during this period, I received an official government summons to defend the town. Naturally, this required a bit of hero power-up.
+@transformation_into_hero
+@defeat_of_monster
+}
+@defeat_of_monster => [
+By the time I returned to the village, the problems with our lumbering bureaucratic system for Quest Assignment and Hero Transformation were all too apparent. While I'd been spending time with Mother Grothel, learning the fine art of verbal charms, the monster had efficiently destroyed the town and moved on. Meanwhile, the Pleiades Convention had ended, so the town was full of much better-qualified heroes than I; but only I had the official piece of paper granting me license to battle the beast, which (incidentally) we called The Leech.
+|_The good thing about this story is that you defeated the Leech. Your choice lies in how much of the truth you tell._
+|What will you tell them?]{Talk of the searing pain of battle=>I cannot describe the searing pain that the Leech inflicted on me. The depths of my torment are not measured in words, but in howls and convulsions and bright lights drilling through one's eyelids. Truly, I learned character in this battle. Integrity through suffering; which (I believe) is the truest form there is.|Emphasize your magical technique=>Defeating the Leech called upon all the skills Mother Grothel gave me (of course, those were the only real skills I had). I confined its writhing forms in spiraling hallways of mirrors. At the ends of the hallways I cast illusory copies of myself as bait. I boxed it in with lies and reflections... and let it dry out in the sun.
+
+I believe I have a talent for misdirection.
+|Admit the monster was a pathetic creature=>In truth it would be deceptive to glory in the battle. The Leech was no monster, it was a pathetic creature. In fact, the truth is that @true_nature_of_the_leech}
+@opinion_on_property_damage => [How do you feel about property damage?]{Fine=>basically a legitimate expression of revolutionary activity.|Meh=>(while offensive to the rightful order of things) ultimately not the same thing as violence.|Disgusting=>a truly horrible thing, but not really something magicians should be involved with.}
+@true_nature_of_the_leech => [What is the truth?]{The leech was harmless=>the leech, in the end, was merely causing property damage, which is @opinion_on_property_damage|The leech was only trying to be loved=>the poor Annelid was only desperate to be loved, after all.|The leech was me=>the leech was<br>ARE YOU CRAZY? you can't say that<br>just like me, in many ways. Just like all of us. One must always have sympathy for others, even one's enemies.}
+random @monster_texture => [monster texture?]{speckled|tusked|phlegm-soaked}
+random @monster_fur => [monster fur?]{slime|chitin|spider}
+random @monster_type => [computer phrase1 i have much relevant experience?]{whale|mammoth|golem}
+@accidental_unleashing_of_nameless_evil => [How do you feel about having unleashed a nameless evil on the world?]{Epic lulz=>_Yeah, those were pretty epic lulz._
+The crafting of this nameless evil was one of the more exciting episodes of my existence on this plane. I look forward to greater chaos as my skills develop.
+$work_adjective = "awesome";|Shame=>_That was the worst thing I've ever done._
+$work_adjective = "shameful";|Meh=>As to the impact of my events I am indifferent, given the nameless evils routinely unleashed upon the world by corporations, and their government shills.
+_Big pharma's teams of hotshot shamen. Monsanto's land witches. Industrial Light and Magic. You're wise to their games._
+$work_adjective = "justifiable";}
+@pursuit_of_unleashed_evil_around_world => [What part do you want to tell them about?]{The Balinese hex pirates=>It was only ever supposed to be a very specific Contagion, restricted to one species. Chickens, to be precise.
+_It started as a prank on the high school paladins... their mascot was a chicken... Careful, now! don't think too much on it while writing, or you'll give yourself away..._
+@indonesian_viral_bloom
+Anyway, the bottom line is that my viral construct, only ever intended to be chicken-specific and harmless, created a mutant sentient super-tuna, via a cross-species transmission event.
+That same fish caused well-known collateral damage to coastal Southern California last year, which (albeit a different story) contributes towards an understanding of the impact of my $work_adjective; deeds.
+@outcome_of_bloom_on_hex_pirate_vessel
+|The Californian suburb=>For reasons on which it is perhaps best not to dwell, my nameless evil led directly to the acquisition of sentience and various time-bending superpowers by a 600-pound tuna fish; who promptly decided to travel the world, deciding (somewhere along the way) to name herself Gomo-Wan.
+Gomo-Wan had all sorts of adventures, but some time later, found herself (after an epic and painful struggle) gasping for air, and pleading for her life, on the deck of a tuna fishing charter boat off Long Beach, California.
+Following the initial shock of hearing a fish speak telepathically in his mind, hedge fund analyst Kristof Baxendale was more than happy to toss Gomo-Wan back into the water... on condition of unlimited boons. Kristof was a wily one.
+The first boons were not too bad, mere technological speed-ups. The Singularity was not too far off; decent computational models of the brain were easy to pull backwards through time, and Kristof's early requests (immortality, hyperintelligence, the ability to hack ATMs) were easy to satisfy.
+But the nature of $work_adjective; research like this is that things never stand still, and soon Kristof was requesting matter transformation and unlimited time edits, which no-one with even a basic notion of recursive complexity would touch with a ten-foot pole.
+@destruction_of_santa_marconi is something I will live with to the rest of my days, although I tell myself it was an accident waiting to happen; I was merely the one who triggered the historic events which @destroyed_lawns
+@outcome_of_battle_with_gomo_wan}
+@destruction_of_santa_marconi => [How do we describe the consequences?]{Be blunt=>The complete excision of Santa Marconi from the map|Be subtle=>the Garbage Collection Apocalypse}
+@destroyed_lawns => [Again... subtle or blunt?]{Subtle=>disturbed so many tranquil auras.|Blunt=>wiped out so many innocent lawns.}
+@chicken_of_the_sea => [No, it's too silly]{I agree=>. Anyway, odd story.|TELL THE TRUTH=>... chicken of the sea, you know.}
+@tunafish_cross_infected => [Keep going?]{No=>.|Yes=>, and a tunafish got cross-infected@chicken_of_the_sea The name of the fish was Gomo-Wan.}
+@pirate_cockfight => [Even more?]{No, stop there=> |Yes, keep going=>Some pirates from Bali had a cockfight going on their speedboat@tunafish_cross_infected}
+@indonesian_viral_bloom => [Tell more detail?]{No, play it safe=> |Yeah, sure=>If you read about the Indonesian viral bloom last year, that was me. @pirate_cockfight}
+@nameless_evil_haunts_me_still => [...<br> OK, yeah, good idea to come clean. Lay your skeletons on the table. Of the closet. Or something. <br>|So, exactly what part of this should we talk about?]{The nightmares=>|The Collection Times=>|The hourglass=>}
+@nameless_evil_vanquished_forever => [So, what do you want to say about the vanquishing?]{Talk up the general epictude of the battle=>|Those grateful young wizard faces! Wow=>|Minimize the collateral damage=>|Show off a few scars=>}
+@outcome_of_battle_with_gomo_wan => [Attack or retreat?]{Attack=>@nameless_evil_vanquished_forever|Retreat=>@nameless_evil_haunts_me_still}
+@outcome_of_bloom_on_hex_pirate_vessel => [Contain or retreat?]{Contain=>@nameless_evil_vanquished_forever|Retreat=>@nameless_evil_haunts_me_still}
+random @apprenticeship[once]  => [apprenticeship?]{Early in my high school career, I was lucky enough to study under Rastlim the Cautioner.
+$pig_description = "a particularly gruesome cautionary tale involving a knife";
+@journey_to_find_master @apprenticeship_outcome}
+@journey_to_find_master => [What do you want to say?]{Tell them about your journey=>@memory_of_apprenticeship
+
+@creepy_journey
+Traveling on foot, hoping for an apprenticeship, I sought my Master.|Tell them about the encounter=>@memory_of_apprenticeship
+
+@the_clearing
+The journey to my Master was mildly disquieting, but essentially uneventful.
+$pig_description = "the same dream you saw on the last day of your journey";|Tell them about the Tower=>@memory_of_apprenticeship
+
+@tower_of_brecon
+The Tower of Rastlim truly is an inspirational place.
+|Tell them about the Room=>@memory_of_apprenticeship
+
+@bellocs_chamber
+I felt truly privileged to work in the place where so many dreams are made real.
+}
+@bellocs_chamber => [_Belloc's Chamber, right up top of the Tower of Brecon, still gives you nightmares. Which is exactly what it was designed to do._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_You recall your first glimpse of the Chamber, that first afternoon. Jongold led you past it on the way to your dorm. (Usually the tower is full of interns. You were lucky enough to sleep alone - if that counts as luck.)_
+
+_Jongold held up a hand as you passed: "You'll be spending plenty of time in here," he said. The door swung open without a touch. Mages can't help showing off._
+
+_Inside you caught a glimpse of benches, machines, a weird gas mask on the wall. A stack of tape reels, marked "hypnopædia". A large block of cheese._
+
+_"This is our bad dream factory," said Jongold. The door slammed shut, making you jump. "Sweet dreams tonight," he laughed._
+}
+@tower_of_brecon => [_In a secret valley, deep in the heart of Brecon County, is a tower so breathtakingly ugly that you probably ought to need planning permission just to look at it._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_The Tower of Brecon resembles a giant, knobbly, mottled fist, punching upwards at the clouds. (Although it's really much smaller than it looks.)_
+
+_Part of its big threatening nobbliness is the way it bristles with antennae and dishes, like a knuckleduster. Rounding a copse, when you first catch a glimpse, you feel dread but also a mild nausea... as though what it's doing to the clouds is really not very comfortable._
+
+_At the door is Rastlim's assistant, Jongold, a fresh-faced blond-haired chap who greets you with a chirpy wink and ushers you inside. Your eye is caught by a well-worn plaque: "PUBLIC SERVICE BROADCASTING"._
+
+_"Oh, ignore that," says Jongold. "It's old. Although quite appropriate, I suppose," he adds._
+}
+@butcher_and_pig => [Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_The children play their roles to perfection, but there is no blood. The Pig's head comes clean off, leaving a bony stump. The head rolls across the grass and goes cross-eyed, then starts to giggle. The Butcher puts the Pig's head back on, and they switch roles._
+
+_You feel detached; sleepy, even. Your head nods. A scratchy voice (you later place this as Evan's) tells you "It's just a dream, man. Don't sweat it"._
+}
+@the_clearing => [_On the last day of your journey, you stumble across a scene in a clearing that still makes you shiver, a little. Two children were playing Butcher and Pig._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_What is it about children abandoned in the woods, round here? Doesn't Brecon have child protective services? Why would you leave children alone with such a sharp knife?_
+
+_Why do you feel so curiously distant about it all?_
+
+@butcher_and_pig}
+@creepy_journey => [_Tradition dictates that the apprentice must make the journey on foot; or, at least, the last three days. You hitch-hiked the first part._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_Brecon County is remote, a cold grey place. An entirely unsurprising home for Rastlim, really. You found a tree-stump bivouac on the first night, cast a predator-scent charm to ward off insects and rodents, and settled in._
+
+_Your memories of the first two days' walk are a little hazy. You recall some odd distractions. Walking past a church during some bizarre ceremony to pick a husband for the vicar's pregnant daughter. A deformed man was picked, and there was uproar. Then there were those two lost children: do fathers really just abandon children in the woods around here? Perhaps better than locking them in motel rooms, like that golden-haired girl singing from that balcony._
+
+@stop_to_help
+}
+random @jackson => [jackson?]{_On the second evening, you met Jackson, a wizened hippie in an Afghan jacket, whom you later came to know quite well during the Apprenticeship. He didn't announce himself as an employee of the Department, but he had an easy way about him, and you got talking._
+
+_Jackson nodded when you told him of the episodes. "We done a whole series of those," he said cryptically. "Did you help any of 'em?"_
+}
+@stop_to_help => [Did you stop to help any of these people?]{Yes=>_You intervene where you can: you stick up for the deformed suitor, you lead the children to the relative safety of a nearby ice cream van. The girl singing from the motel balcony creeps you out; or rather, the motel itself does; you're not sure why, but you don't stay there long._ @jackson _No, you replied, suddenly embarrassed. "Well, you get some choices," he said diffidently._|No=>_You kept walking, mindful of the need to focus on your training._ @jackson _Yes, you replied, but it didn't seem to change much. "That's the nature of episodic drama," he said._}
+@failure_of_my_apprenticeship => [|<br> It's probably a good idea to come clean. They might follow up on references. <br>|How to describe your less-than-glowing apprenticeship?]{Be frank about your Master's desires=>@memory_of_apprenticeship @witches
+
+@porcupine
+I found that my Master, while a highly respected Mage, had inclinations that were divergent from my own.
+|Simply state the mistake you made=>@memory_of_apprenticeship @witches
+
+@amelie
+I feel that, although the Tower had much to teach me, I was remiss in not asking enough questions early on. An inquisitive mind is crucial to a good education.
+|Tell them the lesson that was seared on your brain=>@memory_of_apprenticeship @witches
+
+@suzi_bond
+After some reflection, I decided that my inclinations lay in magical outreach, rather than the proscriptive approach of Magical Propaganda. I will always be grateful for the lessons I learned in Brecon.
+}
+@propaganda_war => [
+_"Ask yourself this," continued Suzi. "Do you want to be instrumental in denying knowledge to the masses? What role do you think these scary stories serve? Is it really necessary to protect people from themselves?"_
+
+_"It's quite simple," Amelie added. "This is a war. Do not be fooled by their easy attitudes."_
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_Porcupine just stared at you. Then she slowly drew a finger across her neck. And all three women vanished._
+}
+@rastlim_is_a_construct => [
+_"Rastlim is a construct," said Suzi. "You have never touched him, and you never will. He lacks material form."_
+
+_"The boys' conjurations always did lack substance," commented Amelie acerbically._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@propaganda_war}
+@suzi_bond => [_You could not take your eyes off Suzi Bond. She seemed somehow other-wordly. After a while, she spoke._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@rastlim_is_a_construct}
+@amelie => [_"I think I know you," you blurted to Amelie. She stared back coolly. "You know very little. And your work here ensures that others remain even more ignorant than you."_
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_"Do you know that Rastlim uses real childrens' ghosts?" said Porcupine._
+
+_"Have you ever heard of Lord Haw-Haw?" said Suzi Bond. "He was a Nazi propaganda artist in the human World War. Much like your Rastlim. Do you know what happened to him?"_
+
+_All of a sudden you were alone in the dorm... a chill tracing your spine, and a Pandora's Box exploding in your mind._
+}
+@inside_dream_room => [Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_"Do you see, now?" said Susan. Amelie turned to look at you. Before her head had finished turning, you were back in the dorm._
+}
+@outside_dream_room => [
+_You're not sure how the transition happened, but next you were standing outside the dream room. No-one is supposed to enter Belloc's Chamber out of hours, but there was a flickering light under the door._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_Next - again, not sure how - you were in the room. Rastlim was hunched over the console, his mouth half-open, his eyes wide. All dignity gone. He was watching "How Children Played Butcher With Each Other", $pig_description;._
+
+@inside_dream_room}
+@porcupine => [_"Really?" you stammered. "Porcupine?" She looked away._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@outside_dream_room}
+random @memory_of_apprenticeship => [memory?]{1[once] =>_Faint impressions of your apprenticeship rub against each other, like whispers in a vaulted hall..._|1=> }
+random @witches => [witches?]{_It was several weeks into the internship that you first saw the witches. Glimpses, at first, through a window or an archway. Only one at a time, to begin with; always dressed in white robes, always mute. You gave them names: the tall one, the strong one, the spiky one._
+
+_One month into the program, they were waiting in your dorm. They spoke for the first time, each introducing themselves by name: Amelie Long, Suzi Bond, and Porcupine._
+}
+@success_of_my_apprenticeship => [What do you want to say about your successful apprenticeship?]{Tell them about your talent for the work=>@memory_of_apprenticeship
+
+@natural_talent
+I was delighted to find that I had a natural talent for Magical Propaganda.
+|Tell them about the magical challenges you overcame=>@memory_of_apprenticeship
+
+@magical_challenges
+Infusing the dreamworld with meaning takes a level head. I was proud to sail through with flying colors.
+|Tell them the last words your Master said to you=>@memory_of_apprenticeship
+
+@last_words
+Master Rastlim inculcated me with an enormous respect for the traditional forms and practices of magic.
+}
+@art_and_propaganda => [
+_You actually don't remember all the details. Something about how literary criticism of dreams could no longer be separated from their function as propaganda tools in the struggle against darkness. As usual with Rastlim it was inspirational, but yet distant and forbidding at the same time._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_Last words? Well, his literal last words were his stilted laugh: "HAW, HAW!" If those count as words. Then he turned on his heel, and left. He had made some joke about Mickey Mouse magicians: amateur sorcerers, splitting brooms. Undisciplined magic, lacking theoretical form, was the worst sin in Rastlim's book._
+}
+@rastlim_speech => [
+_Rastlim -- a hard man to reach throughout your apprenticeship (most of what you learned came from Evan, Jackson and Jongold) -- made a personal appearance on your final day. He seemed to feel that a character-building, spine-stiffening speech was called for._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@art_and_propaganda|How could you forget Rastlim's appearance that day?=>_How could you ever forget the way Rastlim looked, that day? The pink scar which you must have noticed before (but somehow never acknowledged), running from his earlobe to the corner of his mouth, and down to his chin..._
+
+_Your memory of the scar eclipses the memory of his words. Was it the second-sight you'd learned in the Tower, or simply over-work, that made it seem on the verge of bleeding as he talked?_
+}
+@last_words => [||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@rastlim_speech}
+@two_brothers => [
+_The role called for you to ride a bike between two brothers (played by Jongold and Evan), wearing a hat. One side of your hat was painted white, the other side black. This then triggers a big feud between the formerly tight-knit brothers, each claiming a different color for the hat, proving that meaning is ambiguous, cementing Èṣù's role as signifier, etc etc._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_The only problem was that Jackson had decided the theme of indeterminacy should extend to everything else in the dream, too, creating an acid-like ambience of which Dali would've been proud. So: the bike was sometimes a motorbike, sometimes a pushbike, sometimes a paper plane. The brothers were sometimes sisters. Occasionally, the monkey in a hat did not break up their friendship; but instead made them laugh, terminating an earlier argument. The hat itself might unexpectedly morph into a top hat, or a boater, or even (you never quite understood this) a live penguin._
+
+_All of which made riding in a straight line (with your head facing front at all times) extremely difficult. Definitely harder than it needed to be. You're pretty sure Jackson was messing with you. He was like that._
+
+_Fortunately, Rastlim liked the work, and seemed to hold you in higher regard afterwards. Which was nice. (For a while.)_
+}
+@signifying_monkey => [
+_Truth be told, none of it was that hard. The apprenticeship sailed by, at least at first. The only tricky part was that blasted Èṣù monkey._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@two_brothers|I could never forget Èṣù=>_You'll never forget Èṣù. He taught you how to rhyme, and play the dozens with your cousins... the soul of signifying, the meaning of lying._
+
+_The milk shaker, the record breaker, the population maker,_
+_The  gun-slinger, the baby bringer,_
+_The hum-dinger the kitty ringer_
+_The one with the terrible middle finger_
+
+<i><b>OK, stop that.</b></i>
+}
+@magical_challenges => [Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@signifying_monkey}
+@boys_pontificate => [
+_"These stories serve an important role," said Evan portentously, as you worked on the fine detail of the sexy cat-god, played (with annoying smugness) by Jongold. "By transmitting these cautionary dreams, we ensure that taboos against magical learning are perpetuated in society, keeping the laypeople safe."_
+
+_Jackson snorted. "Nothing safe about these dreams. And you're kidding yourself, if you think this is about anything except preserving our monopoly."_
+
+_You studiously avoided getting drawn into such discussions. Instead, you concentrated harder on the dream protagonist's physiological response to the feline Jongold. A little estradiol here, a little adrenaline there. (People think it's all about the object of desire; but who stares lustfully into a cat's eyes, really? It's all about the hormones. That way, you can refactor the dream to use a cat goddess instead of a tomcat, and it works just as well.)_
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>
+_"It doesn't matter," said Jongold, with a sideways glance at you. "We do a job. Some of us do it well. You can criticize the system if you want, but some sort of order has to be maintained. And what is truth, really?"_
+
+_"Put a hairball in it, catface," cackled Jackson._
+}
+@book_of_thoth => [
+_You still remember the moment when you first knew you'd be good at this work. The project was a basic one: a remake of the Egyptian classic, "The Book of Thoth"._
+||Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@boys_pontificate|I could never forget the Book of Thoth=>_You'll never forget the Book of Thoth. A secret magical tome of legendary power, granting the power to speak with nonhuman life._
+
+_Little is known of the book, obscured as it is by tales of curse, tragedy, and ill portent. As well it should be: the Egyptian stories had no word for bacteria, nor any concept that the human skin was crawling with them. The trillion voices quickly overwhelmed any untrained initiate who read the book._
+
+_But this is all a distraction._}
+random @dispel => [dispel?]{1=>_You wipe the dangerous memories from your mind._
+}
+@natural_talent => [Indulge these recollections?]{No, that would be rash=>@dispel|Just a little=>@book_of_thoth}
+@apprenticeship_outcome => [So how did the apprenticeship go?]{Tell them it was a very successful apprenticeship=>My apprenticeship was a great success. @success_of_my_apprenticeship |Admit the project did not work out, but not for want of trying=>Surveying my apprenticeship with hindsight, it was not the greatest success; but this was not for want of effort on my behalf. @failure_of_my_apprenticeship}
+@suitability_for_the_position => [_Excellent idea! Say a bit about why you're so perfect for the position._|Why AM I right for the position?]{My dedication to a particular field of magic=>@dedication_to_specialist_field|My loyalty to the ethos of the school=>}
+@ontology_of_spells => [...<br>It is a good idea to show off your knowledge of magical nomenclature. It would be wise to pick the area that will impress them most.<br>|What knowledge of the Categories will you boast?]{Talismanic Aesthetics=>I'm experienced in talismanic aesthetics, |Invocative Cosmogony=>|Divinatory Idealism=>|Divinatory Realism=>@necromancy_ontology}
+@necromancy_ontology => [I have a keen interest in Divinatory Realism. |...<br> _Really? Necromancy? Are you sure? I mean, it's pretty popular; but you're pretty smart, so..._
+Specifically, |Specifically what?]{Trance states=>Specifically, |Shade invocation=>|Bone conjuration=>}
+@physical_ontology => [...<br>Yes, impress them by quoting some of the lesser-known nooks and crannies of Magical Materialism.<br>|What knowledge of the physical ontology will you boast?]{Renormalized Metaphysics=>The scale-symmetries in metaphysical arguments have always fascinated me. Why _is_ the Grand Canyon like my soul? Is a quantum leap truly sufficient to bridge any gap in understanding? Which is brighter: the little light that shines, or the unbearable lightness of being? These are the questions that preoccupy me.|Microfluidic Habitats=>I am fascinated by all magical aquatic creatures at the micrometre scale, including water-nymphs, micronuggles, mini-glashtyn, picosirens, and Vodyanoy.|Alchemy of the Built Environment=>|Lithospheric Pumps=>}
+@my_talent_for_magical_naming => [What will you tell of your talent for naming?]{My fluency in the physical description logic=>I have a keen instinctive appreciation for the forces, scales and symmetries of the physical world. @physical_ontology|My grasp of magical philosophy=>From an early age, I have had an intuitive understanding of Hounsell's Categories of Magyk. @ontology_of_spells}
+@questing_in_the_field => [What will you tell them of questing?]{Make some general statements about how character-building it is=>|Hint at the dark depths it's revealed in you=>|Tell them of your quest=>@quest|Tell them of your apprenticeship=>@apprenticeship|Tell them of your research project=>@research_project}
+@forging_of_magical_artifacts => [What can you say of artifact fabrication?]{Nothing much=>I know little about the forging of magical artefactes, but am willing to learn.}
+@my_love_of_fieldwork => [What aspect of fieldwork will you emphasize?]{The forging of magical artifacts=>@forging_of_magical_artifacts|Questing in the field=>@questing_in_the_field}
+@i_can_raise_the_dead => [...<br>OK, they'll <i>definitely</i> have heard this schtick before. Be precise.</br>|So, this claimed necromancy?]{It requires a re-enactment=>A re-enactment of the death event, that is. Just a little show.|Using live actors=>Live actors! Live at the start, anyway.|And Music=>Music and dance. And death.}
+@i_can_reverse_time => [One of the key strengths I feel I can bring to Arcane is a family talent for navigating the time streams. The allure of time travel is primal: the do-over, the second chance, the alternate history, the woulda-should-coulda. Many feel the pull of the quantum multiverse. I am convinced that, with guidance from Arcane's professors, I can channel this ability to be a positive force for change.|...<br>They'll know there must be caveats. You'll have to admit them.<br>|What will you say?]{Tell them about the Time Bends=>One of the challenges I hope to overcome, with Arcane guidance, is re-emitted photon narcosis...|Tell them about the bubble=>If you're straddling the perimeter of my bubble, don't expect to stay in one piece|Tell them about Glenda=>}
+@i_am_a_healer => [The strongest advantage that I can bring to Arcane College is my natural affinity for the lore of Asclepius. Very few are able to channel this ability, and I am overwhelmed by the gratitude and love that recipients have shown to me - the true reward of a healer.
+|...<br>Of course, they'll know there is a cost...<br>|What spin on the truth do you put?]{That healing is always a zero-sum game=>|That magic attracts daemons=>|Tell them about Uncle Robert=>}
+@my_highly_sought_specialty => [_Everyone says, if you're going to impress them, you need to talk about your academic specialization._
+|What about your specialization makes it so special?]{I'm a healer. Everyone loves a healer.=>@i_am_a_healer|I can go back in time. On short trips.=>@i_can_reverse_time|Your dead? I can raise them.=>@i_can_raise_the_dead|Tell the truth.=>@no_truth  @my_highly_sought_specialty}
+random @no_truth => [no truth?]{1=>_You long to tell the truth, about your real ability. But of course, you can't._|1=>_Your true specialization is on the tip of your tongue. You might say it IS the tip of your tongue. But you aren't going to write about it. Dream on._|1=>_Naturally, the very nature of your superpower makes it unlikely you will tell them what it really is._|1=>_If only you could tell them your true specialization. But by it's nature... you can't do that._}
+@dedication_to_specialist_field => [dedication to field of magic?]{My discipline is highly sought after=>@my_highly_sought_specialty|I'm experienced at fieldwork=>@my_love_of_fieldwork|I have research experience in magical names and theory=>@my_talent_for_magical_naming}

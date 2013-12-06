@@ -1,0 +1,44 @@
+	<code style="padding-left: 1em; white-space: pre">
+             <i>template</i>: (<i>config-block</i> | <i>rule-block</i>)+
+         <i>config-block</i>: <i>slider-declaration</i> | <i>scoring-declaration</i> | <i>title</i>
+   <i>slider-declaration</i>: "control" <i>param-list</i>
+  <i>scoring-declaration</i>: "score" (<i>param-identifier</i> | <i>role-indexed-param-id</i>)
+           <i>param-list</i>: <i>param-declaration</i> ("," <i>param-list</i>)?
+    <i>param-declaration</i>: <i>param-identifier</i> ("{" <i>min-descriptor</i> "=>" <i>max-descriptor</i> "}")? ("=" <i>probability-value</i>)?
+     <i>param-identifier</i>: "$" <i>identifier</i>
+<i>role-indexed-param-id</i>: "$#" <i>identifier</i>
+     <i>general-param-id</i>: <i>param-identifier</i> | <i>role-indexed-param-id</i>
+   <i>delimited-param-id</i>: "${" <i>identifier</i> "}"
+       <i>min-descriptor</i>: <i>text</i>
+       <i>max-descriptor</i>: <i>text</i>
+           <i>rule-block</i>: <i>nonterm-modifier</i>* <i>nonterm-identifier</i> <i>usage-limit</i>? "=>" <i>nonterm-descriptor</i>
+   <i>nonterm-identifier</i>: "@" <i>identifier</i> <i>pause-modifier</i>? <i>commit-modifier</i>? <i>random-modifier</i>?
+   <i>nonterm-descriptor</i>: <i>optional-prompt</i>? "{" <i>rule-list</i> "}"
+     <i>nonterm-modifier</i>: "pause" | "commit" | "random" | <i>role_assignment</i>
+      <i>role-assignment</i>: "#+" | "#-" | "#=" | "#" <i>integer</i>
+       <i>pause-modifier</i>: ";"
+      <i>commit-modifier</i>: "!"
+      <i>random-modifier</i>: "?"
+      <i>optional-prompt</i>: "[" <i>prompt</i> "]"
+                       | "["  <i>placeholder</i> "|" <i>prompt</i> "]"
+            <i>rule-list</i>: <i>rule</i> "|" <i>rule-list</i>
+                       | <i>rule</i>
+                 <i>rule</i>: <i>optional-hint</i>? <i>grammar-symbol</i>+
+        <i>optional-hint</i>: <i>text</i> <i>rule-constraint</i>* "=>"
+       <i>grammar-symbol</i>: <i>nonterm-identifier</i>
+                       | <i>nonterm-descriptor</i> <i>pause-modifier</i>? <i>commit-modifier</i>?
+                       | <i>general-param-id</i> ";"
+                       | <i>delimited-param-id</i>
+                       | <i>text</i>
+     <i>local-assignment</i>: <i>general-param-id</i> "@=" <i>param-expression</i> (<i>line-terminator</i> | ";")
+    <i>global-assignment</i>: <i>general-param-id</i> "=" <i>param-expression</i> (<i>line-terminator</i> | ";")
+      <i>rule-constraint</i>: <i>usage-limit</i> | <i>hide-count</i>
+          <i>usage-limit</i>: "[use " <i>integer</i> "]" | "[once]" | "[twice]" | "[thrice]"
+           <i>hide-count</i>: "[hide " <i>integer</i> "]" | "[hide once]" | "[hide twice]" | "[hide thrice]"
+          <i>placeholder</i>: <i>text</i>
+               <i>prompt</i>: <i>text</i>
+	</code>
+	<br> <i>This grammar is approximate. In it, </i> <code>probability</code> <i>is a nonnegative numeric constant, </i> <code>param-expression</code> <i> is an arithmetic expression involving </i> <code>general-param-id's</code><i>'s, </i> <code>identifier</code> <i>is a standard C-like variable name, and</i> <code>text</code> <i>is any text
+	  (in which quotes do not need to be escaped, but any of the characters "</i><code>@#=&lt;&gt;\[]{}</code><i>" must be escaped by preceding with a backslash character "</i><code>\</code><i>").</i>
+	<br> <i>For</i> <code>role-indexed-param-id</code> <i>parameters, an integer value (starting at 1) is prepended to the parameter name. This integer value is the role number at the point where the parameter was used (it can be thought of as the role number of the player who is to blame for invoking that parameter). The array of scores in multiplayer mode is currently implemented like this.</i>
+	<br> <i>For</i> <code>random</code> <i>rules, the</i> <code>optional-hint</code> <i>is interpreted as an arithmetic expression that yields the relative frequency with which the rule is randomly chosen. This expression may involve player-tweakable parameters, which must be declared using </i> <code>param</code> <i>.</i>
