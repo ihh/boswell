@@ -77,8 +77,8 @@ for (var i = 0; i < state.length; ++i) {
 	var rhs1 = [], rhs2 = []
 	for (var verb in opts) {
 	    var dest = opts[verb]
-	    rhs1.push ([verb,"=>",verb_nonterm(verb,1),noun_nonterm(dest,2),state_nonterm(dest,other,2)].join(" "))
-	    rhs2.push ([verb,"=>",verb_nonterm(verb,2),noun_nonterm(dest,1),state_nonterm(dest,other,1)].join(" "))
+	    rhs1.push ([verb,"=>",verb_nonterm(verb,1),noun_nonterm(other,2),state_nonterm(dest,other,2)].join(" "))
+	    rhs2.push ([verb,"=>",verb_nonterm(verb,2),noun_nonterm(other,1),state_nonterm(other,dest,1)].join(" "))
 	}
 	p.push ("#1 " + state_nonterm(src,other,1) + " => [Your move, " + player[0] + "?]{" + rhs1.join(" | ") + "}\n")
 	p.push ("#2 " + state_nonterm(other,src,2) + " => [Your move, " + player[1] + "?]{" + rhs2.join(" | ") + "}\n")
