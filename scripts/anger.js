@@ -12,11 +12,14 @@ var action
        "covert": { "Snipe": null, "Vent": "angry", "Shun": null },
        "isolated": { "Stall": null, "Peace": "resentful"} }
 
+var responsiveAction
+    = { "ok": { "contesting": { "Accept": "contesting" } } }
+
 var reaction
     = {"ok": { "Retaliate": "angry", "Snipe": "angry", "Insult": "angry" },
        "angry": { "Retaliate": "enraged", "Snipe": "enraged", "Insult": "enraged" },
        "enraged": { "Retaliate": "violent", "Snipe": "violent", "Insult": "violent" },
-       "contesting": { "*": "angry", "Won": "resentful", "Lost": "ok" },
+       "contesting": { "Accept": "contesting", "Won": "resentful", "Lost": "ok", "*": "angry" },
        "resentful": { "Shun": "isolated" },
        "covert": { "Shun": "isolated" } }
 
@@ -26,7 +29,8 @@ var verbText
     = {"Insult": '$self insults $other',
        "Seethe": '$self seethes',
        "Retaliate": '$self retaliates against $other',
-       "Challenge": '$self challenges $other',
+       "Challenge": '$self challenges $other to a dominance contest',
+       "Accept": '$self accepts the challenge',
        "Stall": '$self stalls',
        "Reconcile": '$self attempts reconciliation with $other',
        "Seethe": '$self seethes',
@@ -42,11 +46,11 @@ var verbText
        "Vent": '$self vents at $other',
        "Peace": '$self makes a peace offering'}
 
-var reactionVerbText
+var reactionText
     = {"Insult": "$self bridles at the insult",
        "Retaliate": "$self reacts indignantly to the retaliation",
        "Snipe": "$self sneers at the snipe",
-       "Challenge": "$self accepts the challenge",
+       "Challenge": "$self can't resist the challenge",
        "Won": "$self fumes at the loss",
        "Lost": "$self gloats at the victory",
        "Shun": "$self feels shunned",
@@ -68,7 +72,7 @@ function verb_nonterm(verb,player) {
 }
 
 function reaction_verb_nonterm(verb,noun,player) {
-    return (verb == null)
+    return ((verb == null) || !((verb == "*" ? noun : verb) in reactionText))
 	? ""
 	: ((verb == "*")
 	   ? "@react_while_" + noun.toLowerCase() + player
@@ -88,7 +92,7 @@ function make_verb(v,playerNum) {
 }
 
 function make_reaction_verb(verb,noun,playerNum) {
-    return replace_self_other (reactionVerbText[verb == "*" ? noun : verb] + '.', playerNum)
+    return replace_self_other (reactionText[verb == "*" ? noun : verb] + '.', playerNum)
 }
 
 function make_prompt(playerNum) {
@@ -107,7 +111,11 @@ for (var i = 0; i < state.length; ++i) {
     var srcMe = state[i]
     for (var j = 0; j < state.length; ++j) {
 	var srcYou = state[j]
-	var actionTransition = action[srcMe]
+	var actionTransition = extend ({}, action[srcMe])
+	if ((srcMe in responsiveAction) && (srcYou in responsiveAction[srcMe]))
+	    actionTransition = extend (actionTransition, responsiveAction[srcMe][srcYou])
+	if (("*" in responsiveAction) && (srcYou in responsiveAction["*"]))
+	    actionTransition = extend (actionTransition, responsiveAction["*"][srcYou])
 	var reactionTransition = (srcYou in reaction) ? reaction[srcYou] : {}
 	var rhs1 = [], rhs2 = []
 	for (var verb in actionTransition) {
@@ -139,7 +147,7 @@ for (var i = 0; i < state.length; ++i) {
 for (var verb in verbText) {
     p.push ("#1 random " + verb_nonterm(verb,1) + " => {" + make_verb(verb,1) + "\n}\n")
     p.push ("#2 random " + verb_nonterm(verb,2) + " => {" + make_verb(verb,2) + "\n}\n")
-    if (verb in reactionVerbText) {
+    if (verb in reactionText) {
 	p.push ("#1 random " + reaction_verb_nonterm(verb,null,1) + " => {" + make_reaction_verb(verb,null,1) + "\n}\n")
 	p.push ("#2 random " + reaction_verb_nonterm(verb,null,2) + " => {" + make_reaction_verb(verb,null,2) + "\n}\n")
     }
@@ -152,7 +160,7 @@ for (var noun in nounText) {
 
 for (var i = 0; i < state.length; ++i) {
     var noun = state[i]
-    if (noun in reactionVerbText) {
+    if (noun in reactionText) {
 	p.push ("#1 random " + reaction_verb_nonterm("*",noun,1) + " => {" + make_reaction_verb("*",noun,1) + "\n}\n")
 	p.push ("#2 random " + reaction_verb_nonterm("*",noun,2) + " => {" + make_reaction_verb("*",noun,2) + "\n}\n")
     }
@@ -164,3 +172,15 @@ var start = state_nonterm(s,s,1)
 console.log ("roles 2\n")
 console.log ("\@start => {" + noun_nonterm(s,2) + " " + noun_nonterm(s,1) + " " + start + "}\n")
 console.log (p.join(""))
+
+
+function extend (destination, source) {  // source overwrites destination
+    if (typeof(source) != "undefined") {
+	for (var property in source) {
+	    if (source.hasOwnProperty(property))
+		if (!destination.hasOwnProperty(property))
+		    destination[property] = source[property];
+	}
+    }
+    return destination;
+}
