@@ -46,6 +46,10 @@ img/icon:
 server:
 	node node/simple-node-test-server.js
 
+# Auto-generated anger state machine
+template/anger.letter: perl/anger.pl
+	perl/anger.pl >$@
+
 # for make
 .SECONDARY:
 

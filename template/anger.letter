@@ -1,0 +1,326 @@
+roles 2
+@start => { @ok1_ok2 }
+#1 random @insult1 => {Montresor insults Fortunato.
+}
+#2 random @insult2 => {Fortunato insults Montresor.
+}
+#1 @ok1_ok2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @ok2_angry1}
+#2 @ok2_ok1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @ok1_angry2}
+#1 @ok1_angry2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @angry2_angry1}
+#2 @ok2_angry1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @angry1_angry2}
+#1 @ok1_enraged2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @enraged2_angry1}
+#2 @ok2_enraged1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @enraged1_angry2}
+#1 @ok1_violent2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @violent2_angry1}
+#2 @ok2_violent1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @violent1_angry2}
+#1 @ok1_covert2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @covert2_angry1}
+#2 @ok2_covert1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @covert1_angry2}
+#1 @ok1_isolated2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @isolated2_angry1}
+#2 @ok2_isolated1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @isolated1_angry2}
+#1 @ok1_resentful2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @resentful2_angry1}
+#2 @ok2_resentful1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @resentful1_angry2}
+#1 @ok1_contesting2 => [Montresor is ok.
+|Your move, Montresor?]{Insult => @insult1 @contesting2_angry1}
+#2 @ok2_contesting1 => [Fortunato is ok.
+|Your move, Fortunato?]{Insult => @insult2 @contesting1_angry2}
+#1 random @seethe1 => {Montresor seethes.
+}
+#2 random @seethe2 => {Fortunato seethes.
+}
+#1 random @retaliate1 => {Montresor retaliates against Fortunato.
+}
+#2 random @retaliate2 => {Fortunato retaliates against Montresor.
+}
+#1 random @challenge1 => {Montresor challenges Fortunato.
+}
+#2 random @challenge2 => {Fortunato challenges Montresor.
+}
+#1 random @stall1 => {Montresor stalls.
+}
+#2 random @stall2 => {Fortunato stalls.
+}
+#1 random @reconcile1 => {Montresor attempts reconciliation with Fortunato.
+}
+#2 random @reconcile2 => {Fortunato attempts reconciliation with Montresor.
+}
+#1 @angry1_ok2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @ok2_angry1 | Retaliate => @retaliate1 @ok2_enraged1 | Challenge => @challenge1 @ok2_contesting1 | Stall => @stall1 @ok2_resentful1 | Reconcile => @reconcile1 @ok2_ok1}
+#2 @angry2_ok1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @ok1_angry2 | Retaliate => @retaliate2 @ok1_enraged2 | Challenge => @challenge2 @ok1_contesting2 | Stall => @stall2 @ok1_resentful2 | Reconcile => @reconcile2 @ok1_ok2}
+#1 @angry1_angry2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @angry2_angry1 | Retaliate => @retaliate1 @angry2_enraged1 | Challenge => @challenge1 @angry2_contesting1 | Stall => @stall1 @angry2_resentful1 | Reconcile => @reconcile1 @angry2_ok1}
+#2 @angry2_angry1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @angry1_angry2 | Retaliate => @retaliate2 @angry1_enraged2 | Challenge => @challenge2 @angry1_contesting2 | Stall => @stall2 @angry1_resentful2 | Reconcile => @reconcile2 @angry1_ok2}
+#1 @angry1_enraged2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @enraged2_angry1 | Retaliate => @retaliate1 @enraged2_enraged1 | Challenge => @challenge1 @enraged2_contesting1 | Stall => @stall1 @enraged2_resentful1 | Reconcile => @reconcile1 @enraged2_ok1}
+#2 @angry2_enraged1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @enraged1_angry2 | Retaliate => @retaliate2 @enraged1_enraged2 | Challenge => @challenge2 @enraged1_contesting2 | Stall => @stall2 @enraged1_resentful2 | Reconcile => @reconcile2 @enraged1_ok2}
+#1 @angry1_violent2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @violent2_angry1 | Retaliate => @retaliate1 @violent2_enraged1 | Challenge => @challenge1 @violent2_contesting1 | Stall => @stall1 @violent2_resentful1 | Reconcile => @reconcile1 @violent2_ok1}
+#2 @angry2_violent1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @violent1_angry2 | Retaliate => @retaliate2 @violent1_enraged2 | Challenge => @challenge2 @violent1_contesting2 | Stall => @stall2 @violent1_resentful2 | Reconcile => @reconcile2 @violent1_ok2}
+#1 @angry1_covert2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @covert2_angry1 | Retaliate => @retaliate1 @covert2_enraged1 | Challenge => @challenge1 @covert2_contesting1 | Stall => @stall1 @covert2_resentful1 | Reconcile => @reconcile1 @covert2_ok1}
+#2 @angry2_covert1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @covert1_angry2 | Retaliate => @retaliate2 @covert1_enraged2 | Challenge => @challenge2 @covert1_contesting2 | Stall => @stall2 @covert1_resentful2 | Reconcile => @reconcile2 @covert1_ok2}
+#1 @angry1_isolated2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @isolated2_angry1 | Retaliate => @retaliate1 @isolated2_enraged1 | Challenge => @challenge1 @isolated2_contesting1 | Stall => @stall1 @isolated2_resentful1 | Reconcile => @reconcile1 @isolated2_ok1}
+#2 @angry2_isolated1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @isolated1_angry2 | Retaliate => @retaliate2 @isolated1_enraged2 | Challenge => @challenge2 @isolated1_contesting2 | Stall => @stall2 @isolated1_resentful2 | Reconcile => @reconcile2 @isolated1_ok2}
+#1 @angry1_resentful2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @resentful2_angry1 | Retaliate => @retaliate1 @resentful2_enraged1 | Challenge => @challenge1 @resentful2_contesting1 | Stall => @stall1 @resentful2_resentful1 | Reconcile => @reconcile1 @resentful2_ok1}
+#2 @angry2_resentful1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @resentful1_angry2 | Retaliate => @retaliate2 @resentful1_enraged2 | Challenge => @challenge2 @resentful1_contesting2 | Stall => @stall2 @resentful1_resentful2 | Reconcile => @reconcile2 @resentful1_ok2}
+#1 @angry1_contesting2 => [Montresor is angry.
+|Your move, Montresor?]{Seethe => @seethe1 @contesting2_angry1 | Retaliate => @retaliate1 @contesting2_enraged1 | Challenge => @challenge1 @contesting2_contesting1 | Stall => @stall1 @contesting2_resentful1 | Reconcile => @reconcile1 @contesting2_ok1}
+#2 @angry2_contesting1 => [Fortunato is angry.
+|Your move, Fortunato?]{Seethe => @seethe2 @contesting1_angry2 | Retaliate => @retaliate2 @contesting1_enraged2 | Challenge => @challenge2 @contesting1_contesting2 | Stall => @stall2 @contesting1_resentful2 | Reconcile => @reconcile2 @contesting1_ok2}
+#1 random @deescalate1 => {Montresor de-escalates.
+}
+#2 random @deescalate2 => {Fortunato de-escalates.
+}
+#1 @enraged1_ok2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @ok2_enraged1 | Retaliate => @retaliate1 @ok2_violent1 | Deescalate => @deescalate1 @ok2_angry1}
+#2 @enraged2_ok1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @ok1_enraged2 | Retaliate => @retaliate2 @ok1_violent2 | Deescalate => @deescalate2 @ok1_angry2}
+#1 @enraged1_angry2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @angry2_enraged1 | Retaliate => @retaliate1 @angry2_violent1 | Deescalate => @deescalate1 @angry2_angry1}
+#2 @enraged2_angry1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @angry1_enraged2 | Retaliate => @retaliate2 @angry1_violent2 | Deescalate => @deescalate2 @angry1_angry2}
+#1 @enraged1_enraged2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @enraged2_enraged1 | Retaliate => @retaliate1 @enraged2_violent1 | Deescalate => @deescalate1 @enraged2_angry1}
+#2 @enraged2_enraged1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @enraged1_enraged2 | Retaliate => @retaliate2 @enraged1_violent2 | Deescalate => @deescalate2 @enraged1_angry2}
+#1 @enraged1_violent2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @violent2_enraged1 | Retaliate => @retaliate1 @violent2_violent1 | Deescalate => @deescalate1 @violent2_angry1}
+#2 @enraged2_violent1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @violent1_enraged2 | Retaliate => @retaliate2 @violent1_violent2 | Deescalate => @deescalate2 @violent1_angry2}
+#1 @enraged1_covert2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @covert2_enraged1 | Retaliate => @retaliate1 @covert2_violent1 | Deescalate => @deescalate1 @covert2_angry1}
+#2 @enraged2_covert1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @covert1_enraged2 | Retaliate => @retaliate2 @covert1_violent2 | Deescalate => @deescalate2 @covert1_angry2}
+#1 @enraged1_isolated2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @isolated2_enraged1 | Retaliate => @retaliate1 @isolated2_violent1 | Deescalate => @deescalate1 @isolated2_angry1}
+#2 @enraged2_isolated1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @isolated1_enraged2 | Retaliate => @retaliate2 @isolated1_violent2 | Deescalate => @deescalate2 @isolated1_angry2}
+#1 @enraged1_resentful2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @resentful2_enraged1 | Retaliate => @retaliate1 @resentful2_violent1 | Deescalate => @deescalate1 @resentful2_angry1}
+#2 @enraged2_resentful1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @resentful1_enraged2 | Retaliate => @retaliate2 @resentful1_violent2 | Deescalate => @deescalate2 @resentful1_angry2}
+#1 @enraged1_contesting2 => [Montresor is enraged.
+|Your move, Montresor?]{Seethe => @seethe1 @contesting2_enraged1 | Retaliate => @retaliate1 @contesting2_violent1 | Deescalate => @deescalate1 @contesting2_angry1}
+#2 @enraged2_contesting1 => [Fortunato is enraged.
+|Your move, Fortunato?]{Seethe => @seethe2 @contesting1_enraged2 | Retaliate => @retaliate2 @contesting1_violent2 | Deescalate => @deescalate2 @contesting1_angry2}
+#1 @violent1_ok2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @ok2_violent1 | Deescalate => @deescalate1 @ok2_enraged1}
+#2 @violent2_ok1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @ok1_violent2 | Deescalate => @deescalate2 @ok1_enraged2}
+#1 @violent1_angry2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @angry2_violent1 | Deescalate => @deescalate1 @angry2_enraged1}
+#2 @violent2_angry1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @angry1_violent2 | Deescalate => @deescalate2 @angry1_enraged2}
+#1 @violent1_enraged2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @enraged2_violent1 | Deescalate => @deescalate1 @enraged2_enraged1}
+#2 @violent2_enraged1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @enraged1_violent2 | Deescalate => @deescalate2 @enraged1_enraged2}
+#1 @violent1_violent2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @violent2_violent1 | Deescalate => @deescalate1 @violent2_enraged1}
+#2 @violent2_violent1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @violent1_violent2 | Deescalate => @deescalate2 @violent1_enraged2}
+#1 @violent1_covert2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @covert2_violent1 | Deescalate => @deescalate1 @covert2_enraged1}
+#2 @violent2_covert1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @covert1_violent2 | Deescalate => @deescalate2 @covert1_enraged2}
+#1 @violent1_isolated2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @isolated2_violent1 | Deescalate => @deescalate1 @isolated2_enraged1}
+#2 @violent2_isolated1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @isolated1_violent2 | Deescalate => @deescalate2 @isolated1_enraged2}
+#1 @violent1_resentful2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @resentful2_violent1 | Deescalate => @deescalate1 @resentful2_enraged1}
+#2 @violent2_resentful1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @resentful1_violent2 | Deescalate => @deescalate2 @resentful1_enraged2}
+#1 @violent1_contesting2 => [Montresor is overtly violent.
+|Your move, Montresor?]{Seethe => @seethe1 @contesting2_violent1 | Deescalate => @deescalate1 @contesting2_enraged1}
+#2 @violent2_contesting1 => [Fortunato is overtly violent.
+|Your move, Fortunato?]{Seethe => @seethe2 @contesting1_violent2 | Deescalate => @deescalate2 @contesting1_enraged2}
+#1 random @snipe1 => {Montresor snipes at Fortunato.
+}
+#2 random @snipe2 => {Fortunato snipes at Montresor.
+}
+#1 random @shun1 => {Montresor shuns Fortunato.
+}
+#2 random @shun2 => {Fortunato shuns Montresor.
+}
+#1 random @vent1 => {Montresor vents at Fortunato.
+}
+#2 random @vent2 => {Fortunato vents at Montresor.
+}
+#1 @covert1_ok2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @ok2_covert1 | Shun => @shun1 @ok2_isolated1 | Vent => @vent1 @ok2_angry1}
+#2 @covert2_ok1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @ok1_covert2 | Shun => @shun2 @ok1_isolated2 | Vent => @vent2 @ok1_angry2}
+#1 @covert1_angry2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @angry2_covert1 | Shun => @shun1 @angry2_isolated1 | Vent => @vent1 @angry2_angry1}
+#2 @covert2_angry1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @angry1_covert2 | Shun => @shun2 @angry1_isolated2 | Vent => @vent2 @angry1_angry2}
+#1 @covert1_enraged2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @enraged2_covert1 | Shun => @shun1 @enraged2_isolated1 | Vent => @vent1 @enraged2_angry1}
+#2 @covert2_enraged1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @enraged1_covert2 | Shun => @shun2 @enraged1_isolated2 | Vent => @vent2 @enraged1_angry2}
+#1 @covert1_violent2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @violent2_covert1 | Shun => @shun1 @violent2_isolated1 | Vent => @vent1 @violent2_angry1}
+#2 @covert2_violent1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @violent1_covert2 | Shun => @shun2 @violent1_isolated2 | Vent => @vent2 @violent1_angry2}
+#1 @covert1_covert2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @covert2_covert1 | Shun => @shun1 @covert2_isolated1 | Vent => @vent1 @covert2_angry1}
+#2 @covert2_covert1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @covert1_covert2 | Shun => @shun2 @covert1_isolated2 | Vent => @vent2 @covert1_angry2}
+#1 @covert1_isolated2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @isolated2_covert1 | Shun => @shun1 @isolated2_isolated1 | Vent => @vent1 @isolated2_angry1}
+#2 @covert2_isolated1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @isolated1_covert2 | Shun => @shun2 @isolated1_isolated2 | Vent => @vent2 @isolated1_angry2}
+#1 @covert1_resentful2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @resentful2_covert1 | Shun => @shun1 @resentful2_isolated1 | Vent => @vent1 @resentful2_angry1}
+#2 @covert2_resentful1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @resentful1_covert2 | Shun => @shun2 @resentful1_isolated2 | Vent => @vent2 @resentful1_angry2}
+#1 @covert1_contesting2 => [Montresor is covertly violent.
+|Your move, Montresor?]{Snipe => @snipe1 @contesting2_covert1 | Shun => @shun1 @contesting2_isolated1 | Vent => @vent1 @contesting2_angry1}
+#2 @covert2_contesting1 => [Fortunato is covertly violent.
+|Your move, Fortunato?]{Snipe => @snipe2 @contesting1_covert2 | Shun => @shun2 @contesting1_isolated2 | Vent => @vent2 @contesting1_angry2}
+#1 random @peace1 => {Montresor makes a peace offering.
+}
+#2 random @peace2 => {Fortunato makes a peace offering.
+}
+#1 @isolated1_ok2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @ok2_isolated1 | Peace => @peace1 @ok2_resentful1}
+#2 @isolated2_ok1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @ok1_isolated2 | Peace => @peace2 @ok1_resentful2}
+#1 @isolated1_angry2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @angry2_isolated1 | Peace => @peace1 @angry2_resentful1}
+#2 @isolated2_angry1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @angry1_isolated2 | Peace => @peace2 @angry1_resentful2}
+#1 @isolated1_enraged2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @enraged2_isolated1 | Peace => @peace1 @enraged2_resentful1}
+#2 @isolated2_enraged1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @enraged1_isolated2 | Peace => @peace2 @enraged1_resentful2}
+#1 @isolated1_violent2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @violent2_isolated1 | Peace => @peace1 @violent2_resentful1}
+#2 @isolated2_violent1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @violent1_isolated2 | Peace => @peace2 @violent1_resentful2}
+#1 @isolated1_covert2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @covert2_isolated1 | Peace => @peace1 @covert2_resentful1}
+#2 @isolated2_covert1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @covert1_isolated2 | Peace => @peace2 @covert1_resentful2}
+#1 @isolated1_isolated2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @isolated2_isolated1 | Peace => @peace1 @isolated2_resentful1}
+#2 @isolated2_isolated1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @isolated1_isolated2 | Peace => @peace2 @isolated1_resentful2}
+#1 @isolated1_resentful2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @resentful2_isolated1 | Peace => @peace1 @resentful2_resentful1}
+#2 @isolated2_resentful1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @resentful1_isolated2 | Peace => @peace2 @resentful1_resentful2}
+#1 @isolated1_contesting2 => [Montresor is isolated.
+|Your move, Montresor?]{Stall => @stall1 @contesting2_isolated1 | Peace => @peace1 @contesting2_resentful1}
+#2 @isolated2_contesting1 => [Fortunato is isolated.
+|Your move, Fortunato?]{Stall => @stall2 @contesting1_isolated2 | Peace => @peace2 @contesting1_resentful2}
+#1 random @resign1 => {Montresor feels resigned.
+}
+#2 random @resign2 => {Fortunato feels resigned.
+}
+#1 random @passive1 => {Montresor is passive-aggressive towards Fortunato.
+}
+#2 random @passive2 => {Fortunato is passive-aggressive towards Montresor.
+}
+#1 random @shunned1 => {Montresor feels shunned.
+}
+#2 random @shunned2 => {Fortunato feels shunned.
+}
+#1 @resentful1_ok2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @ok2_resentful1 | Reconcile => @reconcile1 @ok2_ok1 | Retaliate => @retaliate1 @ok2_angry1 | Passive => @passive1 @ok2_covert1 | Shunned => @shunned1 @ok2_isolated1}
+#2 @resentful2_ok1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @ok1_resentful2 | Reconcile => @reconcile2 @ok1_ok2 | Retaliate => @retaliate2 @ok1_angry2 | Passive => @passive2 @ok1_covert2 | Shunned => @shunned2 @ok1_isolated2}
+#1 @resentful1_angry2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @angry2_resentful1 | Reconcile => @reconcile1 @angry2_ok1 | Retaliate => @retaliate1 @angry2_angry1 | Passive => @passive1 @angry2_covert1 | Shunned => @shunned1 @angry2_isolated1}
+#2 @resentful2_angry1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @angry1_resentful2 | Reconcile => @reconcile2 @angry1_ok2 | Retaliate => @retaliate2 @angry1_angry2 | Passive => @passive2 @angry1_covert2 | Shunned => @shunned2 @angry1_isolated2}
+#1 @resentful1_enraged2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @enraged2_resentful1 | Reconcile => @reconcile1 @enraged2_ok1 | Retaliate => @retaliate1 @enraged2_angry1 | Passive => @passive1 @enraged2_covert1 | Shunned => @shunned1 @enraged2_isolated1}
+#2 @resentful2_enraged1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @enraged1_resentful2 | Reconcile => @reconcile2 @enraged1_ok2 | Retaliate => @retaliate2 @enraged1_angry2 | Passive => @passive2 @enraged1_covert2 | Shunned => @shunned2 @enraged1_isolated2}
+#1 @resentful1_violent2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @violent2_resentful1 | Reconcile => @reconcile1 @violent2_ok1 | Retaliate => @retaliate1 @violent2_angry1 | Passive => @passive1 @violent2_covert1 | Shunned => @shunned1 @violent2_isolated1}
+#2 @resentful2_violent1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @violent1_resentful2 | Reconcile => @reconcile2 @violent1_ok2 | Retaliate => @retaliate2 @violent1_angry2 | Passive => @passive2 @violent1_covert2 | Shunned => @shunned2 @violent1_isolated2}
+#1 @resentful1_covert2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @covert2_resentful1 | Reconcile => @reconcile1 @covert2_ok1 | Retaliate => @retaliate1 @covert2_angry1 | Passive => @passive1 @covert2_covert1 | Shunned => @shunned1 @covert2_isolated1}
+#2 @resentful2_covert1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @covert1_resentful2 | Reconcile => @reconcile2 @covert1_ok2 | Retaliate => @retaliate2 @covert1_angry2 | Passive => @passive2 @covert1_covert2 | Shunned => @shunned2 @covert1_isolated2}
+#1 @resentful1_isolated2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @isolated2_resentful1 | Reconcile => @reconcile1 @isolated2_ok1 | Retaliate => @retaliate1 @isolated2_angry1 | Passive => @passive1 @isolated2_covert1 | Shunned => @shunned1 @isolated2_isolated1}
+#2 @resentful2_isolated1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @isolated1_resentful2 | Reconcile => @reconcile2 @isolated1_ok2 | Retaliate => @retaliate2 @isolated1_angry2 | Passive => @passive2 @isolated1_covert2 | Shunned => @shunned2 @isolated1_isolated2}
+#1 @resentful1_resentful2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @resentful2_resentful1 | Reconcile => @reconcile1 @resentful2_ok1 | Retaliate => @retaliate1 @resentful2_angry1 | Passive => @passive1 @resentful2_covert1 | Shunned => @shunned1 @resentful2_isolated1}
+#2 @resentful2_resentful1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @resentful1_resentful2 | Reconcile => @reconcile2 @resentful1_ok2 | Retaliate => @retaliate2 @resentful1_angry2 | Passive => @passive2 @resentful1_covert2 | Shunned => @shunned2 @resentful1_isolated2}
+#1 @resentful1_contesting2 => [Montresor is resentful.
+|Your move, Montresor?]{Resign => @resign1 @contesting2_resentful1 | Reconcile => @reconcile1 @contesting2_ok1 | Retaliate => @retaliate1 @contesting2_angry1 | Passive => @passive1 @contesting2_covert1 | Shunned => @shunned1 @contesting2_isolated1}
+#2 @resentful2_contesting1 => [Fortunato is resentful.
+|Your move, Fortunato?]{Resign => @resign2 @contesting1_resentful2 | Reconcile => @reconcile2 @contesting1_ok2 | Retaliate => @retaliate2 @contesting1_angry2 | Passive => @passive2 @contesting1_covert2 | Shunned => @shunned2 @contesting1_isolated2}
+#1 random @declined1 => {Montresor feels ignored by Fortunato.
+}
+#2 random @declined2 => {Fortunato feels ignored by Montresor.
+}
+#1 random @won1 => {Montresor crows victory over Fortunato.
+}
+#2 random @won2 => {Fortunato crows victory over Montresor.
+}
+#1 random @lost1 => {Montresor feels humiliated by Fortunato.
+}
+#2 random @lost2 => {Fortunato feels humiliated by Montresor.
+}
+#1 @contesting1_ok2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @ok2_angry1 | Won => @won1 @ok2_ok1 | Lost => @lost1 @ok2_resentful1}
+#2 @contesting2_ok1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @ok1_angry2 | Won => @won2 @ok1_ok2 | Lost => @lost2 @ok1_resentful2}
+#1 @contesting1_angry2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @angry2_angry1 | Won => @won1 @angry2_ok1 | Lost => @lost1 @angry2_resentful1}
+#2 @contesting2_angry1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @angry1_angry2 | Won => @won2 @angry1_ok2 | Lost => @lost2 @angry1_resentful2}
+#1 @contesting1_enraged2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @enraged2_angry1 | Won => @won1 @enraged2_ok1 | Lost => @lost1 @enraged2_resentful1}
+#2 @contesting2_enraged1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @enraged1_angry2 | Won => @won2 @enraged1_ok2 | Lost => @lost2 @enraged1_resentful2}
+#1 @contesting1_violent2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @violent2_angry1 | Won => @won1 @violent2_ok1 | Lost => @lost1 @violent2_resentful1}
+#2 @contesting2_violent1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @violent1_angry2 | Won => @won2 @violent1_ok2 | Lost => @lost2 @violent1_resentful2}
+#1 @contesting1_covert2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @covert2_angry1 | Won => @won1 @covert2_ok1 | Lost => @lost1 @covert2_resentful1}
+#2 @contesting2_covert1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @covert1_angry2 | Won => @won2 @covert1_ok2 | Lost => @lost2 @covert1_resentful2}
+#1 @contesting1_isolated2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @isolated2_angry1 | Won => @won1 @isolated2_ok1 | Lost => @lost1 @isolated2_resentful1}
+#2 @contesting2_isolated1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @isolated1_angry2 | Won => @won2 @isolated1_ok2 | Lost => @lost2 @isolated1_resentful2}
+#1 @contesting1_resentful2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @resentful2_angry1 | Won => @won1 @resentful2_ok1 | Lost => @lost1 @resentful2_resentful1}
+#2 @contesting2_resentful1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @resentful1_angry2 | Won => @won2 @resentful1_ok2 | Lost => @lost2 @resentful1_resentful2}
+#1 @contesting1_contesting2 => [Montresor is argumentative.
+|Your move, Montresor?]{Declined => @declined1 @contesting2_angry1 | Won => @won1 @contesting2_ok1 | Lost => @lost1 @contesting2_resentful1}
+#2 @contesting2_contesting1 => [Fortunato is argumentative.
+|Your move, Fortunato?]{Declined => @declined2 @contesting1_angry2 | Won => @won2 @contesting1_ok2 | Lost => @lost2 @contesting1_resentful2}

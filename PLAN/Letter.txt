@@ -1,5 +1,8 @@
 Save player ID in local storage
 
+Auto-resize textarea to fit content (preamble, placeholder, expansions)
+http://www.impressivewebs.com/textarea-auto-resize/
+
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Treat it as an implied computer-played symbol:
   random @nontermWithPreamble => { @preamble @nonterm }
