@@ -43,7 +43,7 @@ var verbText
        "Shunned": '$self feels shunned',
        "Snipe": '$self snipes at $other',
        "Shun": '$self shuns $other',
-       "Vent": '$self vents at $other',
+       "Vent": '$self vents',
        "Peace": '$self makes a peace offering'}
 
 var reactionText
