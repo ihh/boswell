@@ -1,29 +1,24 @@
- @start => [ Are you ready? ] { @going_up }
- @mailbox => { Open the mailbox.
-   => In the mail is a big check! @going_down }
- @going_up =>
- { Check the mail => You go to the mailbox. @mailbox
- | Check the paper => Your rich uncle died! @going_down
- | Buy a lottery ticket => You won the lottery! @going_down }
- @going_down =>
- [ So, now you are rich. | Wonderful! | What next? ]
- { Buy a fast car =>
-    You buy a car.
-    The medical bills from the crash bankrupt you.
-    @going_up
- | Invest in stocks =>
-    You invest in the market.
-    The collapse nullifies all your gains.
-    @going_up
- | Buy a beach house =>
-    You buy some seafront property.
-    Global warming turns it into sea-bed property.
-    @swim }
- @swim =>
- [ How will you escape a watery grave? ]
- { Swim => You swim for a while. @swim
- | Call for help => @call_for_help;
-   You are quickly rescued. @going_up }
- @call_for_help =>
- [ How will you call for help? ]
- { Scream => You scream. | Sing => You sing. }
+@start => [ Are you ready? ] {@going_up}
+@mailbox => {Open the mailbox.
+=> In the mail is a big check! @going_down}
+@going_up =>
+{Check the mail => You go to the mailbox. @mailbox|Check the paper => Your rich uncle died! @going_down|Buy a lottery ticket => You won the lottery! @going_down}
+@going_down =>
+[ So, now you're rich.|Wonderful!|What next? ]
+{Buy a fast car =>
+You buy a car.
+The medical bills from the crash bankrupt you.
+@going_up|Invest in stocks =>
+You invest in the market.
+The collapse nullifies all your gains.
+@going_up|Buy a beach house =>
+You buy some seafront property.
+Global warming turns it into sea-bed property.
+@swim}
+@swim =>
+[ How will you escape a watery grave? ]
+{Swim => You swim for a while. @swim|Call for help => @call_for_help;
+You are quickly rescued. @going_up}
+@call_for_help =>
+[ How will you call for help? ]
+{Scream => You scream.|Sing => You sing.}
