@@ -89,72 +89,62 @@ a declarative, domain-specific language for specifying an attributed CFG.
 The core element in this grammar, syntactically and semantically, is the {\em transformation rule},
 delineated by curly braces and the two characters ``{\tt =>}''
 \begin{verbatim}
- @scene
-  => { This is a hint.
-   => This is its expansion, leading to @next_scene. }
+ @mailbox => { Open the mailbox.
+   => In the mail is a big check! @going_down }
 \end{verbatim}
-In this, ``{\tt @scene}'' and ``{\tt @next\_scene}'' are labels denoting (respectively) the current and upcoming scenes;
-``{\tt This is a hint}'' is {\em hint text} presented to the player as a choice;
-and ``{\tt This is its expansion, leading to @next\_scene}'' is the {\em expansion text} generated if the player makes this choice
-(note that the expansion text includes another scene label).
+In this, ``{\tt @mailbox}'' is a label denoting the current scene;
+``{\tt Open the mailbox}'' is {\em hint text} presented to the player as a choice;
+and ``{\tt You open the mail. Inside is a million-dollar check!}''
+ is the {\em expansion text} generated if the player makes this choice.
+ (note that the expansion text includes another scene label, ``{\tt @going\_down}'',
+  which will be the next scene).
 
 A block of transformation rules represents a list of choices:
 \begin{verbatim}
- @scene => { First hint => First expansion
-           | Second hint => Second expansion
-           | Third hint => You get the picture }
+ @going_up =>
+ { Check the mail => You go to the mailbox. @mailbox
+ | Check the paper => Your rich uncle died! @going_down
+ | Buy a lottery ticket => You won the lottery! @going_down }
 \end{verbatim}
-Any number of ``{\tt hint => expansion}'' rules are allowed.
-Rules can also be declared separately:
-\begin{verbatim}
- @scene => { First hint => First expansion }
- @scene => { Second hint => Second expansion }
- @scene => { Third hint => You get the picture }
-\end{verbatim}
+This block has three ``{\tt hint => expansion}'' pairs; any number is allowed.
 
 An optional longer form includes additional text fields:
 \begin{verbatim}
- @scene => [ Preamble | Placeholder | Prompt ]
-           { Hint 1 => Expansion 1
-           | Hint 2 => Expansion 2
-           | Hint 3 => Expansion 3 ... }
+ @going_down =>
+ [ So, now you are rich. | Wonderful! | What next? ]
+ { Buy a fast car =>
+    You buy a car.
+    The medical bills from the crash bankrupt you.
+    @going_up
+ | Invest in stocks =>
+    You invest in the market.
+    The collapse nullifies all your gains.
+    @going_up
+ | Buy a beach house =>
+    You buy some seafront property.
+    Global warming turns it into sea-bed property.
+    @swim }
 \end{verbatim}
 
-Here, {\tt Preamble} is text describing the scene;
-{\tt Placeholder} is text temporarily displayed at the bottom of the scene (before the list of choices),
+Here, ``{\tt So, now you are rich}'' is the {\em preamble} text describing the scene;
+``{\tt Wonderful!}'' is the {\em placeholder} text temporarily displayed at the bottom of the scene (before the list of choices),
 and deleted when an expansion is selected;
-and {\tt Prompt} is text, also transiently displayed, that is associated with the list of choices.
+and ``{\tt What next?}'' is the {\em prompt} text, also transiently displayed, that is associated with the list of choices.
 
-Typically the prompt takes the form of a question addressed directly to the player:
+An expansion can contain multiple scene labels, or none:
 \begin{verbatim}
- @unrest =>
-[ "Sire, the peasants are revolting."
-  | _So tedious..._ 
-  | What will you do? ] 
-{ Feed them.
-   => You cast grain from the battlements.
-      @peace
-| Play some music.
-   => No lute can drown their hungry groans.
-      @revolt }
-\end{verbatim}
-
-The preamble ``{\em So tedious...}'' will disappear when a selection is made; being wrapped in underscores, the words will also appear in italics, as a result of the Markdown-like macro transformation.
-The prompt ``What will you do?'' will also disappear when a selection made.
-(In multiplayer mode, the prompt is only shown to the active player.)
-
-An expansion can contain multiple scene labels, or none. This feature distinguishes the CFG from the less-expressive regular grammar.
-From the viewpoint of automata theory, it implies a pushdown stack, a.k.a. {\tt GOSUB}.
-This is good for scheduling scenes in sequence, e.g. the four stages of the Hero's Journey
-\begin{verbatim}
- @quest =>
- [ Do you accept the Monomyth?? ]
- { No => Have a happy life eating mush.
- | Yes => @separate @descend @ascend @unify }
+ @swim =>
+ [ How will you escape a watery grave? ]
+ { Swim => You swim for a while. @swim
+ | Call for help => @call_for_help;
+   You are quickly rescued. @going_up }
+ @call_for_help =>
+ [ How will you call for help? ]
+ { Scream => You scream. | Sing => You sing. }
 \end{verbatim}
 
 
-In the terminology of formal grammar theory: the scene labels ({\tt @scene}, {\tt @quest}, {\tt @next\_scene}) which appear before the first ``{\tt =>}'' sign and also (sometimes) flanked by text in the expansions, are {\em nonterminal symbols}.
+In the terminology of formal grammar theory: the scene labels ({\tt @going\_up}, {\tt @going\_down}, {\tt @swim}, {\tt @mailbox}, etc.) which appear before the first ``{\tt =>}'' sign and also (sometimes) flanked by text in the expansions, are {\em nonterminal symbols}.
 Each expansion is a mixture of {\em terminal symbols} (ordinary rendered text, consisting of HTML tags and ASCII characters) and nonterminal symbols.
 
 Nonterminal symbols denote points in the text (scenes) where further expansion is possible;
@@ -167,8 +157,13 @@ Special characters such as {\tt \$@[]\{\}} can be escaped with a backslash if re
 Quotation marks and other common punctuation are not special characters and can be used directly, as can HTML tags.
 Some syntactic sugar for HTML tags (e.g. flanking underscores for italics) is borrowed from Markdown \cite{Markdown}.
 
-Starting from a designated initial nonterminal (named {\tt @start} by default),
-iterated application of these rules generates a {\em parse tree} (Figure~\ref{fig:tree}, right),
+By default, the starting nonterminal is named {\tt @start}:
+\begin{verbatim}
+ @start => [ Are you ready? ] { @going_up }
+\end{verbatim}
+
+Starting from this designated initial nonterminal,
+iterated application of the transformation rules generates a {\em parse tree} (Figure~\ref{fig:tree}, right),
 with nonterminal symbols at internal nodes and terminal symbols at the tips.
 The final text can be read off from the terminals at the leaf nodes (Figure~\ref{fig:tree}, left).
 
