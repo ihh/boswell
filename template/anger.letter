@@ -176,12 +176,12 @@ roles 2
 
 #1 random @reconcile1 => {@reconcile}
 #2 random @reconcile2 => {@reconcile}
-#= random @reconcile => {$#self attempts reconciliation with $#other.
+#= random @reconcile => {$#self tries to set things straight with $#other.
 }
 
 #1 random @deescalate1 => {@deescalate}
 #2 random @deescalate2 => {@deescalate}
-#= random @deescalate => {$#self de-escalates.
+#= random @deescalate => {$#self attempts to calm things down.
 }
 
 #1 random @declined1 => {@declined}
