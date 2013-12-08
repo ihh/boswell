@@ -115,13 +115,14 @@ function add_responsive_action(mySrcStates,yourSrcStates,verb,myDestState) {
     }
 }
 
-var game = { state: state,
-	     action: action,
+var game = { state: state,  // can deduce from action
+	     action: action,  // can fold into responsiveAction: action[x]=responsiveAction[x]["*"]
 	     responsiveAction: responsiveAction,
 	     reaction: reaction,
 	     player: player,
 	     promptText: promptText,
 	     hintText: hintText,
+	     // the following can be defined externally:
 	     verbText: verbText,
 	     reactionText: reactionText,
 	     nounText: nounText }
