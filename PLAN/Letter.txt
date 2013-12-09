@@ -1,3 +1,22 @@
+Virtual grammars
+ VirtualNonterm.attach: generate this.rules dynamically
+ VirtualRule.expand: generate this.rhs dynamically
+
+duet @fight {
+// pseudo-JSON (no quotes, all objects/no arrays, names are alphabetic or "*", absent values are 'null' by implication):
+ state: {ok, angry, enraged, violent, covert, isolated, resentful, contesting},
+ verb: {insult, seethe, shun},
+ alias: {retaliate:insult, snipe:insult},  // used for reactions, and defining default verbs, hints
+ action: { ok:{insult}, angry:{seethe,retaliate,challenge:contesting} },
+ joint: { ok:{contesting:{accept:contesting}} },
+ reaction: { ok:{insult:angry}, angry:{insult:enraged}, contesting:{*:angry} }
+}
+
+Placeholder, Prompt and Hints should allow ParamReference. (Hacky regex-based substitutions OK!)
+Ditto NonterminalReferences that can be immediately text-expanded (i.e. they are locally computer-controlled, with only one RHS, containing Terminals & ParamReferences only; need a method indicating this, e.g. textExpandable())
+ Allow for recursion & randomness in textExpandable() and textExpansion(scope) methods
+Implement duet hints & prompts using nonterminals: @hint_for_verb1, @prompt_while_noun1
+
 Save player ID in local storage
 
 Auto-resize textarea to fit content (preamble, placeholder, expansions)
@@ -7,7 +26,6 @@ Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, Para
  Treat it as an implied computer-played symbol:
   random @nontermWithPreamble => { @preamble @nonterm }
  Implement using rhsUnexpandedNodes in Rule.prototype.expand
-Placeholder, Prompt and Hints should allow ParamReference.
 
 Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
 
