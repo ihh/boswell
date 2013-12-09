@@ -1,35 +1,30 @@
-Virtual grammars
- VirtualNonterm.attach: generate this.rules dynamically
- VirtualRule.expand: generate this.rhs dynamically
-
-duet @fight {
-// pseudo-JSON (no quotes, all objects/no arrays, names are alphabetic or "*", absent values are 'null' by implication):
- state: {ok, angry, enraged, violent, covert, isolated, resentful, contesting},
- verb: {insult, seethe, shun},
- alias: {retaliate:insult, snipe:insult},  // used for reactions, and defining default verbs, hints
- action: { ok:{insult}, angry:{seethe,retaliate,challenge:contesting} },
- joint: { ok:{contesting:{accept:contesting}} },
- reaction: { ok:{insult:angry}, angry:{insult:enraged}, contesting:{*:angry} }
-}
+Allow weights on human-played rules, determining (a) if rule is visible, (b) what order rules are presented in
+ Syntax: "weight_expr => hint => rhs_symbols"
+ Implementation:
+  update Rule.clone(), Nonterm.addRule(), Nonterm.addEmptyRule(), parser addRule()
+  update Rule.weight()
+  update addRuleControl({property:"hint"...}) (in addRuleDiv), validateHint(), updatePlayer()
 
 Placeholder, Prompt and Hints should allow ParamReference. (Hacky regex-based substitutions OK!)
+ It's OK if this language feature is not exposed through the parser & editor yet. It's internal-use, for now.
 Ditto NonterminalReferences that can be immediately text-expanded (i.e. they are locally computer-controlled, with only one RHS, containing Terminals & ParamReferences only; need a method indicating this, e.g. textExpandable())
  Allow for recursion & randomness in textExpandable() and textExpansion(scope) methods
-Implement duet hints & prompts using nonterminals: @hint_for_verb1, @prompt_while_noun1
-
-Save player ID in local storage
-
-Auto-resize textarea to fit content (preamble, placeholder, expansions)
-http://www.impressivewebs.com/textarea-auto-resize/
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Treat it as an implied computer-played symbol:
   random @nontermWithPreamble => { @preamble @nonterm }
  Implement using rhsUnexpandedNodes in Rule.prototype.expand
 
+
+
+Save player ID in local storage
+
+Auto-resize textarea to fit content (preamble, placeholder, expansions)
+http://www.impressivewebs.com/textarea-auto-resize/
+
 Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
 
-Allow arbitrary functions (ParamFunc eval'd in calling scope): $x => $y+$z;  or $x @=> $y+$z;
+Allow arbitrary functions (ParamFunc eval'd in calling scope): $x => $y+$z; (global)  or $x @=> $y+$z; (local)
 
 Role assignment ideas:
  Allow sym_modifiers in grammar (NontermReference in code) to specify a role that overrides nonterminal role
@@ -37,9 +32,6 @@ Role assignment ideas:
  In Node constructor, parentRole should be replaced by olderSiblingOrParentRole
   i.e. "#=", "#+" and "#-" should be relative to older sibling's role, where available
   this makes for a fairer distribution of turns
-
-Allow weights on human-played rules, determining (a) if rule is visible, (b) what order rules are presented in
- Syntax: "weight_expr => hint => rhs_symbols"
 
 Extend $variable[$#] pseudo-array syntax to allow any index, dynamically computed
   This will require a new kind of ParamAssignment e.g. ArrayParamAssignment, where array index is a ParamFunc
