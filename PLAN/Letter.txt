@@ -11,9 +11,22 @@ Sort out hint/weight ambiguity:
  Parse hint as PText
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
- New symbol type, NontermPreamble
- Preamble is child 0, identifier is '/p' instead of '/rX/sY', still addressable in the tree (for pub/sub)
-  i.e. preamble is present even before any other children expanded
+ New subclasses of NontermReference (and types of Node): NontermParent, NontermPreamble, NontermExpansion
+ Create NontermReference.randomRule() and NontermReference.computeRole(), wrapping Nonterm methods
+  (replace sym.nonterminal.randomRule in expand() with call to sym.randomRule())
+  (replace symbol.nonterminal.computeRole in Node constructor with call to symbol.computeRole())
+ Each subclass overrides randomRule(), pause(), random(), and/or role()
+    NontermParent
+      random: true
+      randomRule: dynamically creates   =>@NontermPreamble;@NontermExpansion
+    NontermPreamble
+      random: true
+      pause: true
+      role: "=" (but overlooked by isLocallyControlled(), see below)
+      randomRule: dynamically creates   =>{whatever preamble is}
+  Modify isLocallyControlled() to assume local control, ignoring role, for auto-expandable nodes
+   i.e. NontermParent & NontermPreamble
+ Preamble identifier is '/p' instead of '/rX/sY', still addressable in the tree (for pub/sub)
  Update treeJSON(), expandFromTreeJSON() to deal with NontermPreamble nodes
  Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
 
