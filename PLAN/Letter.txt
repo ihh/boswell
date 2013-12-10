@@ -1,28 +1,31 @@
-Allow weights on human-played rules, determining (a) probability rule is visible, (b) what order rules are presented in
- Syntax: "weight_expr => hint => rhs_symbols"
- Implementation:
-  update Rule.clone(), Nonterm.addRule(), Nonterm.addEmptyRule(), parser addRule()
-  update Rule.weight()
-  update addRuleControl({property:"hint"...}) (in addRuleDiv), validateHint(), updatePlayer()
+Rewrite anger.js using $#param; state machine
 
-Placeholder, Prompt and Hints should allow ParamReference. (Hacky regex-based substitutions OK!)
- It's OK if this language feature is not exposed through the parser & editor yet. It's internal-use, for now.
-Ditto NonterminalReferences that can be immediately text-expanded (i.e. they are locally computer-controlled, with only one RHS, containing Terminals & ParamReferences only; need a method indicating this, e.g. textExpandable(role)=textExpandableInner(role,nontermVisited={}))
- Allow for recursion & randomness in textExpandable(role) and textExpansion(role,scope,text) methods
+Sort out hint/weight ambiguity:
+ For random nonterms, x=>y interpreted as weight=x,hint=""
+ For human nonterms, x=>y interpreted as weight=null,hint=x
+ In editor, call weight "Test" and hint "Hint"
+ Do not show (or print) "Hint" field for computer, ever
+ Always use weightExpr, never default to hint
+ Rename CSS: "computerHint" -> "ruleWeight"
+ Permanently set CSS class of "Test" to "ruleWeight" (formerly "computerHint")
+ Parse hint as PText
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Treat it as an implied computer-played symbol:
-  random @nontermWithPreamble => { @preamble @nonterm }
- Implement using rhsUnexpandedNodes in Rule.prototype.expand
+  random @nonterm.parent => { @nonterm.preamble; @nonterm }
+ Update treeJSON(), expandFromTreeJSON() to skip parent & preamble nodes
+ Implement using rhsUnexpandedNodes & delayedExpansions in Rule.prototype.expand
 
+Pause & commit should be defaults.
+ Augment syntax with "parallel" (opposite of "pause") and "continue" (opposite of "commit").
+
+Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
 
 
 Save player ID in local storage
 
 Auto-resize textarea to fit content (preamble, placeholder, expansions)
 http://www.impressivewebs.com/textarea-auto-resize/
-
-Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
 
 Allow arbitrary functions (ParamFunc eval'd in calling scope): $x => $y+$z; (global)  or $x @=> $y+$z; (local)
 
