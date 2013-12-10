@@ -11,22 +11,33 @@ Sort out hint/weight ambiguity:
  Parse hint as PText
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
- New subclasses of NontermReference (and types of Node): NontermParent, NontermPreamble, NontermExpansion
+ New subclasses of NontermReference (and type of Node): NontermPreamble, NontermExpansion
  Create NontermReference.randomRule() and NontermReference.computeRole(), wrapping Nonterm methods
   (replace sym.nonterminal.randomRule in expand() with call to sym.randomRule())
-  (replace symbol.nonterminal.computeRole in Node constructor with call to symbol.computeRole())
- Each subclass overrides randomRule(), pause(), random(), and/or role()
-    NontermParent
+  (replace symbol.nonterminal.computeRole in Node constructor with call to symbol.computeRole() and role() propAccessor)
+ Each subclass overrides randomRule(), pause(), commit(), random(), and/or role()
+    NontermReference
+      commit: false
       random: true
-      randomRule: dynamically creates   =>@NontermPreamble;@NontermExpansion
+      randomRule: dynamically creates   =>@NontermPreamble@NontermExpansion
     NontermPreamble
-      random: true
+      role: "="
       pause: true
-      role: "=" (but overlooked by isLocallyControlled(), see below)
-      randomRule: dynamically creates   =>{whatever preamble is}
-  Modify isLocallyControlled() to assume local control, ignoring role, for auto-expandable nodes
-   i.e. NontermParent & NontermPreamble
- Preamble identifier is '/p' instead of '/rX/sY', still addressable in the tree (for pub/sub)
+      commit: false
+      random: true
+      randomRule: dynamically creates   =>whatever the preamble is
+    NontermExpansion  (the only one that actually gets attach'd)
+      role: "="
+      randomRule: calls nonterminal.randomRule()
+    Change
+     if (sym instanceof lw.NontermReference && symNode.isLocallyControlledByComputer())
+    ...to...
+     lw.NontermReference.prototype.isAutoExpandable = true
+     lw.NontermPreamble.prototype.isAutoExpandable = true
+     lw.NontermExpansion.prototype.isAutoExpandable = false
+     if (sym.isAutoExpandable
+         || (sym instanceof lw.NontermExpansion && symNode.isLocallyControlledByComputer()))
+ Preamble identifier is '/p/sY', expansion is '/x/rX/sY', still addressable in the tree (for pub/sub)
  Update treeJSON(), expandFromTreeJSON() to deal with NontermPreamble nodes
  Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
 
