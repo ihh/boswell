@@ -12,7 +12,6 @@ Sort out hint/weight ambiguity:
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
- Delete preambleSpan stuff
  Update debug map
 
 Pause & commit should be defaults.
