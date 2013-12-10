@@ -27,7 +27,7 @@
     function pushLhs(sym) { lhsStack.push(sym); nonterms.push(sym); return true }
     function popLhs() { return lhsStack.pop() }
     function currentLhs() { return getNontermObject (lhsStack[lhsStack.length - 1]) }
-    function addRule(hint,rhs,props) { currentLhs().addRule(hint,rhs,props); return true }
+    function addRule(weight,hint,rhs,props) { currentLhs().addRule(weight,hint,rhs,props); return true }
 
     function makeAnonId() { return ++anonNonterms; }
     function isAnonId (sym) { return /^[\d]+$/.test(sym) }
@@ -208,18 +208,24 @@ rhs_list
  = rhs ("|" spc* rhs_list)?
 
 rhs
- = hc:hint_with_modifiers symbols:sym_expr* { addRule(hc[0],symbols,hc[1]) }
+    = hc:hint_with_modifiers symbols:sym_expr* { addRule(hc[0],hc[1],symbols,hc[2]) }
 
 ui_rhs
  = symbols:sym_expr* { return symbols }
 
 hint_with_modifiers
-    = text:hint_text spc* mods:hint_modifier* "=>" { return [text, mods.reduce(LetterWriter.extend,{})] }
-    / { return ["", {}] }
+    = weight:weight_text "=>" text:hint_text spc* mods:hint_modifier* "=>"
+      { return [weight, text, mods.reduce(LetterWriter.extend,{})] }
+    / text:hint_text spc* mods:hint_modifier* "=>"
+      { return [null, text, mods.reduce(LetterWriter.extend,{})] }
+    / { return [null, "", {}] }
 
 hint_text
-    = spc* f:param_expr spc* { return f.asText() }
+    = weight_text
     / text
+
+weight_text
+    = spc* f:param_expr spc* { return f.asText() }
 
 hint_modifier = times_hidden / max_count
 
@@ -253,8 +259,8 @@ anonymous_nonterm
  = "{" &{return pushLhs(makeAnonId())} rhs_list "}"  { return popLhs(); }
 
 preamble_placeholder_prompt
- = "[" preamble:text? "|" placeholder:text? "|" prompt:text "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
- / "[" placeholder:text? "|" prompt:text "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
+ = "[" preamble:text? "|" placeholder:ptext? "|" prompt:ptext "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
+ / "[" placeholder:text? "|" prompt:ptext "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
  / "[" prompt:text? "]" spc* { return {prompt:prompt}; }
  / { return {}; }
 
@@ -275,6 +281,11 @@ no_modifier
 
 optional_pause_modifier
  = pause_modifier / no_modifier
+
+ptext
+    = "@" s:nonterm_symbol tail:ptext? { return "@" + s + tail }
+    / p:param_expansion tail:ptext? { return p.asText() + tail }
+    / t:text tail:ptext? { return t + tail }
 
 text
  = "\\" escaped:[#\[\]\{\}\|=\@\$] tail:text? { return escaped + tail; }

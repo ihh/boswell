@@ -1,4 +1,4 @@
-Allow weights on human-played rules, determining (a) if rule is visible, (b) what order rules are presented in
+Allow weights on human-played rules, determining (a) probability rule is visible, (b) what order rules are presented in
  Syntax: "weight_expr => hint => rhs_symbols"
  Implementation:
   update Rule.clone(), Nonterm.addRule(), Nonterm.addEmptyRule(), parser addRule()
@@ -7,8 +7,8 @@ Allow weights on human-played rules, determining (a) if rule is visible, (b) wha
 
 Placeholder, Prompt and Hints should allow ParamReference. (Hacky regex-based substitutions OK!)
  It's OK if this language feature is not exposed through the parser & editor yet. It's internal-use, for now.
-Ditto NonterminalReferences that can be immediately text-expanded (i.e. they are locally computer-controlled, with only one RHS, containing Terminals & ParamReferences only; need a method indicating this, e.g. textExpandable())
- Allow for recursion & randomness in textExpandable() and textExpansion(scope) methods
+Ditto NonterminalReferences that can be immediately text-expanded (i.e. they are locally computer-controlled, with only one RHS, containing Terminals & ParamReferences only; need a method indicating this, e.g. textExpandable(role)=textExpandableInner(role,nontermVisited={}))
+ Allow for recursion & randomness in textExpandable(role) and textExpansion(role,scope,text) methods
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Treat it as an implied computer-played symbol:
