@@ -15,8 +15,10 @@ Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, Para
  Handle circular references
   Add a maximum recursion depth (Node constructor can check depth by walking up grandparent chain)
   Test for obvious and/or potential circular references in makeRhsInputChange
- Update debug parse tree (hide preamble if empty, and hide expansion always: fold it into parent)
- Update debug map (connections from preamble should be counted)
+ Update debug parse tree
+  Show ".parent", ".preamble", ".expansion" suffices
+  If preamble is empty, fold preamble & expansion into parent
+ Update debug map, isOrphan() (connections from preamble should be counted)
 
 Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
 
