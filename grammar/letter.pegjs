@@ -222,7 +222,8 @@ hint_with_modifiers
 
 hint_text
     = weight_text
-    / text
+    / ptext
+    / ""
 
 weight_text
     = spc* f:param_expr spc* { return f.asText() }
@@ -261,7 +262,7 @@ anonymous_nonterm
 preamble_placeholder_prompt
  = "[" preamble:text? "|" placeholder:ptext? "|" prompt:ptext "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
  / "[" placeholder:text? "|" prompt:ptext "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
- / "[" prompt:text? "]" spc* { return {prompt:prompt}; }
+ / "[" prompt:ptext? "]" spc* { return {prompt:prompt}; }
  / { return {}; }
 
 sym_modifier
@@ -283,7 +284,7 @@ optional_pause_modifier
  = pause_modifier / no_modifier
 
 ptext
-    = "@" s:nonterm_symbol tail:ptext? { return "@" + s + tail }
+    = s:nonterm_symbol tail:ptext? { return "@" + s + tail }
     / p:param_expansion tail:ptext? { return p.asText() + tail }
     / t:text tail:ptext? { return t + tail }
 
