@@ -208,9 +208,9 @@ rhs_list
  = rhs ("|" spc* rhs_list)?
 
 rhs
-    = hc:hint_with_modifiers symbols:sym_expr* { addRule(hc[0],hc[1],symbols,hc[2]) }
+    = hc:hint_with_modifiers symbols:rhs_expansion { addRule(hc[0],hc[1],symbols,hc[2]) }
 
-ui_rhs
+rhs_expansion
  = symbols:sym_expr* { return symbols }
 
 hint_with_modifiers
@@ -260,7 +260,7 @@ anonymous_nonterm
  = "{" &{return pushLhs(makeAnonId())} rhs_list "}"  { return popLhs(); }
 
 preamble_placeholder_prompt
- = "[" preamble:text? "|" placeholder:ptext? "|" prompt:ptext "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
+ = "[" preamble:rhs_expansion "|" placeholder:ptext? "|" prompt:ptext "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
  / "[" placeholder:text? "|" prompt:ptext "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
  / "[" prompt:ptext? "]" spc* { return {prompt:prompt}; }
  / { return {}; }
