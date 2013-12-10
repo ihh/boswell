@@ -11,11 +11,11 @@ Sort out hint/weight ambiguity:
  Parse hint as PText
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
- Treat it as an implied computer-played symbol:
-  random @nonterm.parent => { @nonterm.preamble; @nonterm }
-  Update commit mechanism, so that it only hides preamble & older siblings (2 generations), not all earlier nodes
- Update treeJSON(), expandFromTreeJSON() to skip parent & preamble nodes
- Implement using rhsUnexpandedNodes & delayedExpansions in Rule.prototype.expand
+ New symbol type, NontermPreamble
+ Preamble is child 0, identifier is '/p' instead of '/rX/sY', still addressable in the tree (for pub/sub)
+  i.e. preamble is present even before any other children expanded
+ Update treeJSON(), expandFromTreeJSON() to deal with NontermPreamble nodes
+ Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
 
 Pause & commit should be defaults.
  Augment syntax with "parallel" (opposite of "pause") and "continue" (opposite of "commit").
