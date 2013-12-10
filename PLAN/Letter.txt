@@ -13,6 +13,7 @@ Sort out hint/weight ambiguity:
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Treat it as an implied computer-played symbol:
   random @nonterm.parent => { @nonterm.preamble; @nonterm }
+  Update commit mechanism, so that it only hides preamble & older siblings (2 generations), not all earlier nodes
  Update treeJSON(), expandFromTreeJSON() to skip parent & preamble nodes
  Implement using rhsUnexpandedNodes & delayedExpansions in Rule.prototype.expand
 
