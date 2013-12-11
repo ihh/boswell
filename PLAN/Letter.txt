@@ -21,6 +21,7 @@ Fix debug map top & bottom truncated bug
 Fix default prompt: "Your move?"
 
 Pause, commit & random should all be on by default.
+ Flip meaning of ';', '?' and '!' modifiers
  Augment syntax with
   "parallel" (opposite of "pause")
   "continue" (opposite of "commit")
