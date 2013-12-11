@@ -140,7 +140,8 @@ function make_grammar(g) {
 
     // grammar symbol constructors
     function state_nonterm(state1,state2,player) {
-	return player == 1 ? ("@"+state1+"1_"+state2+"2") : ("@"+state2+"2_"+state1+"1")
+	return '@state'
+//	return player == 1 ? ("@"+state1+"1_"+state2+"2") : ("@"+state2+"2_"+state1+"1")
     }
 
     function verb_nonterm(verb,player) {
@@ -212,7 +213,7 @@ function make_grammar(g) {
     }
 
     // build grammar
-    var p = []
+    var p = [], rule = []
     for (var i = 0; i < state.length; ++i) {
 	var srcMe = state[i]
 	for (var j = 0; j < state.length; ++j) {
