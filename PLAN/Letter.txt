@@ -10,31 +10,27 @@ Sort out hint/weight ambiguity:
  Permanently set CSS class of "Test" to "ruleWeight" (formerly "computerHint")
  Parse hint as PText
 
-Implement postamble. Useful for loops, segues...
-
 Test for obvious and/or potential circular references in makeRhsInputChange
 
-Update debug parse tree to show ".parent", ".preamble", ".expansion" suffices
- If preamble is empty, fold preamble & expansion into parent
+Update debug parse tree to show ".parent", ".enter", ".expand", ".exit" suffices
+ If preamble & postamble are empty, fold expansion into parent
 
-Update debug map, isOrphan() (connections from preamble should be counted)
+Update debug map, isOrphan() (connections from preamble & postamble should be counted)
 Fix debug map top & bottom truncated bug
 
 Fix default prompt: "Your move?"
-
-Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
 
 Pause & commit should be defaults.
  Augment syntax with "parallel" (opposite of "pause") and "continue" (opposite of "commit").
 
 Start nonterminal should be computer-playable.
 
-Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
+Private nodes, whose immediate text (grandchildren via preamble/postamble/expansion) is only visible to owner
 
 
 Save player ID in local storage
 
-Auto-resize textarea to fit content (preamble, placeholder, expansions)
+Auto-resize textarea to fit content (preamble, postamble, placeholder, expansions)
 http://www.impressivewebs.com/textarea-auto-resize/
 
 Allow arbitrary functions (ParamFunc eval'd in calling scope): $x => $y+$z; (global)  or $x @=> $y+$z; (local)

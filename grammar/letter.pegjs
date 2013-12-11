@@ -41,6 +41,8 @@
 	    nonterm.placeholder = props.placeholder;
 	if ("prompt" in props)
 	    nonterm.prompt = props.prompt;
+	if ("postamble" in props)
+	    nonterm.postamble = props.postamble;
 	if (("maxUsage" in props) && props.maxUsage > 0)
 	    nonterm.maxUsage = props.maxUsage;
 	if ("pause" in props)
@@ -260,10 +262,15 @@ anonymous_nonterm
  = "{" &{return pushLhs(makeAnonId())} rhs_list "}"  { return popLhs(); }
 
 preamble_placeholder_prompt
- = "[" preamble:rhs_expansion "|" placeholder:ptext? "|" prompt:ptext? "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
- / "[" placeholder:ptext? "|" prompt:ptext? "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
- / "[" prompt:ptext? "]" spc* { return {prompt:prompt}; }
- / { return {}; }
+ = "[" preamble:rhs_expansion "|" placeholder:ptext? "|" prompt:ptext? "|" postamble:rhs_expansion "]" spc*
+    { return {preamble:preamble, placeholder:placeholder, prompt:prompt, postamble:postamble}; }
+ / "[" preamble:rhs_expansion "|" placeholder:ptext? "|" prompt:ptext? "]" spc*
+    { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
+ / "[" placeholder:ptext? "|" prompt:ptext? "]" spc*
+    { return {placeholder:placeholder, prompt:prompt}; }
+ / "[" prompt:ptext? "]" spc*
+    { return {prompt:prompt}; }
+ /  { return {}; }
 
 sym_modifier
  = pause_modifier / commit_modifier / random_modifier
