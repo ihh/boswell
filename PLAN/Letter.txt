@@ -13,9 +13,7 @@ Sort out hint/weight ambiguity:
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Test auto-naming of anonymous nonterms (after refactoring-out of grammar serialization methods)
  Test pub/sub with preamble and expansion nodes
- Handle circular references
-  Add a maximum recursion depth (Node constructor can check depth by walking up grandparent chain)
-  Test for obvious and/or potential circular references in makeRhsInputChange
+ Test for obvious and/or potential circular references in makeRhsInputChange
  Update debug parse tree
   Show ".parent", ".preamble", ".expansion" suffices
   If preamble is empty, fold preamble & expansion into parent

@@ -260,8 +260,8 @@ anonymous_nonterm
  = "{" &{return pushLhs(makeAnonId())} rhs_list "}"  { return popLhs(); }
 
 preamble_placeholder_prompt
- = "[" preamble:rhs_expansion "|" placeholder:ptext? "|" prompt:ptext "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
- / "[" placeholder:text? "|" prompt:ptext "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
+ = "[" preamble:rhs_expansion "|" placeholder:ptext? "|" prompt:ptext? "]" spc* { return {preamble:preamble, placeholder:placeholder, prompt:prompt}; }
+ / "[" placeholder:ptext? "|" prompt:ptext? "]" spc* { return {placeholder:placeholder, prompt:prompt}; }
  / "[" prompt:ptext? "]" spc* { return {prompt:prompt}; }
  / { return {}; }
 
