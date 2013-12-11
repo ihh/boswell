@@ -20,8 +20,11 @@ Fix debug map top & bottom truncated bug
 
 Fix default prompt: "Your move?"
 
-Pause & commit should be defaults.
- Augment syntax with "parallel" (opposite of "pause") and "continue" (opposite of "commit").
+Pause, commit & random should all be on by default.
+ Augment syntax with
+  "parallel" (opposite of "pause")
+  "continue" (opposite of "commit")
+  "choice" (opposite of "random")
 
 Start nonterminal should be computer-playable.
 
