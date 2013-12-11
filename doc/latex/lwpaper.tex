@@ -102,9 +102,12 @@ and ``{\tt You open the mail. Inside is a big check!}''
 A block of transformation rules represents a list of choices:
 \begin{verbatim}
  @going_up =>
- { Check the mail => You go to the mailbox. @mailbox
- | Check the paper => Your rich uncle died! @going_down
- | Buy a lottery ticket => You won the lottery! @going_down }
+ { Check the mail
+  => You go to the mailbox. @mailbox
+ | Check the paper
+  => Your rich uncle died! @going_down
+ | Buy a lottery ticket
+  => You won the lottery! @going_down }
 \end{verbatim}
 This block has three ``{\tt hint => expansion}'' pairs; any number is allowed.
 
@@ -333,7 +336,7 @@ Tested in Google Chrome and Mozilla Firefox.
 \subsection{Availability}
 
 Code is freely available at
-{\tt https://github.com/ihh/banterscribe}
+{\tt https://github.com/ihh/boswell}
 
 
 \subsection{Acknowledgements}
