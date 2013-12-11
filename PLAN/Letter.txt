@@ -12,7 +12,6 @@ Sort out hint/weight ambiguity:
 
 Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
  Test auto-naming of anonymous nonterms (after refactoring-out of grammar serialization methods)
- Test pub/sub with preamble and expansion nodes
  Test for obvious and/or potential circular references in makeRhsInputChange
  Update debug parse tree
   Show ".parent", ".preamble", ".expansion" suffices
@@ -23,6 +22,8 @@ Update commit mechanism, so that it only hides preamble & older siblings, not al
 
 Pause & commit should be defaults.
  Augment syntax with "parallel" (opposite of "pause") and "continue" (opposite of "commit").
+
+Start nonterminal should be computer-playable.
 
 Private nodes, whose immediate text children (preamble, placeholder, terminals) are only visible to owner
 
