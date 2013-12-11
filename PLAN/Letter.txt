@@ -12,7 +12,7 @@ Sort out hint/weight ambiguity:
 
 Test for obvious and/or potential circular references in makeRhsInputChange
 
-Update debug parse tree to show ".parent", ".enter", ".expand", ".exit" suffices
+Update debug parse tree to show ".parent", ".preamble", ".expand", ".exit" suffices
  If preamble & postamble are empty, fold expansion into parent
 
 Update debug map, isOrphan() (connections from preamble & postamble should be counted)

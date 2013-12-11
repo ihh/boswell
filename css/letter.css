@@ -692,7 +692,6 @@ body>.ui-tooltip {
 
 #letterDebugger>#editorMapContainer {
     width: 100%;
-/*    min-height: 592px;  /* 600px minus top & bottom padding */
     float: left;
     clear: both;
     margin: 0;
@@ -700,7 +699,6 @@ body>.ui-tooltip {
 
 #letterDebugger>#editorMapContainer>#editorMap {
     width: 100%;
-    min-height: 592px;
 }
 
 #letterDebugger>#gameAndParseTreeContainer {
@@ -718,7 +716,6 @@ body>.ui-tooltip {
     margin: 10px auto; 
     padding: 0 10px;
 
-    min-height: 600px;
     float: left;
     margin:2px;
     padding:2px;
@@ -729,14 +726,14 @@ body>.ui-tooltip {
 #letterDebugger>#gameAndParseTreeContainer>#editorParseTreeContainer {
     width: 40%;
     min-width: 600px;
-    min-height: 592px;  /* 600px minus top & bottom padding */
+    min-height: 600px;
     float: right;
     margin: 2px;
 }
 
 #letterDebugger>#gameAndParseTreeContainer>#editorParseTreeContainer>#editorParseTree {
     width: 100%;
-    min-height: 592px;
+    min-height: 600px;
 }
 
 .hiddenByYoungerNode {
