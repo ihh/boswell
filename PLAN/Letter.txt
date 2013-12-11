@@ -10,13 +10,17 @@ Sort out hint/weight ambiguity:
  Permanently set CSS class of "Test" to "ruleWeight" (formerly "computerHint")
  Parse hint as PText
 
-Preamble should be fully RHS-like: allow NontermReference, ParamAssignment, ParamReference symbols.
- Test auto-naming of anonymous nonterms (after refactoring-out of grammar serialization methods)
- Test for obvious and/or potential circular references in makeRhsInputChange
- Update debug parse tree
-  Show ".parent", ".preamble", ".expansion" suffices
-  If preamble is empty, fold preamble & expansion into parent
- Update debug map, isOrphan() (connections from preamble should be counted)
+Implement postamble. Useful for loops, segues...
+
+Test for obvious and/or potential circular references in makeRhsInputChange
+
+Update debug parse tree to show ".parent", ".preamble", ".expansion" suffices
+ If preamble is empty, fold preamble & expansion into parent
+
+Update debug map, isOrphan() (connections from preamble should be counted)
+Fix debug map top & bottom truncated bug
+
+Fix default prompt: "Your move?"
 
 Update commit mechanism, so that it only hides preamble & older siblings, not all earlier nodes
 

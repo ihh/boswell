@@ -10,7 +10,8 @@ html, body {
 }
 
 .letterWriterBackgroundPlayMode {
-    background-color: #fffff8;
+    background-color: #204;
+    color: white;
 }
 
 .letterWriterBackgroundEditMode {
@@ -44,6 +45,11 @@ textarea {
     border-radius: 4px 0 4px 0;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+}
+
+#editorTemplate {
+    background: #204;
+    color: white;
 }
 
 input {
@@ -414,11 +420,11 @@ h5 {
 }
 
 #editorList div>h3 {
-    background: #fff8cc;
+    background: #e0e0e4;
 }
 
 #editorList div>div {
-    background: #fff7e6;
+    background: #f0f0f0;
 }
 
 .editorSlider {
@@ -450,7 +456,7 @@ h5 {
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     padding: 1em 2em 2em 2em;
-    background: #fff7e6;
+    background: #eee;
 }
 
 .editorSliderContainer form>input {
@@ -535,9 +541,6 @@ h5 {
     height: 16px;
     clear: none;
     float: left;
-/*
-    background: yellow;
-*/
 }
 
 
@@ -545,7 +548,7 @@ h5 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-size: medium;
     float: left;
-    background: lemonchiffon;
+    background: #fff;
     margin: 1px 1px 1px 1px;
     clear: both;
     width: 100%;
@@ -599,11 +602,11 @@ h5 {
 #editorList .nonterminal>.rules>.rule>.NontermControl>.NontermControlValue,
 #editorList .nonterminal>.rules>.rule>.deleteRule
 { /* need the #editorList for extra specificity over "#editorList div>div" */
-    background: #FFEDD1;
+    background: #d8d8dc;
 }
 
 .rules>.rule>.rhs textarea {
-    background: lemonchiffon;
+    background: #fff;
     resize: vertical;
 }
 
@@ -620,19 +623,19 @@ h5 {
 }
 
 .placeholderPropertyEditor>.NontermControlValue>textarea {
-    background: #FEFCE5;  /* matches lemonchiffon */
+    background: #fcfcfc;
 }
 
 .promptPropertyEditor>.NontermControlValue>textarea {
-    background: palegoldenrod;
+    background: #f8f8f8;
 }
 
 .rhsPropertyEditor>.NontermControlValue>textarea {
-    background: lemonchiffon;
+    background: #fff;
 }
 
 .hintPropertyEditor>.NontermControlValue>textarea.playerHint {
-    background: palegoldenrod;
+    background: #f8f8f8;
 }
 
 .hintPropertyEditor>.NontermControlValue>textarea.computerHint {
@@ -657,20 +660,22 @@ body>.ui-tooltip {
     display: none;  /* IDE initially hidden */
 
     float: right;
-    background-color: NavajoWhite;
+    background-color: #204;
+    color:white;
 
     padding-left: .5em;
-    padding-right: .5em;
-    padding-top: .1em;
     padding-bottom: .1em;
 
-    border: 1px solid;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
 
+.letterDebuggerShortcuts a:link { color: white; }
+.letterDebuggerShortcuts a:visited { color: white; }
+
 .editorPane {
+    color: black;
     border: 1px solid;
     border-radius: 4px;
     -moz-border-radius: 4px;
@@ -680,7 +685,8 @@ body>.ui-tooltip {
 }
 
 .debuggerPane {
-    background: #fffff0;
+    background: white;
+    color: black;
     box-shadow: 0 0 4px #666;
 }
 
@@ -690,7 +696,6 @@ body>.ui-tooltip {
     float: left;
     clear: both;
     margin: 0;
-    padding: 4px;
 }
 
 #letterDebugger>#editorMapContainer>#editorMap {
@@ -727,7 +732,6 @@ body>.ui-tooltip {
     min-height: 592px;  /* 600px minus top & bottom padding */
     float: right;
     margin: 2px;
-    padding: 4px;
 }
 
 #letterDebugger>#gameAndParseTreeContainer>#editorParseTreeContainer>#editorParseTree {

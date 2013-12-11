@@ -103,11 +103,15 @@
 		| <a href="#editorConfigShortcut">Config</a>
 		| <a href="#editorTemplateShortcut">Raw</a>
 	      </div>
-	      <h5>Choice Expansion Tree <a href="#editorParseTreeContainer" onclick="nav.showDebugParseTree()">(refresh)</a></h5>
+	      <h5>Tree <a href="#editorParseTreeContainer" onclick="nav.showDebugParseTree()">(refresh)</a></h5>
 	      <div id="editorParseTree"></div>
 	    </div>
 
 	  </div>
+
+	</div>
+
+	<div id="editor" style="display:none">
 
 	  <div id="editorMapContainer" class="debuggerPane editorPane" style="display:none">
 	    <div id="editorMapShortcut" class="letterDebuggerShortcuts">
@@ -119,12 +123,9 @@
 	      | <a href="#editorConfigShortcut">Config</a>
 	      | <a href="#editorTemplateShortcut">Raw</a>
 	    </div>
-	    <h5>Choice Connection Map <a href="#showDebugMapLink" id="showDebugMapLink" onclick="nav.showDebugMap()">(refresh)</a></h5>
+	    <h5>Map <a href="#showDebugMapLink" id="showDebugMapLink" onclick="nav.showDebugMap()">(refresh)</a></h5>
 	    <div id="editorMap"></div>
 	  </div>
-	</div>
-
-	<div id="editor" style="display:none">
 
 	  <div class="editorPane debuggerPane">
 	    <div id="editorNontermsShortcut" class="letterDebuggerShortcuts">
@@ -136,7 +137,7 @@
 	      | <a href="#editorConfigShortcut">Config</a>
 	      | <a href="#editorTemplateShortcut">Raw</a>
 	    </div>
-	    <h5>ChoiceBook <a href="#editorNontermsShortcut" onclick="nav.rebuildGrammarFromText()">(rebuild)</a></h5>
+	    <h5>Symbols <a href="#editorNontermsShortcut" onclick="nav.rebuildGrammarFromText()">(rebuild)</a></h5>
 	    <div id="editorList"></div>
 	    <small><i><a href="#addNontermLink" id="addNontermLink">Add a choice</a></i></small>
 	  </div>
@@ -196,7 +197,7 @@
 	      | <a href="#editorConfigShortcut">Config</a>
 	      | <a href="#editorTemplateShortcut">Raw</a>
 	    </div>
-	    <h5>Raw template</h5>
+	    <h5>Raw code</h5>
 	    <small>
 	      <i><a id="undoEdit">Undo</a>
 		| <a id="redoEdit">Redo</a>
@@ -209,7 +210,7 @@
 	    <div id="editorTemplateFailedLoad"></div>
 	    <form action="#"><input type="file" id="editorTemplateLoadFile"></form>
 	    <small><br>
-	      <i><a href="#SyntaxToggle" id="SyntaxToggle">Template language syntax</a> | <a href="https://github.com/ihh/funkscene">GitHub repository</a></i>
+	      <i><a href="#SyntaxToggle" id="SyntaxToggle">Syntax</a> | <a href="https://github.com/ihh/funkscene">GitHub repository</a></i>
 	      <br>
 	      <div id="TemplateSyntax"></div>
 	      <p><i></i></small>
