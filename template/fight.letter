@@ -1,0 +1,14 @@
+title {The Fight}
+roles 2
+score $#score
+@start => {$self[1] = "Montresor";
+
+$self[2] = "Fortunato";
+$state[1] = "ok";
+$state[2] = "ok";
+@fight}
+@fight => [||Your choice, $#self;?|<br> @fight]{Blink=>$#self; blinks.|Insult @other.=>$#self; insults @other.
+$#score = ($score[$#] + 10);
+@react_to_insult}
+random @react_to_insult => [$#score = ($score[$#] - 5);||]{}
+random @other => {$#self;}
