@@ -1,3 +1,5 @@
+Add @#nonterm, which implicitly auto-expands to @nontermRole where Role=role number (1,2...)
+
 Rewrite anger.js using $#param; state machine
 
 Test for obvious and/or potential circular references in makeRhsInputChange
