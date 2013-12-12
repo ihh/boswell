@@ -83,6 +83,10 @@
 	return getNontermObject(sym).makeReference(props).sanitizeQualifiers()
     }
 
+    function makeIndexedNontermReference(sym) {
+	return new LetterWriter.IndexedNontermReference(sym)
+    }
+
     function makeAnonNontermReference(sym,props) {
 	var anon = getNontermObject(sym)
 	setNontermProperties(anon,props)
@@ -193,6 +197,9 @@ param_range
 nonterm_symbol
     = "@" s:symbol  { return s.toLowerCase(); }
 
+indexed_nonterm_symbol
+    = "@#" s:symbol  { return s.toLowerCase(); }
+
 rule
  = mods:nonterm_modifier* lhs:nonterm_symbol q:sym_modifier* spc* &{return pushLhs(lhs)}
    maxUsage:max_count? "=>" spc* ppp:preamble_placeholder_prompt spc*
@@ -250,6 +257,8 @@ sym_expr
     { return makeNontermReference(sym,extend(ppp,q.reduce(LetterWriter.extend,{}))) }
  / ppp:preamble_placeholder_prompt sym:anonymous_nonterm q:sym_modifier*
     { return makeAnonNontermReference(sym,extend(ppp,q.reduce(LetterWriter.extend,{}))) }
+ / sym:indexed_nonterm_symbol
+    { return makeIndexedNontermReference(sym) }
  / param_input
  / param_assignment
  / param_expansion

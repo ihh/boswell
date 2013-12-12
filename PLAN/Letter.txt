@@ -1,5 +1,3 @@
-Add @#nonterm, which implicitly auto-expands to @nontermRole where Role=role number (1,2...)
-
 Rewrite anger.js using $#param; state machine
 
 Test for obvious and/or potential circular references in makeRhsInputChange
@@ -7,7 +5,7 @@ Test for obvious and/or potential circular references in makeRhsInputChange
 Update debug parse tree to show ".parent", ".preamble", ".expand", ".exit" suffices
  If preamble & postamble are empty, fold expansion into parent
 
-Update debug map, isOrphan() (connections from preamble & postamble should be counted)
+Update debug map, isOrphan() (connections from preamble & postamble should be counted; ditto @# IndexedNontermRef's)
 Fix debug map truncation bug (top & bottom labels cut off): add pseudo nodes to increase view size?
 
 Fix default prompt: "Your move?"
