@@ -216,16 +216,13 @@ rhs_expansion
  = symbols:sym_expr* { return symbols }
 
 hint_with_modifiers
-    = weight:weight_text "=>" text:hint_text spc* mods:hint_modifier* "=>"
-      { return [weight, text, mods.reduce(LetterWriter.extend,{})] }
-    / text:hint_text spc* mods:hint_modifier* "=>"
-      { return [null, text, mods.reduce(LetterWriter.extend,{})] }
+    = weight:weight_text "=>" hint_text:ptext? spc* mods:hint_modifier* "=>"
+      { return [weight, hint_text, mods.reduce(LetterWriter.extend,{})] }
+    / weight:weight_text spc* mods:hint_modifier* "==>"
+      { return [weight, undefined, mods.reduce(LetterWriter.extend,{})] }
+    / hint_text:ptext? spc* mods:hint_modifier* "=>"
+      { return [null, hint_text, mods.reduce(LetterWriter.extend,{})] }
     / { return [null, "", {}] }
-
-hint_text
-    = weight_text
-    / ptext
-    / ""
 
 weight_text
     = spc* f:param_expr spc* { return f.asText() }

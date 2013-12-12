@@ -1,22 +1,12 @@
 Rewrite anger.js using $#param; state machine
 
-Sort out hint/weight ambiguity:
- For random nonterms, x=>y interpreted as weight=x,hint=""
- For human nonterms, x=>y interpreted as weight=null,hint=x
- In editor, call weight "Test" and hint "Hint"
- Do not show (or print) "Hint" field for computer, ever
- Always use weightExpr, never default to hint
- Rename CSS: "computerHint" -> "ruleWeight"
- Permanently set CSS class of "Test" to "ruleWeight" (formerly "computerHint")
- Parse hint as PText
-
 Test for obvious and/or potential circular references in makeRhsInputChange
 
 Update debug parse tree to show ".parent", ".preamble", ".expand", ".exit" suffices
  If preamble & postamble are empty, fold expansion into parent
 
 Update debug map, isOrphan() (connections from preamble & postamble should be counted)
-Fix debug map top & bottom truncated bug
+Fix debug map truncation bug (top & bottom labels cut off): add pseudo nodes to increase view size?
 
 Fix default prompt: "Your move?"
 

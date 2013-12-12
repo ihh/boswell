@@ -634,11 +634,11 @@ h5 {
     background: #fff;
 }
 
-.hintPropertyEditor>.NontermControlValue>textarea.playerHint {
+.hintPropertyEditor>.NontermControlValue>textarea {
     background: #f8f8f8;
 }
 
-.hintPropertyEditor>.NontermControlValue>textarea.computerHint {
+.weightExprPropertyEditor>.NontermControlValue>textarea {
     background: lavender;
 }
 
