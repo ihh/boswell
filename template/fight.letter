@@ -1,8 +1,8 @@
 title {The Fight}
 roles 2
 score $#score
-@start => {$self[1] = "Montresor";
-
+@start => [Let's begin.]{
+$self[1] = "Montresor";
 $self[2] = "Fortunato";
 $state[1] = "ok";
 $state[2] = "ok";
