@@ -31,7 +31,7 @@
 
     function makeAnonId() { return ++anonNonterms; }
     function isAnonId (sym) { return /^[\d]+$/.test(sym) }
-    function defaultPrompt (sym) { return isAnonId(sym) ? undefined : (sym.replace(/_/g, ' ')+"?") }
+    function defaultPrompt (sym) { return undefined }
     function defaultStart() { return LetterWriter.defaultStart() }
 
     function setNontermProperties(nonterm,props) {
