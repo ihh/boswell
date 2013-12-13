@@ -439,6 +439,8 @@ primary_expr
     = n:numeric_literal  { return new LetterWriter.ParamFunc ({op:"#",value:n}) }
     / s:string_literal  { return new LetterWriter.ParamFunc ({op:"'",value:s}) }
     / param_func
+    / "expand" spc* "(" spc* l:param_expr spc* ")"
+    { return new LetterWriter.ParamFunc ({l:l,op:"x"}) }
     / "(" linespc* e:sum_expr linespc* ")"  { return e; }
 
 string_literal
