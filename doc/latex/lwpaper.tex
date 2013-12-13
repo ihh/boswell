@@ -105,7 +105,7 @@ A block of transformation rules represents a list of choices:
  { Check the mail
   => You go to the mailbox. @mailbox
  | Check the paper
-  => Your rich uncle died! @going_down
+  => You inherited a fortune! @going_down
  | Buy a lottery ticket
   => You won the lottery! @going_down }
 \end{verbatim}
@@ -174,7 +174,8 @@ The final text can be read off from the terminals at the leaf nodes (Figure~\ref
 \fbox{\includegraphics[width=\columnwidth]{ParseTree.png}}
 \caption{
 \label{fig:tree}
-The parse tree visualization (right) helps debug gameplay (left).
+The parse tree visualization (right) can help analyze and debug narrative play (left).
+Here, the currently active choice node (right) is highlighted in the text (left).
 }
 \end{figure}
 
