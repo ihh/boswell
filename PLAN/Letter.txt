@@ -1,4 +1,15 @@
-Optimize Scopes
+Optimize Scopes...
+ node.getScope(pre):
+  this.hasOlderSibling() ? this.olderSibling.getScope(post) : this.parent.getScope(pre)
+ node.getScope(post):
+  var s = this.getScope(pre)
+  var s2 = this.isParamAssignment()
+   ? this.symbol.efficientlyCloneScopeAtPointOfDivergenceAndThenUpdate(s)
+   : (this.hasChildren()
+      ? this.oldestChild().getScope(post)
+      : s)
+  if (this.isUnexpandedNontermReference())
+    { s2 = s2.clone(); s2.complete = false }
 
 Rewrite anger.js using $#param; state machine
 
