@@ -212,6 +212,14 @@ input {
     -moz-animation: mozRevealOpacityPulse 1s; 
 }
 
+@-webkit-keyframes webkitFadeOpacityPulse { 0% {opacity:1;} 100% {opacity:0;} }
+@-moz-keyframes mozFadeOpacityPulse { 0% {opacity:1;} 100% {opacity:0;} }
+.fade {
+    opacity: 1;
+    -webkit-animation: webkitFadeOpacityPulse 1s; 
+    -moz-animation: mozFadeOpacityPulse 1s; 
+}
+
 .unrevealed {
     opacity: 0;
 }
