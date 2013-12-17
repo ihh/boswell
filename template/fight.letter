@@ -1,18 +1,10 @@
 title {The Fight}
 roles 2
 score $#score
-@start => [Let's begin.]{
-$self[1] = "Montresor";
-$self[2] = "Fortunato";
-$state[1] = "ok";
-$state[2] = "ok";
-@fight}
-@fight => [$#self; is $#state;.
-@other is @other_state.
-||Your choice, $#self;?|<br> @fight]{Blink=>$#self; blinks.|Insult @other.=>$#self; insults @other.
-$#score = ($score[$#] + 10);
-@react_to_insult|expand("@other_state") != "ok"=>Laugh=>$#self; laughs.
-}
+@start => [Let's begin.]{ $self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok"; @fight}
+commit @fight => [$+self; is $+state;. 
+$#self; is $#state;.||Your choice, $#self;?|
+@fight]{Blink=>$#self; blinks.|Insult @other.=>$#self; insults @other. $#score += 10; @react_to_insult|($+state != "ok")=>Laugh=>$#self; laughs. }
 random @other_state => {$#state;}
-random @react_to_insult => [$#score = ($score[$#] - 5);||]{$#state == "ok"==>$#state = "angry";|$#state == "angry"==>$#state = "enraged";|$#state == "enraged"==>$#state = "violent";}
+random @react_to_insult => [$#score -= 5;||]{($#state == "ok")==>$#self; becomes angered. $#state = "angry";|($#state == "angry")==>$#self; becomes enraged. $#state = "enraged";|($#state == "enraged")==>$#self; becomes violently angry. $#state = "violent";|0.00001==>$#self; fumes. }
 random @other => {$#self;}

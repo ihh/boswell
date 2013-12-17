@@ -305,7 +305,7 @@ text
  = "\\" escaped:[#\[\]\{\}\|=\@\$] tail:text? { return escaped + tail; }
  / "\\\\" tail:text? { return "\\\\" + tail; }
  / !"=>" "=" tail:text? { return "=" + tail; }
- / !("$" [A-Za-z_#\{]) "$" tail:text? { return "$" + tail; }
+ / !("$" [A-Za-z_#\+\-\{]) "$" tail:text? { return "$" + tail; }
  / comment tail:text? { return tail; }
  / head:text_chars tail:text? { return head + tail; }
 
@@ -343,16 +343,26 @@ param_identifier
     / clothed_param_id
 
 bare_param_id
+    = basic_or_array_param_id
+    / offset_array_param_id
+
+basic_or_array_param_id
     = "$#" x:symbol  { return ["$#",x] }
     / "$" x:symbol "[" spc* "$#" spc* "]"  { return ["$#",x] }
     / "$" x:symbol "[" spc* n:positive_integer spc* "]"  { return ["$",x + "[" + n + "]"] }
     / "$" x:symbol  { return ["$",x] }
+
+offset_array_param_id
+    = "$+" x:symbol  { return ["$+",x] }
+    / "$-" x:symbol  { return ["$-",x] }
 
 clothed_param_id
     = "$#{" x:symbol "}"  { return ["$#",x] }
     / "$#{" x:symbol "}" spc* "[" spc* "$#" spc* "]"  { return ["$#",x] }
     / "${" x:symbol "}" spc* "[" spc* n:positive_integer spc* "]"  { return ["$",x + "[" + n + "]"] }
     / "${" x:symbol "}"  { return ["$",x] }
+    / "$+{" x:symbol "}"  { return ["$+",x] }
+    / "$-{" x:symbol "}"  { return ["$-",x] }
 
 numeric_literal
     = ("+" linespc*)? n:nonnegative_numeric_literal  { return n; }
