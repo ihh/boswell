@@ -419,6 +419,11 @@ param_expansion
 
 
 param_expr
+    = cond:concat_expr spc* "?" spc* t:param_expr spc* ":" spc* f:param_expr
+{ return new LetterWriter.ParamFunc ({op:"?",cond:cond,t:t,f:f}) }
+    / concat_expr
+
+concat_expr
     = l:sum_expr linespc* op:"." linespc* r:param_expr
 { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
     / sum_expr
