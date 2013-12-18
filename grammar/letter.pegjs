@@ -418,12 +418,13 @@ param_expansion
 { return new LetterWriter.ParamReference (id[0], id[1]) }
 
 
-param_expr
-    = cond:concat_expr spc* "?" spc* t:param_expr spc* ":" spc* f:param_expr
+// currently unused...
+concat_param_expr
+    = cond:param_expr spc* "?" spc* t:param_expr spc* ":" spc* f:concat_param_expr
 { return new LetterWriter.ParamFunc ({op:"?",cond:cond,t:t,f:f}) }
-    / concat_expr
+    / param_expr
 
-concat_expr
+param_expr
     = l:sum_expr linespc* op:"." linespc* r:param_expr
 { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
     / sum_expr
