@@ -418,46 +418,80 @@ param_expansion
 { return new LetterWriter.ParamReference (id[0], id[1]) }
 
 
-// currently unused...
-concat_param_expr
-    = cond:param_expr spc* "?" spc* t:param_expr spc* ":" spc* f:concat_param_expr
-{ return new LetterWriter.ParamFunc ({op:"?",cond:cond,t:t,f:f}) }
-    / param_expr
-
+// big param_expr
 param_expr
-    = l:sum_expr linespc* op:"." linespc* r:param_expr
-{ return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
-    / sum_expr
-
-sum_expr
-    = l:product_expr linespc* op:("+"/"||"/"or"i/"-") linespc* r:sum_expr
-{ return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
-  / product_expr
-
-product_expr
-    = l:relation_expr linespc* op:("*"/"&&"/"and"i/"/"/"vs"i) linespc* r:product_expr
-{ return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
-    / "!" linespc* l:product_expr
-{ return new LetterWriter.ParamFunc ({op:"!",l:l}) }
-  / relation_expr
-
-relation_expr
-    = l:equality_expr linespc* op:("<"/"<="/">"/">=") linespc* r:relation_expr
-{ return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
-  / equality_expr
-
-equality_expr
-    = l:primary_expr linespc* op:("!="/"==") linespc* r:relation_expr
-{ return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
-  / primary_expr
-
-primary_expr
     = n:numeric_literal  { return new LetterWriter.ParamFunc ({op:"#",value:n}) }
     / s:string_literal  { return new LetterWriter.ParamFunc ({op:"'",value:s}) }
     / param_func
-    / "expand" spc* "(" spc* l:param_expr spc* ")"
-    { return new LetterWriter.ParamFunc ({l:l,op:"x"}) }
-    / "(" linespc* e:sum_expr linespc* ")"  { return e; }
+    / "(" linespc* e:param_expr linespc* ")"  { return e; }
+    / "&if" linespc* "(" linespc* cond:param_expr linespc* "," linespc* t:param_expr linespc* "," linespc* f:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"?",cond:cond,t:t,f:f}) }
+    / "&cat" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:".",l:l,r:r}) }
+    / "&mul" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"*",l:l,r:r}) }
+    / "&div" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"/",l:l,r:r}) }
+    / "&add" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"+",l:l,r:r}) }
+    / "&sub" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"-",l:l,r:r}) }
+    / "&not" linespc* "(" linespc* l:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"!",l:l}) }
+    / "&lt" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"<",l:l,r:r}) }
+    / "&leq" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"<=",l:l,r:r}) }
+    / "&eq" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"==",l:l,r:r}) }
+    / "&neq" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:"!=",l:l,r:r}) }
+    / "&geq" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:">=",l:l,r:r}) }
+    / "&gt" linespc* "(" linespc* l:param_expr linespc* "," linespc* r:param_expr linespc* ")"
+{ return new LetterWriter.ParamFunc ({op:">",l:l,r:r}) }
+    / "&expand" spc* "(" spc* l:param_expr spc* ")"
+{ return new LetterWriter.ParamFunc ({op:"x",l:l}) }
+
+//  concat_param_expr
+//      = cond:param_expr spc* "?" spc* t:param_expr spc* ":" spc* f:concat_param_expr
+//  { return new LetterWriter.ParamFunc ({op:"?",cond:cond,t:t,f:f}) }
+//      / param_expr
+//  
+//  param_expr
+//      = l:sum_expr linespc* op:"." linespc* r:param_expr
+//  { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
+//      / sum_expr
+//  
+//  sum_expr
+//      = l:product_expr linespc* op:("+"/"||"/"or"i/"-") linespc* r:sum_expr
+//  { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
+//    / product_expr
+//  
+//  product_expr
+//      = l:relation_expr linespc* op:("*"/"&&"/"and"i/"/"/"vs"i) linespc* r:product_expr
+//  { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
+//      / "!" linespc* l:product_expr
+//  { return new LetterWriter.ParamFunc ({op:"!",l:l}) }
+//    / relation_expr
+//  
+//  relation_expr
+//      = l:equality_expr linespc* op:("<"/"<="/">"/">=") linespc* r:relation_expr
+//  { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
+//    / equality_expr
+//  
+//  equality_expr
+//      = l:primary_expr linespc* op:("!="/"==") linespc* r:relation_expr
+//  { return new LetterWriter.ParamFunc ({l:l,r:r,op:op}) }
+//    / primary_expr
+//  
+//  primary_expr
+//      = n:numeric_literal  { return new LetterWriter.ParamFunc ({op:"#",value:n}) }
+//      / s:string_literal  { return new LetterWriter.ParamFunc ({op:"'",value:s}) }
+//      / param_func
+//      / "expand" spc* "(" spc* l:param_expr spc* ")"
+//      { return new LetterWriter.ParamFunc ({l:l,op:"x"}) }
+//      / "(" linespc* e:sum_expr linespc* ")"  { return e; }
 
 string_literal
     = "\"" s:double_quoted_text? "\"" { return s }

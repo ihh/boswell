@@ -3,10 +3,10 @@ roles 2
 score $#score
 @start => [Let's begin.]{ $self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok"; @fight}
 commit @fight => [@other is $+state;.||Your move, $#self;?|
-@fight]{Blink=>@self blinks.|Insult @other.=>@self insults @other. $#score += 10; @react_to_insult|($+state != "ok")=>Laugh=>@self laughs. |(($#state == "enraged") + (($#state == "violent") + ($#state == "covertly violent")))=>Try to calm things down=>@self attempts to placate @other.
-@react_to_deescalate|($#state == "angry")=>Challenge @other=>$#state = "contesting";|($+state == "contesting")=>Accept @other's challenge=>$#state = "contesting";|($+state == "contesting")=>Decline @other's challenge=>@self declines the challenge.
+@fight]{Blink=>@self blinks.|Insult @other.=>@self insults @other. $#score += 10; @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs. |&add(&eq($#state,"enraged"),&add(&eq($#state,"violent"),&eq($#state,"covertly violent")))=>Try to calm things down=>@self attempts to placate @other.
+@react_to_deescalate|&eq($#state,"angry")=>Challenge @other=>$#state = "contesting";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge.
 }
-random @react_to_insult => [$#score -= 5;||]{($#state == "ok")==>$#self; becomes angered. $#state = "angry";|($#state == "angry")==>$#self; becomes enraged. $#state = "enraged";|($#state == "enraged")==>$#self; becomes violently angry. $#state = "violent";|0.00001==>$#self; fumes. }
-random @react_to_deescalate => [$#score -= 5;||]{($#state == "angry")==>$#self; calms down. $#state = "ok";|($#state == "enraged")==>$#self; is still angry. $#state = "angry";|($#state == "violent")==>$#self; is still enraged. $#state = "enraged";|0.00001==>$#self; fumes. }
+random @react_to_insult => [$#score -= 5;||]{&eq($#state,"ok")==>$#self; becomes angered. $#state = "angry";|&eq($#state,"angry")==>$#self; becomes enraged. $#state = "enraged";|&eq($#state,"enraged")==>$#self; becomes violently angry. $#state = "violent";|0.00001==>$#self; fumes. }
+random @react_to_deescalate => [$#score -= 5;||]{&eq($#state,"angry")==>$#self; calms down. $#state = "ok";|&eq($#state,"enraged")==>$#self; is still angry. $#state = "angry";|&eq($#state,"violent")==>$#self; is still enraged. $#state = "enraged";|0.00001==>$#self; fumes. }
 #= random @self => {$#self;}
 #= random @other => {$+self;}
