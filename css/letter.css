@@ -10,12 +10,12 @@ html, body {
 }
 
 .letterWriterBackgroundPlayMode {
-    background-color: #204;
-    color: white;
+    background-color: #eee;
 }
 
 .letterWriterBackgroundEditMode {
-    background-color: #eee;
+    background-color: #204;
+    color: white;
 }
 
 .letterWriterBody {
