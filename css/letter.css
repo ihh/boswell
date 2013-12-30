@@ -330,16 +330,6 @@ div.cursor {
     width: 600px;
 }
 
-.scoreContainerIncreasing {
-    color: DarkGreen;
-    background-color: #dfd;
-}
-
-.scoreContainerDecreasing {
-    color: DarkRed;
-    background-color: #fdd;
-}
-
 .scoreDeltaPositive {
     position: absolute;
     font-size: small;

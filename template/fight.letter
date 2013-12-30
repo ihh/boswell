@@ -1,7 +1,9 @@
 title {The Fight}
 roles 2
 score $#score
-@start => [Let's begin.]{ $self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok"; @fight}
+@start => [Let's begin.]{ $self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok";
+$#score += 5; A good day for $#self;.
+@fight}
 random @fight => [<i>Images</i> (@self is $#state;, @other is $+state;)||Your move, $#self;?|
 @fight]{&eq($#state,"ok")==>@ok|&eq($#state,"angry")==>@angry|&eq($#state,"resentful")==>@resentful|&eq($#state,"enraged")==>@enraged|&eq($#state,"overtly violent")==>@overtly_violent|&eq($#state,"contesting")==>@contesting|&eq($#state,"covertly violent")==>@covertly_violent|&eq($#state,"isolated")==>@isolated}
 #= commit @angry => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm things down=>@self attempts to placate @other.
