@@ -284,6 +284,12 @@ div.cursor {
   100% { background: #090 }
 }
 
+.cursorText {
+    font-style: italic;
+    font-family: "Courier New", Courier, monospace;
+    color: #0a0;
+}
+
 /* publishers */
 @-webkit-keyframes webkitUnpublishedColorPulse { 0% {color: #400;} 100% {color: #f00;} }
 @-moz-keyframes mozUnpublishedColorPulse { 0% {color: #400;} 100% {color: #f00;} }
