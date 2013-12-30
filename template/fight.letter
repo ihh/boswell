@@ -2,24 +2,24 @@ title {The Fight}
 roles 2
 score $#score
 @start => [Let's begin.]{ $self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok"; @fight}
-random commit @fight => [<i>Images</i> (@self is $#state;, @other is $+state;)||Your move, $#self;?|
+random @fight => [<i>Images</i> (@self is $#state;, @other is $+state;)||Your move, $#self;?|
 @fight]{&eq($#state,"ok")==>@ok|&eq($#state,"angry")==>@angry|&eq($#state,"resentful")==>@resentful|&eq($#state,"enraged")==>@enraged|&eq($#state,"overtly violent")==>@overtly_violent|&eq($#state,"contesting")==>@contesting|&eq($#state,"covertly violent")==>@covertly_violent|&eq($#state,"isolated")==>@isolated}
-#= commit @angry => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm things down=>@self attempts to placate @other.
+#= commit @angry => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm things down=>@self attempts to placate @other.
 $#state = "ok";|Challenge @other=>$#state = "contesting";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
 $+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Stall, avoid, submit, ruminate=>$#state = "resentful";}
-#= commit @isolated => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";}
-#= commit @covertly_violent => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";}
-#= commit @contesting => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.}
-#= commit @overtly_violent => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm down=>@self takes a deep breath.
+#= commit @isolated => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make peace offering=>$#state = "resentful";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";}
+#= commit @covertly_violent => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
+$+state = "angry";|Hostile inaction=>|Snipe=>|Vent=>$#state = "angry";|Shun, break off communication=>$#state = "isolated";}
+#= commit @contesting => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|I prevail=>$#state = "ok";$+state = "resentful";|@other prevails=>$+state = "ok";$#state = "resentful";}
+#= commit @overtly_violent => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm down=>@self takes a deep breath.
 $#state = "enraged";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
 $+state = "angry";}
-#= commit @enraged => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm down=>@self takes a deep breath.
+#= commit @enraged => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm down=>@self takes a deep breath.
 $#state = "angry";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
 $+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";}
-#= commit @resentful => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Withdraw, break off communication=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";}
-#= commit @ok => {Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";}
+#= commit @resentful => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
+$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Shun, break off communication, scapegoat, withdraw=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";}
+#= commit @ok => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";}
 #= random @insult => {@self insults @other. $#score += 10;}
 random @react_to_insult => [$#score -= 5;||]{&eq($#state,"ok")==>$#self; becomes angered. $#state = "angry";|&eq($#state,"angry")==>$#self; becomes enraged. $#state = "enraged";|&eq($#state,"enraged")==>$#self; becomes violently angry. $#state = "violent";|0.00001==>$#self; fumes. }
 #= random @self => {$#self;}
