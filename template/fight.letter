@@ -21,6 +21,6 @@ $+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state
 $+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Shun, break off communication, scapegoat, withdraw=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";}
 #= commit @ok => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";}
 #= random @insult => {@self insults @other. $#score += 10;}
-random @react_to_insult => [$#score -= 5;||]{&eq($#state,"ok")==>$#self; becomes angered. $#state = "angry";|&eq($#state,"angry")==>$#self; becomes enraged. $#state = "enraged";|&eq($#state,"enraged")==>$#self; becomes violently angry. $#state = "violent";|0.00001==>$#self; fumes. }
+#= random @react_to_insult => [$#score -= 5;||]{&eq($+state,"ok")==>$+self; becomes angered. $+state = "angry";|&eq($+state,"angry")==>$+self; becomes enraged. $+state = "enraged";|&eq($+state,"enraged")==>$+self; becomes violently angry. $+state = "violent";|0.00001==>$+self; fumes. }
 #= random @self => {$#self;}
 #= random @other => {$+self;}
