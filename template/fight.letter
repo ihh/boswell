@@ -3,7 +3,7 @@ roles 2
 score $#score
 @start => [The party has started. Shall we begin?]{$self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok";
 $#score += 5;
-At some point during the festivities, ambling from hall to hall with every appearance of being lost (a routine he had developed to mask an almost-compulsive search for the wine cellar of any host), $+self; bumped into a cloaked figure whose back was turned, and muttered an apology; only to find (on recognizing $#self;) that he had violated a long-standing oath never again to extend the courtesies of politeness to his enemy.
+At some point during the festivities, ambling from hall to hall with every appearance of being lost (a routine he had developed to mask an almost-compulsive search for the wine cellar), $+self; bumped into a cloaked figure whose back was turned, and muttered an apology; only to find (on recognizing $#self;) that he had violated a long-standing oath never again to extend the courtesies of politeness to his enemy.
 
 Neither had planned this encounter, and each would certainly have avoided the other if they could. And yet, under the circumstances, it was natural for $+self; to feel somewhat annoyed; an emotion he was able to conceal beneath a practiced mask of quiet dignity.
 @fight}
