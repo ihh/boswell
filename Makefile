@@ -6,10 +6,8 @@ all: jquery parsers README.html img/icon
 
 # Dependencies
 
-pegjs:
+npm:
 	npm install pegjs
-
-faye:
 	npm install faye
 
 jquery:

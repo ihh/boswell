@@ -3,7 +3,8 @@ var http = require('http'),
     path = require("path"),
     fs = require("fs")
     port = process.argv[2] || 8000,
-    faye = require('faye');
+    faye = require('faye'),
+    child_process = require('child_process')
 
 // Start pub/sub on /faye
 var server = http.createServer(),
@@ -56,4 +57,6 @@ var server = http.createServer(function(request, response) {
 bayeux.attach(server);
 server.listen(port);
 
-console.log("Server up. Try here:\nhttp://localhost:" + port + "/")
+var server_url = "http://localhost:" + port + "/"
+console.log("Server up. Try here:\n" + server_url)
+child_process.spawn('open', [server_url])
