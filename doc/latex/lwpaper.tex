@@ -87,7 +87,10 @@ The application is based around
 a declarative, domain-specific language for specifying an attributed CFG.
 
 The core element in this grammar, syntactically and semantically, is the {\em transformation rule},
-delineated by curly braces and the two characters ``{\tt =>}''
+which specifies how scenes connect.
+A scene label is preceded by the ``{\tt @}'' character;
+for example, ``{\tt @mailbox}''.
+A transformation rule specifies what happens next:
 \begin{verbatim}
  @mailbox => { Open the mailbox.
    => In the mail is a big check! @going_down }
@@ -96,10 +99,12 @@ In this, ``{\tt @mailbox}'' is a label denoting the current scene;
 ``{\tt Open the mailbox}'' is {\em hint text} presented to the player as a choice;
 and ``{\tt You open the mail. Inside is a big check!}''
  is the {\em expansion text} generated if the player makes this choice.
- (note that the expansion text includes another scene label, ``{\tt @going\_down}'',
-  which will be the next scene).
+ Note that the expansion text includes another scene label, ``{\tt @going\_down}'',
+  which in turn will be expanded to generate the next scene.
 
-A block of transformation rules represents a list of choices:
+In the above example, the curly braces include just a single  ``{\tt hint => expansion}'' choice.
+More generally, there can be a list of several choices,
+separated by ``{\tt |}'' characters:
 \begin{verbatim}
  @going_up =>
  { Check the mail
@@ -111,7 +116,7 @@ A block of transformation rules represents a list of choices:
 \end{verbatim}
 This block has three ``{\tt hint => expansion}'' pairs; any number is allowed.
 
-An optional longer form includes additional text fields:
+An optional longer form allows for additional text fields to be expanded as part of the scene:
 \begin{verbatim}
  @going_down =>
  [ So, now you are rich. | Wonderful! | What next? ]
@@ -129,8 +134,8 @@ An optional longer form includes additional text fields:
     @swim }
 \end{verbatim}
 
-Here, ``{\tt So, now you are rich}'' is the {\em preamble} text describing the scene;
-``{\tt Wonderful!}'' is the {\em placeholder} text temporarily displayed at the bottom of the scene (before the list of choices),
+Here, ``{\tt So, now you are rich}'' is the {\em preamble} text that will appear permanently at the beginning of the scene;
+``{\tt Wonderful!}'' is the {\em placeholder} text {\bf temporarily} displayed at the bottom of the scene (before the list of choices),
 and deleted when an expansion is selected;
 and ``{\tt What next?}'' is the {\em prompt} text, also transiently displayed, that is associated with the list of choices.
 
@@ -170,14 +175,14 @@ iterated application of the transformation rules generates a {\em parse tree} (F
 with nonterminal symbols at internal nodes and terminal symbols at the tips.
 The final text can be read off from the terminals at the leaf nodes (Figure~\ref{fig:tree}, left).
 
-\begin{figure}
-\fbox{\includegraphics[width=\columnwidth]{ParseTree.png}}
+\begin{figure*}
+\centerline{ \fbox{\includegraphics[width=.8\textwidth]{ParseTree.png}} }
 \caption{
 \label{fig:tree}
 The parse tree visualization (right) can help analyze and debug narrative play (left).
 Here, the currently active choice node (right) is highlighted in the text (left).
 }
-\end{figure}
+\end{figure*}
 
 The sequence of terminals is post-processed before being rendered,
 so the terminals themselves do not necessarily correspond exactly to what is shown on screen.
@@ -203,15 +208,15 @@ but this behavior can be manipulated by the author to
 assign different probabilistic weights to the rules
 (and these weights can also be boolean logic expressions, allowing for more sophisticated control of flow).
 The player can also ``steer'' the computer player by manipulating probabilistic weight parameters directly,
-by means of slider controls in the HTML page.
+by means of slider controls that the game designer can embed in the HTML page.
 
 \subsection{Editor}
 
 \begin{figure}
-\fbox{\includegraphics[width=\columnwidth]{Editor.png}}
+\centerline{ \fbox{\includegraphics[width=.7\columnwidth]{Editor.png}} }
 \caption{
 \label{fig:editor}
-The nonterminal pane allows drag-and-drop ordering and editing of menus.
+The nonterminal editor pane allows drag-and-drop ordering and editing of menus.
 }
 \end{figure}
 
@@ -219,8 +224,8 @@ At the most basic level, the editor includes a textbox for direct editing of gam
 Beyond this, a number of User Interface (UI)
 elements are presented together as a basic Integrated Development Environment (IDE).
 
-The main element is a drag-and-drop sortable list of nonterminal editing panes (Figure~\ref{fig:editor}).
-Each nonterminal pane contains a drag-and-drop-sortable list of transformation rules,
+The main element is a drag-and-drop (``sortable'') list of nonterminal editor panes (Figure~\ref{fig:editor}).
+Each nonterminal editor pane contains a sortable list of transformation rules,
 together with UI elements for modifying rule behavior (e.g. the number of times
 a rule can be used by, or should be hidden from, the player).
 An overview summarizes orphan nonterminals (never generated by any rules),
@@ -228,14 +233,14 @@ bare nonterminals (no text), and empty rules (loose ends).
 Hyperlinks are provided for quick navigation to incoming/outgoing nonterminals,
 and also to the map view.
 
-Another drag-and-drop sortable list specifies the parameters that the player
+Another sortable list specifies the parameters that the player
 can set directly via slider controls.
 Some properties of the grammar (e.g. its title) can be directly edited.
 
 \subsection{Map}
 
 \begin{figure}
-\fbox{\includegraphics[width=\columnwidth]{Map.png}}
+\centerline{ \fbox{\includegraphics[width=.4\columnwidth]{Map.png}} }
 \caption{
 \label{fig:map}
 The map provides an overview of connections between nonterminals.
@@ -255,10 +260,10 @@ The author can mouse-over a node to highlight incoming \& outgoing edges.
 
 \subsection{Parse tree debugger}
 
-The parse tree is visualized using the same graph library as the map (Figure~\ref{fig:tree}, right).
+The parse tree is rendered using the same graph library as the map (Figure~\ref{fig:tree}, right).
 The various types and status of nodes (terminals; expanded \& unexpanded nonterminals (player- and computer-controlled); parameter references, assignments \& inputs) is indicated via size and coloring.
-The tester can mouseover nodes to highlight the expanded text, and see order and time of expansion.
-Clicking on a node navigates to the corresponding nonterminal pane in the editor.
+The tester can mouseover nodes to highlight expanded text or see order and time of expansion.
+Clicking on a node navigates to the corresponding nonterminal editor pane.
 
 \subsection{Game client}
 
@@ -267,7 +272,7 @@ Minimal styling is used to present choice lists and animate key events,
 e.g. fading-in of newly-rendered text.
 
 An ``undo'' button with gradually-increasing recharge time is offered as an optional game mechanic for solo play.
-(The complications of implementing multiplayer ``undo'' were eschewed.)
+(Limiting this to solo play avoids the complications of implementing multiplayer ``undo''.)
 
 \subsection{Multiplayer operation}
 
@@ -319,9 +324,8 @@ The programming language for the computer player does not attempt to model AI in
 it is very simple, just offering variables, conditional tests, and the in-built facility for looping and recursion that comes for free with the CFG.
 
 A possible extension is to use an ambiguous grammar (multiple parse trees consistent with observed output)
-and introduce a computer player that can parse the current output
-(e.g. using Earley-Stolcke parsing \cite{Stolcke:1995:EPC:211190.211197})
-and predict future outcomes probabilistically.
+with a computer player that predicts future outcomes probabilistically
+(e.g. using Earley-Stolcke parsing \cite{Stolcke:1995:EPC:211190.211197}).
 
 \section{Implementation}
 
