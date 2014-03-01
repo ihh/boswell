@@ -132,14 +132,14 @@
 	var start;
 	if (defaultStart() in nontermObj) {
 	    if (notOnRhs.length > 0)
-		console.log ("However, @" + defaultStart() + " is defined, so we're using that as the root.");
+		console.log ("@" + defaultStart() + " is defined, so we're using that as the root.");
 	    start = defaultStart();
 	} else if (candidateStart.length) {
 	    start = candidateStart[0];
 	    if (candidateStart.length == 1)
-		console.log ("Of these, @" + start + " makes a natural choice for the start symbol. Use @" + defaultStart() + " to override.");
+		console.log ("@" + start + " is the only symbol to be defined but never used. Picking this as the start symbol. Use @" + defaultStart() + " to override.");
 	    else
-		console.log ("The first of these symbols to be defined as a human-played phrase was @" + start + " so we'll use that as the root.");
+		console.log ("@" + start + " is the first symbol to be defined but never used. Picking this as the start symbol. Use @" + defaultStart() + " to override.");
 	} else if (nonterms.length) {
 	    start = nonterms[0];
 	    console.log ("The first symbol to be defined was @" + start + " so we'll use that as the root.");
