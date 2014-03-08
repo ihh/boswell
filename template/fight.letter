@@ -9,6 +9,9 @@ Neither had planned this encounter, and each would certainly have avoided the ot
 @pre_fight}
 random @pre_fight => {1==>@fight}
 random @fight => [<p> <b> @location </b> <p> <i> @self_mood </i> <p> <i> @other_mood </i> <p>||Your move, $#self;?|
+@fight]{&eq($+state,"contesting")==>@respond_to_challenge|&neq($+state,"contesting")==>@mood_choices}
+@respond_to_challenge => {Decline=>@decline|Accept=>@accept|Deflect=>@deflect}
+#= random @mood_choices => [||Your move, $#self;?|
 @fight]{&eq($#state,"ok")==>@ok|&eq($#state,"angry")==>@angry|&eq($#state,"resentful")==>@resentful|&eq($#state,"enraged")==>@enraged|&eq($#state,"overtly violent")==>@overtly_violent|&eq($#state,"contesting")==>@contesting|&eq($#state,"covertly violent")==>@covertly_violent|&eq($#state,"isolated")==>@isolated}
 #= random @self_mood => [||Your move, $#self;?|
 ]{&eq($#state,"ok")==>@self is OK.|&eq($#state,"angry")==>@self is angry.|&eq($#state,"resentful")==>@self is resentful.|&eq($#state,"enraged")==>@self is enraged.|&eq($#state,"overtly violent")==>@self glares violently.|&eq($#state,"contesting")==>@self stares a challenge at @other.|&eq($#state,"covertly violent")==>@self smiles with dead, narrowed eyes.|&eq($#state,"isolated")==>@self gazes helplessly around.}
@@ -18,21 +21,20 @@ random @location => {&eq($loc,3)==>@m's crypt|&eq($loc,2)==>@m's palazzo, baseme
 #= random @m => {$self[1];}
 #= random @f => {$self[2];}
 #= commit @angry => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm things down=>@self attempts to placate @other.
-$#state = "ok";|Challenge @other=>$#state = "contesting";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Stall, avoid, submit, ruminate=>$#state = "resentful";}
-#= commit @isolated => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make peace offering=>$#state = "resentful";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";}
-#= commit @covertly_violent => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";|Hostile inaction=>|Snipe=>|Vent=>$#state = "angry";|Shun, break off communication=>$#state = "isolated";|Try to calm down=>$#state = "resentful";}
-#= commit @contesting => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|I prevail=>$#state = "ok";$+state = "resentful";|@other prevails=>$+state = "ok";$#state = "resentful";}
+$#state = "ok";|Challenge @other=>@challenge|Stall, avoid, submit, ruminate=>$#state = "resentful";}
+#= random @challenge => {$#state = "contesting";}
+#= commit @isolated => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make peace offering=>$#state = "resentful";}
+#= commit @covertly_violent => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|Hostile inaction=>|Snipe=>|Vent=>$#state = "angry";|Shun, break off communication=>$#state = "isolated";|Try to calm down=>$#state = "resentful";}
+#= commit @contesting => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Prevail=>$#state = "ok";$+state = "resentful";|Capitulate=>$+state = "ok";$#state = "resentful";}
 #= commit @overtly_violent => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm down=>@self takes a deep breath.
-$#state = "enraged";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";}
+$#state = "enraged";}
 #= commit @enraged => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm down=>@self takes a deep breath.
-$#state = "angry";|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";}
-#= commit @resentful => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.
-$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Shun, break off communication, scapegoat, withdraw=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";|Passive aggression=>$#state = "covertly_violent";}
-#= commit @ok => [Your move, $#self;?]{Insult @other=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|&eq($+state,"contesting")=>Decline @other's challenge=>@self declines the challenge, angering @other.$+state = "angry";|&eq($+state,"contesting")=>Accept @other's challenge=>$#state = "contesting";|Make pleasant conversation=>}
+$#state = "angry";}
+#= commit @resentful => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Withdraw=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";|Be passive aggressive=>$#state = "covertly_violent";}
+#= commit @ok => [Your move, $#self;?]{Insult @other=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make pleasant conversation=>}
+#= random @accept => {$#state = "ok";$+state = "ok";}
+#= random @decline => {@self declines the challenge, angering @other.$#state = "ok";$+state = "angry";}
+#= random @deflect => {@decline}
 #= random @insult => [The behavior of @other is intolerable, and you resolve to make him pay for his impudence.|How will you insult @other?]{Insult his mother=>@insult_mother|Insult his taste=>@insult_taste}
 #= random @insult_taste => [The arrogance of @other is incredible, and when combined with his limited appreciation of the finer things, quite boorish.|What offends you most about @other's poor taste?]{He does not know Amontillado from Sherry.=>"Truly," scoffs @self, "you should be careful with your judgments. Do you recall the ball at the Palazzo of the Marchese? That was Amontillado you were drinking, @other, Amontillado! And yet you referred to it simply as Sherry, as if like a plowman, dirty from the fields. How coarse!"
 |He does not know Beluga from Caviar.=>"It might be the case," remarks @self, "that you should hold your tongue before offering judgments. Do you recall the ball at the Palazzo of the Marchese? The caviar was Beluga, the finest from Russia; and yet you called it Sevruga! The cheapest sturgeon eggs there are! How foolish! How unrefined..."
@@ -48,6 +50,6 @@ $#score += 10;|Insult her appearance[once] =>"While I would never judge a book b
 "Well, on this basis," @self continues, "it must go without saying that your intellectual character appears dubious in the extreme. After all, it is probably no exaggeration to call your mother one of the slower-witted human females. Therefore, I feel qualified to doubt your intellectual credentials."|Insult her physical condition[once] =>@self draws a deep breath through pinched nostrils. "It seems to me," he says to @other, "that you are fortunate to be here at all, given the poor health of your mother. On many occasions, well-bred mutual friends have commented to me that she was lucky to survive your birth, given her consumptive frame and weak hips."
 $#score += 10;|Insult her taste in wine[once] =>"It seems barely worth talking to you on this subject," sniffs @self. "It is well-known amongst members of my family that those of yours lack even basic appreciation for the finer things in life. For example, your mother could not tell Amontillado from Sherry."|Insult her temperament=>"Faugh!" exclaims @self. "I find you odious, of inferior stock. Your mother, for example, is @of_poor_character."}
 #= random @of_poor_character => {quite mad|positively cruel|verifiably insane|decidedly snide|unusually catty|horribly spiteful|disgustingly frivolous|disturbingly mercurial}
-#= random @react_to_insult => [$+score -= 5;||]{&eq($+state,"ok")==>$+self; becomes angered. $+state = "angry";|&eq($+state,"angry")==>$+self; becomes enraged. $+state = "enraged";|&eq($+state,"enraged")==>$+self; becomes violently angry. $+state = "violent";|0.00001==>$+self; fumes. }
+#= random @react_to_insult => [$+score -= 5;||]{&eq($+state,"ok")==>$+self; becomes angered. $+state = "angry";|&eq($+state,"angry")==>$+self; becomes enraged. $+state = "enraged";|&eq($+state,"enraged")==>$+self; becomes violently angry. $+state = "violent";|1==>$+self; fumes. }
 #= random @self => {$#self;}
 #= random @other => {$+self;}
