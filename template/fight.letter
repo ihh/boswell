@@ -1,8 +1,15 @@
 title {The Fight}
 roles 2
 score $#score
-@start => [The party has started. Shall we begin?]{$self[1] = "Montresor"; $self[2] = "Fortunato"; $state[1] = "ok"; $state[2] = "ok"; $loc = 0;$dir = 1;
-$+score += 5;
+@start => [$self[1] = "Montresor";
+$self[2] = "Fortunato";
+$state[1] = "ok";
+$state[2] = "ok";
+$escapes[1] = 0;
+$escapes[2] = 0;
+$loc = 0;
+$dir = 1;
+||The party has started. Shall we begin?]{$+score += 5;
 At some point during the festivities, ambling from tavern to guild-hall with every appearance of being lost (a routine he had developed to mask an almost-compulsive search for open wine vans), $#self; bumped into a cloaked figure whose back was turned, and muttered an apology; only to find (on recognizing $+self;) that he had violated a long-standing oath never again to extend the courtesies of politeness to his enemy.
 
 Neither had planned this encounter, and each would certainly have avoided the other if they could. And yet, under the circumstances, it was natural for $#self; to feel somewhat annoyed; an emotion he was able to conceal beneath a practiced mask of quiet dignity.
@@ -32,9 +39,17 @@ $#state = "enraged";}
 $#state = "angry";}
 #= commit @resentful => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Withdraw=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";|Be passive aggressive=>$#state = "covertly_violent";}
 #= commit @ok => [Your move, $#self;?]{Insult @other=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make pleasant conversation=>}
-#= random @accept => {$#state = "ok";$+state = "ok";}
-#= random @decline => {@self declines the challenge, angering @other.$#state = "ok";$+state = "angry";}
-#= random @deflect => {@decline}
+#= random @accept => [@self, disdainful from his position of expertise, doubts the claim's veracity. "Really? $potential_macguffin_noun;? You have been deceived," he remarks.
+||]{.25==>"In any case," continues @self, "it can wait. Let us continue to the $current_macguffin_noun;!"
+$#state = "ok";$+state = "ok";|.75==>But @other insists he has proof; and the $current_macguffin_noun; they were originally pursuing is quickly forgotten.
+@new_macguffin}
+#= random @decline => [@self, wary but interested despite himself, feigns boredom. "I have little energy for such things."||]{&div(.5,&add($#escapes,1))==>@other is humiliated by @self's indifference.
+$#state = "ok";
+$+state = "angry";|&sub(1,&div(.5,&add($#escapes,1)))==>But @other insists, forcing @self to grudgingly admit his interest.
+@new_macguffin}
+#= random @new_macguffin => {}
+#= random @deflect => [@self smiles indulgently. "That sounds fascinating, if doubtful! But let me tell you what's in <i>my</i> cellar…"||]{&div(.5,&add($#escapes,1))==>@challenge|&sub(1,&div(.5,&add($#escapes,1)))==>But @other talks over him, insisting he has proof. (By this point, the $current_macguffin_noun; they were pursuing is long forgotten.)
+@new_macguffin}
 #= random @insult => [The behavior of @other is intolerable, and you resolve to make him pay for his impudence.|How will you insult @other?]{Insult his mother=>@insult_mother|Insult his taste=>@insult_taste}
 #= random @insult_taste => [The arrogance of @other is incredible, and when combined with his limited appreciation of the finer things, quite boorish.|What offends you most about @other's poor taste?]{He does not know Amontillado from Sherry.=>"Truly," scoffs @self, "you should be careful with your judgments. Do you recall the ball at the Palazzo of the Marchese? That was Amontillado you were drinking, @other, Amontillado! And yet you referred to it simply as Sherry, as if like a plowman, dirty from the fields. How coarse!"
 |He does not know Beluga from Caviar.=>"It might be the case," remarks @self, "that you should hold your tongue before offering judgments. Do you recall the ball at the Palazzo of the Marchese? The caviar was Beluga, the finest from Russia; and yet you called it Sevruga! The cheapest sturgeon eggs there are! How foolish! How unrefined..."
