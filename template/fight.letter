@@ -9,6 +9,7 @@ $escapes[1] = 0;
 $escapes[2] = 0;
 $loc = 0;
 $dir = 1;
+$current_macguffin_noun = "carnival entertainment";
 ||The party has started. Shall we begin?]{$+score += 5;
 At some point during the festivities, ambling from tavern to guild-hall with every appearance of being lost (a routine he had developed to mask an almost-compulsive search for open wine vans), $#self; bumped into a cloaked figure whose back was turned, and muttered an apology; only to find (on recognizing $+self;) that he had violated a long-standing oath never again to extend the courtesies of politeness to his enemy.
 
@@ -29,7 +30,12 @@ random @location => {&eq($loc,3)==>@m's crypt|&eq($loc,2)==>@m's palazzo, baseme
 #= random @f => {$self[2];}
 #= commit @angry => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Try to calm things down=>@self attempts to placate @other.
 $#state = "ok";|Challenge @other=>@challenge|Stall, avoid, submit, ruminate=>$#state = "resentful";}
-#= random @challenge => {$#state = "contesting";}
+#= random @challenge => [$#state = "contesting";|||"By chance," says @self, "I have come into possession of a $prefix; $noun;. But I am unsure, and I would seek your expert opinion on the matter. It is in my cellar - but a moment's journey from here."
+]{@wine_noun @wine_prefix|@gem_noun @gem_prefix}
+#= random @gem_noun => {$noun = "Moonstone";|$noun = "Topaz";|$noun = "Aventurine stone";|$noun = "Sapphire";}
+#= random @gem_prefix => {$prefix = "quite irreplaceable";|$prefix = "uniquely iridescent";|$prefix = "most curious";|$prefix = "spiritually potent";|$prefix = "savant's";|$prefix = "legendary Alchemick";}
+#= random @wine_noun => {$noun = "Amontillado";|$noun = "Mersault";|$noun = "Tempranillo";|$noun = "Campo de Borja";}
+#= random @wine_prefix => {$prefix = "pipe of";|$prefix = "crate of";|$prefix = "rare bottle of";}
 #= commit @isolated => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make peace offering=>$#state = "resentful";}
 #= commit @covertly_violent => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|Hostile inaction=>|Snipe=>|Vent=>$#state = "angry";|Shun, break off communication=>$#state = "isolated";|Try to calm down=>$#state = "resentful";}
 #= commit @contesting => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Prevail=>$#state = "ok";$+state = "resentful";|Capitulate=>$+state = "ok";$#state = "resentful";}
@@ -39,16 +45,24 @@ $#state = "enraged";}
 $#state = "angry";}
 #= commit @resentful => [Your move, $#self;?]{Insult @other.=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Withdraw=>$#state = "isolated";|Accept apology, see remorse, forgive, let go=>$#state = "ok";|Retaliate=>$#state = "angry";|Be passive aggressive=>$#state = "covertly_violent";}
 #= commit @ok => [Your move, $#self;?]{Insult @other=>@insult @react_to_insult|&neq($+state,"ok")=>Laugh=>@self laughs.|Make pleasant conversation=>}
-#= random @accept => [@self, disdainful from his position of expertise, doubts the claim's veracity. "Really? $potential_macguffin_noun;? You have been deceived," he remarks.
+#= random @accept => [@self, disdainful from his position of expertise, doubts the claim's veracity. "Really? $noun;? You have been deceived," he remarks.
 ||]{.25==>"In any case," continues @self, "it can wait. Let us continue to the $current_macguffin_noun;!"
+$#score += 5;$+score -= 5;
 $#state = "ok";$+state = "ok";|.75==>But @other insists he has proof; and the $current_macguffin_noun; they were originally pursuing is quickly forgotten.
+
+$#score += 5;$+score += 5;
 @new_macguffin}
 #= random @decline => [@self, wary but interested despite himself, feigns boredom. "I have little energy for such things."||]{&div(.5,&add($#escapes,1))==>@other is humiliated by @self's indifference.
+$#score += 5;$+score -= 5;
 $#state = "ok";
 $+state = "angry";|&sub(1,&div(.5,&add($#escapes,1)))==>But @other insists, forcing @self to grudgingly admit his interest.
+$+score += 5;
 @new_macguffin}
-#= random @new_macguffin => {}
-#= random @deflect => [@self smiles indulgently. "That sounds fascinating, if doubtful! But let me tell you what's in <i>my</i> cellar…"||]{&div(.5,&add($#escapes,1))==>@challenge|&sub(1,&div(.5,&add($#escapes,1)))==>But @other talks over him, insisting he has proof. (By this point, the $current_macguffin_noun; they were pursuing is long forgotten.)
+#= random @new_macguffin => [$current_macguffin_noun = $noun;
+||]{}
+#= random @deflect => [@self smiles indulgently. "$noun;? That sounds fascinating, if doubtful! But let me tell you what's in <i>my</i> cellar…"||]{&div(.5,&add($#escapes,1))==>$#score += 20;$+score += 10;
+@challenge|&sub(1,&div(.5,&add($#escapes,1)))==>But @other talks over him, insisting he has proof. (By this point, the $current_macguffin_noun; they were pursuing is long forgotten.)
+$#score += 10;$+score += 5;
 @new_macguffin}
 #= random @insult => [The behavior of @other is intolerable, and you resolve to make him pay for his impudence.|How will you insult @other?]{Insult his mother=>@insult_mother|Insult his taste=>@insult_taste}
 #= random @insult_taste => [The arrogance of @other is incredible, and when combined with his limited appreciation of the finer things, quite boorish.|What offends you most about @other's poor taste?]{He does not know Amontillado from Sherry.=>"Truly," scoffs @self, "you should be careful with your judgments. Do you recall the ball at the Palazzo of the Marchese? That was Amontillado you were drinking, @other, Amontillado! And yet you referred to it simply as Sherry, as if like a plowman, dirty from the fields. How coarse!"
