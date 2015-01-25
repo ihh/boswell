@@ -2,9 +2,11 @@ PEGJS = $(HOME)/node_modules/pegjs/bin/pegjs
 
 PARSERS = $(addprefix lib/parser/,$(subst .pegjs,.js,$(notdir $(wildcard grammar/*.pegjs))))
 
-all: jquery parsers README.html img/icon
+all: deps parsers README.html img/icon
 
 # Dependencies
+
+deps: npm jquery openpgpjs
 
 npm:
 	npm install pegjs
