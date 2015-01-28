@@ -15,7 +15,7 @@ npm:
 jquery:
 	wget http://jqueryui.com/resources/download/jquery-ui-1.10.3.zip
 	unzip jquery-ui-1.10.3.zip
-	mv jquery-ui-1.10.3/* $@
+	mv jquery-ui-1.10.3 $@
 
 openpgpjs:
 	git clone https://github.com/openpgpjs/openpgpjs.git
