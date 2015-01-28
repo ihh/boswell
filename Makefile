@@ -6,7 +6,7 @@ all: deps parsers README.html img/icon
 
 # Dependencies
 
-deps: npm jquery openpgpjs
+deps: npm jquery
 
 npm:
 	npm install pegjs
@@ -16,9 +16,6 @@ jquery:
 	wget http://jqueryui.com/resources/download/jquery-ui-1.10.3.zip
 	unzip jquery-ui-1.10.3.zip
 	mv jquery-ui-1.10.3 $@
-
-openpgpjs:
-	git clone https://github.com/openpgpjs/openpgpjs.git
 
 # Parsers
 
