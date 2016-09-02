@@ -1,0 +1,34 @@
+title {Prisoner's Dilemma}
+roles 2
+score $#sc
+@start => [@init_names
+@init_scores
+@init_moods||Let's play Prisoner's Dilemma.|]{@dilemma}
+#= random @init_names => {$player[1] = "Player 1";
+$player[2] = "Player 2";
+}
+#= random @init_moods => {$mood[1] = "happy";
+$mood[2] = "happy";}
+#= random @init_scores => {$reward = -1;
+$sucker = -3;
+$temptation = 0;
+$punishment = -2;}
+#= random @dilemma => [@moods|||@select_moods]{@select_strategy1 @select_strategy2 @payoff
+}
+#= random @moods => {Player 1 is $mood[1];, player 2 is $mood[2];.}
+#1 pause @select_strategy1 => [
+||Player 1, what's your strategy?|]{Co-operate=>$#defect = 0;|Defect=>$#defect = 1;}
+#2 pause @select_strategy2 => [||Player 2, what's your strategy?|]{Co-operate=>$#defect = 0;|Defect=>$#defect = 1;}
+#= random @payoff => [|||]{&mul(&eq($defect[1],1),&eq($defect[2],1))==>$sc[1] += $punishment;
+$sc[2] += $punishment;
+Both players are punished.
+|&mul(&eq($defect[1],1),&eq($defect[2],0))==>$sc[1] += $temptation;
+$sc[2] += $sucker;
+Player 2 is the sucker.|&mul(&eq($defect[1],0),&eq($defect[2],1))==>$sc[1] += $sucker;
+$sc[2] += $temptation;
+Player 1 is the sucker.|&mul(&eq($defect[1],0),&eq($defect[2],0))==>$sc[1] += $reward;
+$sc[2] += $reward;
+Both players are rewarded.}
+#= random @select_moods => {@select_mood1 @select_mood2 @moods}
+#1 pause @select_mood1 => [||What's your mood now, $#player?|]{Happy=>$#mood = "happy";|Sad=>$#mood = "sad";|Afraid=>$#mood = "afraid";|Angry=>$#mood = "angry";|Surprised=>$#mood = "surprised";|Disgusted=>$#mood = "disgusted";}
+#2 pause @select_mood2 => [||What's your mood now, $#player;?|]{Happy=>$#mood = "happy";|Sad=>$#mood = "sad";|Afraid=>$#mood = "afraid";|Angry=>$#mood = "angry";|Surprised=>$#mood = "surprised";|Disgusted=>$#mood = "disgusted";}
